@@ -1,0 +1,107 @@
+.dashboard {
+  min-width: 0;
+  height: calc(100svh - 10.5rem);
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 16.1875rem;
+  align-items: stretch;
+  gap: 1.5rem;
+  overflow: hidden;
+}
+
+.primaryColumn {
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  display: grid;
+  gap: 1.5rem;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: none;
+}
+
+.heroGrid {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 719fr) minmax(0, 536fr);
+  align-items: stretch;
+  gap: 1.5rem;
+}
+
+.statsRail {
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-width: none;
+}
+
+.statsContent {
+  min-height: calc(100% + 4.6875rem);
+  padding-top: 4.6875rem;
+}
+
+.primaryColumn::-webkit-scrollbar,
+.statsRail::-webkit-scrollbar {
+  display: none;
+}
+
+@include down("desktop-large") {
+  .dashboard {
+    height: auto;
+    grid-template-columns: minmax(0, 1fr);
+    overflow: visible;
+  }
+
+  .primaryColumn {
+    height: auto;
+    overflow: visible;
+    overscroll-behavior-y: auto;
+  }
+
+  .statsRail,
+  .statsContent {
+    height: auto;
+    overflow: visible;
+    overscroll-behavior-y: auto;
+  }
+
+  .statsContent {
+    min-height: 0;
+    padding-top: 0;
+  }
+}
+
+@include down("desktop") {
+  .heroGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@include down("mobile") {
+  .dashboard,
+  .primaryColumn,
+  .heroGrid {
+    gap: 1rem;
+  }
+}
+
+@include short("phone-short") {
+  .dashboard {
+    height: auto;
+    overflow: visible;
+  }
+
+  .primaryColumn,
+  .statsRail {
+    height: auto;
+    overflow: visible;
+    overscroll-behavior-y: auto;
+  }
+
+  .statsContent {
+    min-height: 0;
+    padding-top: 0;
+  }
+}

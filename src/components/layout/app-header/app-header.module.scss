@@ -1,0 +1,168 @@
+.header {
+  min-width: 0;
+  height: 6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding-block: 0;
+  padding-inline: max(
+    var(--app-shell-gutter),
+    calc((100% - var(--app-shell-content-max)) / 2)
+  );
+}
+
+.globalSearch {
+  width: min(100%, 32.125rem);
+  min-height: 3.0625rem;
+  --search-border: var(--color-garage-control-border);
+  --search-placeholder: var(--color-garage-placeholder);
+}
+
+.actions {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.notificationActions {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.iconButton,
+.profile {
+  position: relative;
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: var(--color-dashboard-deep);
+}
+
+.iconButton {
+  border-radius: 0.5rem;
+  padding: 0;
+}
+
+.notificationButton {
+  width: 2rem;
+  height: 2.1875rem;
+}
+
+.messageButton {
+  width: 1.625rem;
+  height: 1.625rem;
+}
+
+.iconButton:hover,
+.profile:hover {
+  background: var(--color-deep-end-04);
+}
+
+.badge {
+  position: absolute;
+  top: -0.375rem;
+  right: 0;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: var(--color-dashboard-notification);
+  color: var(--color-white);
+  font-size: 0.75rem;
+  font-weight: var(--weight-bold);
+}
+
+.profile {
+  gap: 0.4375rem;
+  border-radius: 999px;
+  padding: 0;
+  color: var(--color-dark-grey);
+  font-size: var(--text-ui-body);
+  font-weight: var(--weight-medium);
+}
+
+.profileDetails {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.profileChevron {
+  color: var(--color-dashboard-profile-arrow);
+}
+
+.avatar {
+  position: relative;
+  width: 3.5rem;
+  height: 3.5rem;
+  flex: 0 0 3.5rem;
+  overflow: hidden;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--color-dashboard-deep);
+}
+
+.avatar img {
+  object-fit: cover;
+}
+
+@include down("desktop-small") {
+  .header {
+    height: auto;
+    min-height: 4.5rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.75rem;
+    padding-block: 0.75rem;
+    padding-inline: max(
+      var(--app-shell-gutter),
+      calc((100% - var(--app-shell-content-max)) / 2)
+    );
+  }
+
+  .globalSearch {
+    flex: 1;
+  }
+
+  .actions {
+    gap: 0.5rem;
+  }
+
+  .notificationActions {
+    gap: 0.25rem;
+  }
+
+  .notificationButton,
+  .messageButton {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .profileDetails {
+    display: none;
+  }
+}
+
+@include down("mobile") {
+  .header {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+
+  .globalSearch {
+    width: 100%;
+  }
+}

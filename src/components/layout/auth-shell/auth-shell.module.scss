@@ -1,0 +1,63 @@
+.shell {
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  background: var(--color-white);
+}
+
+.content {
+  min-width: 0;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+}
+
+.showcase {
+  min-width: 0;
+  min-height: calc(100svh - 2.5rem);
+  margin: 1.25rem;
+  margin-left: 1.25rem;
+}
+
+.showcaseFirst .content {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.showcaseFirst .showcase {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+@include down("desktop-large") {
+  .shell {
+    display: block;
+  }
+
+  .content {
+    width: 100%;
+    min-height: 100svh;
+    place-items: start center;
+    padding: clamp(1.5rem, 6vw, 2.5rem) clamp(1rem, 5vw, 1.5rem);
+  }
+
+  .showcase {
+    display: none;
+  }
+
+  .showcaseFirst .content {
+    width: 100%;
+  }
+}
+
+@include short("laptop-short") {
+  .content {
+    place-items: start center;
+    padding-block: 1.5rem;
+  }
+
+  .showcase {
+    min-height: calc(100svh - 2rem);
+    margin-block: 1rem;
+  }
+}

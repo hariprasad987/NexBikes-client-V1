@@ -1,0 +1,12 @@
+node_modules
+.next
+/.next-cache-*/
+/.next-swiper-build/
+out
+build
+coverage
+.DS_Store
+*.log
+.env*
+!.env.example
+*.tsbuildinfo

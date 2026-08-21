@@ -1,0 +1,291 @@
+.wrapper {
+  width: min(100%, 31.25rem);
+  min-width: 0;
+  display: grid;
+  gap: 2.375rem;
+}
+
+.wrapper > *,
+.accessOptions > *,
+.methodOptions > *,
+.form > * {
+  min-width: 0;
+}
+
+.accessOptions {
+  display: grid;
+  gap: 4.25rem;
+}
+
+.header {
+  width: min(100%, 30.25rem);
+  height: 6.3125rem;
+  display: grid;
+  gap: 2.375rem;
+}
+
+.header h1 {
+  max-width: 100%;
+  margin: 0;
+  color: var(--color-auth-title);
+  font-size: clamp(1.75rem, 9vw, 3.125rem);
+  font-weight: var(--weight-extrabold);
+  letter-spacing: 0;
+  line-height: 0.72;
+  text-wrap: balance;
+}
+
+.methodOptions,
+.form {
+  display: grid;
+  gap: 2.375rem;
+}
+
+.socials {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.socials button {
+  width: 100%;
+  min-height: 3.5rem;
+  padding: 0 1.25rem;
+  border: 0;
+  border-radius: 3.502375rem;
+  background: var(--color-border-grey);
+  color: var(--color-auth-ink);
+  font-size: 1.125rem;
+  font-weight: var(--weight-medium);
+  line-height: 1.2;
+}
+
+.socials button:hover {
+  background: var(--color-border-grey);
+  transform: none;
+}
+
+.socials button > span:first-child {
+  width: 1.25rem;
+  height: 1.5rem;
+}
+
+.divider {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0.875rem;
+  color: var(--color-auth-muted);
+}
+
+.divider span {
+  height: 1px;
+  background: var(--color-auth-divider);
+}
+
+.divider p {
+  min-width: 0;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: var(--weight-regular);
+  line-height: 1.1875;
+}
+
+.credentials {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.credentials label {
+  gap: 0.625rem;
+  color: var(--color-heading);
+  font-size: 1.125rem;
+  font-weight: var(--weight-medium);
+  line-height: 1.2222;
+}
+
+.credentials input {
+  width: 100%;
+  min-width: 0;
+  min-height: 3.1875rem;
+  border-color: var(--color-border-grey);
+  border-width: 0.84906px;
+  border-radius: 0.75rem;
+  padding: 0 1.375rem;
+  color: var(--color-auth-ink);
+  font-size: 1rem;
+  font-weight: var(--weight-regular);
+  line-height: 1.1875;
+}
+
+.credentials input::placeholder {
+  color: var(--color-auth-muted);
+}
+
+.forgot {
+  width: fit-content;
+  color: var(--color-heading);
+  font-size: 1rem;
+  font-weight: var(--weight-semibold);
+  line-height: 1.1875;
+  text-underline-offset: 0.18rem;
+}
+
+.actions {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.submit.submit {
+  width: 100%;
+  height: 3.5rem;
+  min-height: 3.5rem;
+  border: 0;
+  border-radius: 3.502375rem;
+  background: var(--color-auth-title);
+  color: var(--color-white);
+  padding: 1rem 1.25rem;
+  font-size: 1.125rem;
+  font-weight: var(--weight-medium);
+  line-height: 1.2222;
+}
+
+.submit.submit:hover,
+.submit.submit:focus-visible,
+.submit.submit:active,
+.submit.submit:disabled {
+  background: var(--color-auth-title);
+  border-color: var(--color-auth-title);
+  color: var(--color-white);
+  transform: none;
+}
+
+.signup {
+  margin: 0;
+  color: var(--color-auth-ink);
+  text-align: center;
+  font-size: 1rem;
+  font-weight: var(--weight-regular);
+  line-height: 1.1875;
+}
+
+.signup a {
+  color: var(--color-auth-ink);
+  font-weight: var(--weight-regular);
+  text-underline-offset: 0.18rem;
+}
+
+@include down("tablet-small") {
+  .wrapper,
+  .methodOptions,
+  .form {
+    gap: 2rem;
+  }
+
+  .accessOptions {
+    gap: 3rem;
+  }
+
+  .header {
+    height: auto;
+    gap: 2rem;
+  }
+
+  .divider {
+    gap: 0.65rem;
+  }
+
+  .header h1 {
+    font-size: clamp(1.75rem, 9vw, 2.75rem);
+    line-height: 1;
+  }
+}
+
+@include down("mobile-small") {
+  .wrapper,
+  .methodOptions,
+  .form {
+    gap: 1.5rem;
+  }
+
+  .accessOptions {
+    gap: 2rem;
+  }
+
+  .header {
+    gap: 1.5rem;
+  }
+
+  .socials,
+  .credentials,
+  .actions {
+    gap: 1rem;
+  }
+
+  .socials button,
+  .submit {
+    min-height: 3.25rem;
+    font-size: 1rem;
+  }
+
+  .divider {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.5rem;
+    justify-items: center;
+  }
+
+  .divider span {
+    display: none;
+  }
+
+  .divider p,
+  .forgot,
+  .signup,
+  .credentials input {
+    font-size: 0.9375rem;
+  }
+
+  .credentials label {
+    font-size: 1rem;
+  }
+
+  .credentials input {
+    min-height: 3rem;
+    padding-inline: 1rem;
+  }
+}
+
+@include short("laptop-short") {
+  .wrapper,
+  .methodOptions,
+  .form {
+    gap: 1.5rem;
+  }
+
+  .accessOptions {
+    gap: 2rem;
+  }
+
+  .header {
+    height: auto;
+    gap: 1.25rem;
+  }
+
+  .header h1 {
+    line-height: 1;
+  }
+
+  .socials,
+  .credentials,
+  .actions {
+    gap: 1rem;
+  }
+
+  .socials button,
+  .submit {
+    min-height: 3.25rem;
+  }
+
+  .credentials input {
+    min-height: 3rem;
+  }
+}

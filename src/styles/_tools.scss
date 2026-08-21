@@ -1,0 +1,50 @@
+@use "sass:map";
+
+$breakpoints: (
+  "mobile-small": 28rem,
+  "mobile": 30rem,
+  "tablet-small": 40rem,
+  "tablet": 44rem,
+  "desktop-small": 48rem,
+  "desktop": 57rem,
+  "desktop-large": 64rem,
+  "wide": 85rem,
+);
+
+$height-breakpoints: (
+  "phone-short": 36rem,
+  "laptop-short": 48rem,
+);
+
+@mixin down($breakpoint) {
+  $width: map.get($breakpoints, $breakpoint);
+
+  @if $width == null {
+    @error "Unknown NexBikes breakpoint: #{$breakpoint}";
+  }
+
+  @media (max-width: $width) {
+    @content;
+  }
+}
+
+@mixin short($breakpoint) {
+  $height: map.get($height-breakpoints, $breakpoint);
+
+  @if $height == null {
+    @error "Unknown NexBikes height breakpoint: #{$breakpoint}";
+  }
+
+  @media (max-height: $height) {
+    @content;
+  }
+}
+
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}

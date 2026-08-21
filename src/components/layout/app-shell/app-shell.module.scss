@@ -1,0 +1,63 @@
+.shell {
+  --app-sidebar-collapsed-width: 7.75rem;
+
+  min-height: 100svh;
+  display: grid;
+  grid-template-columns: 19.375rem minmax(0, 1fr);
+  background: var(--color-surface-muted);
+  transition: grid-template-columns 180ms ease;
+}
+
+.sidebarCollapsed {
+  grid-template-columns: var(--app-sidebar-collapsed-width) minmax(0, 1fr);
+}
+
+.content {
+  min-width: 0;
+  --app-shell-content-max: 108rem;
+  --app-shell-gutter: 1.5rem;
+}
+
+.main {
+  min-width: 0;
+  max-width: 100%;
+  padding-block: var(--app-shell-gutter) 3rem;
+  padding-inline: max(
+    var(--app-shell-gutter),
+    calc((100% - var(--app-shell-content-max)) / 2)
+  );
+  background: var(--color-surface-muted);
+}
+
+@mixin compact-shell {
+  .shell {
+    display: block;
+    padding-bottom: calc(4.75rem + env(safe-area-inset-bottom));
+  }
+
+  .content {
+    --app-shell-gutter: 0.75rem;
+  }
+
+  .main {
+    padding-block: var(--app-shell-gutter);
+    padding-inline: max(
+      var(--app-shell-gutter),
+      calc((100% - var(--app-shell-content-max)) / 2)
+    );
+  }
+}
+
+@include down("desktop-large") {
+  .content {
+    --app-shell-gutter: 1rem;
+  }
+}
+
+@include down("desktop-small") {
+  @include compact-shell;
+}
+
+@include short("phone-short") {
+  @include compact-shell;
+}

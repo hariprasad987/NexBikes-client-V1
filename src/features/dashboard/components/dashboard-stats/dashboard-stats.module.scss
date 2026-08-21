@@ -1,0 +1,78 @@
+.stats {
+  min-width: 0;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.stat {
+  min-width: 0;
+  min-height: 8rem;
+  display: grid;
+  grid-template-columns: 3.75rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.875rem;
+  border-color: var(--color-dashboard-card-border);
+  background: var(--background-dashboard-stat);
+  padding: 2.0625rem 2.125rem;
+  box-shadow: var(--shadow-dashboard-card);
+}
+
+.icon {
+  width: 3.75rem;
+  height: 3.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.875rem;
+  display: grid;
+  place-items: center;
+  background: var(--color-deep-end-04);
+  color: var(--color-primary);
+}
+
+.label {
+  display: block;
+  color: var(--color-heading);
+  font-size: var(--text-ui-body);
+  line-height: 1.1875;
+}
+
+.stat p {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin: 0.625rem 0 0;
+  color: var(--color-heading);
+}
+
+.stat strong {
+  font-size: clamp(var(--text-ui-card-title), 1.7vw, var(--text-display-bike));
+  font-weight: var(--weight-semibold);
+  line-height: 0.71;
+}
+
+.stat p span {
+  font-size: var(--text-ui-h2);
+  font-weight: var(--weight-medium);
+  line-height: 0.72;
+}
+
+@include down("wide") {
+  .stats {
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  }
+
+  .stat {
+    padding: 1.25rem;
+  }
+}
+
+@include down("mobile") {
+  .stats {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .stat {
+    min-height: 6.75rem;
+  }
+}

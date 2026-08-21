@@ -1,0 +1,77 @@
+.heading {
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.copy {
+  min-width: 0;
+  display: grid;
+  gap: 0.9375rem;
+}
+
+.heading h1 {
+  margin: 0;
+  color: var(--color-black);
+  font-size: 2.125rem;
+  font-weight: var(--weight-bold);
+  line-height: 1;
+  letter-spacing: 0.035em;
+}
+
+.heading p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-ui-small);
+  line-height: 1;
+}
+
+.tools {
+  min-width: 0;
+  width: min(100%, 42.125rem);
+  display: grid;
+  grid-template-columns: minmax(12rem, 1fr) 9.125rem;
+  gap: 0.875rem;
+}
+
+.tools > button {
+  min-height: 3rem;
+  box-shadow: var(--shadow-garage-action);
+  font-size: var(--text-ui-body);
+}
+
+.search {
+  --search-accent: var(--color-primary);
+  --search-border: var(--color-garage-control-border);
+  --search-placeholder: var(--color-garage-placeholder);
+  border-radius: 0.5rem;
+}
+
+@include down("desktop-large") {
+  .heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .tools {
+    width: 100%;
+  }
+}
+
+@include down("mobile") {
+  .heading h1 {
+    font-size: 1.75rem;
+  }
+
+  .tools {
+    grid-template-columns: 1fr;
+  }
+}
+
+@include down("mobile-small") {
+  .heading h1 {
+    font-size: 1.5rem;
+  }
+}

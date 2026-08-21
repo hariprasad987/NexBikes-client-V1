@@ -1,0 +1,99 @@
+.card {
+  position: relative;
+  min-width: 0;
+  min-height: 28.125rem;
+  overflow: hidden;
+  border-radius: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--background-dashboard-health);
+  border: 0;
+  padding: 2.125rem;
+  box-shadow: var(--shadow-dashboard-card);
+  color: var(--color-white);
+  text-align: center;
+}
+
+.card h2 {
+  position: relative;
+  z-index: 2;
+  margin: 0;
+  color: var(--color-white);
+  font-size: var(--text-display-bike);
+  font-weight: var(--weight-semibold);
+  line-height: 1.25;
+}
+
+.gauge {
+  position: absolute;
+  inset: 5.125rem 2.125rem 3.125rem;
+  width: auto;
+  display: grid;
+  place-items: center;
+}
+
+.gauge::before,
+.gauge::after {
+  position: absolute;
+  content: "";
+  clip-path: polygon(22% 0, 78% 0, 100% 50%, 78% 100%, 22% 100%, 0 50%);
+}
+
+.gauge::before {
+  inset: 0;
+  background: var(--color-dashboard-progress);
+}
+
+.gauge::after {
+  inset: 0.375rem;
+  background: var(--background-dashboard-health);
+}
+
+.score {
+  position: relative;
+  z-index: 1;
+}
+
+.score strong {
+  display: block;
+  color: var(--color-white);
+  font-size: var(--text-stat);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+}
+
+.score p {
+  margin: 0.5rem 0 0;
+  color: var(--color-white-92);
+  font-size: var(--text-ui-body);
+  line-height: 1.1875;
+}
+
+.card > a {
+  position: relative;
+  z-index: 2;
+  min-width: 11.75rem;
+  min-height: 2.875rem;
+  margin-top: auto;
+  border-radius: 0.375rem;
+  background: var(--color-dashboard-action);
+  box-shadow: var(--shadow-dashboard-health-action);
+  font-size: var(--text-ui-h2);
+  line-height: 1.2;
+}
+
+@include down("mobile") {
+  .card {
+    min-height: 25rem;
+    padding: 1.5rem 1rem;
+  }
+
+  .card h2 {
+    font-size: var(--text-display-section);
+  }
+
+  .gauge {
+    inset: 4.75rem 1rem 3.25rem;
+  }
+}

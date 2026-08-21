@@ -1,0 +1,75 @@
+.toolbar {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.bikeSelect {
+  width: min(100%, 17.125rem);
+  min-height: 3.1875rem;
+  border: 1px solid var(--color-dashboard-soft-border);
+  border-radius: 0.5rem;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.625rem;
+  background: var(--color-surface);
+  color: var(--color-black);
+  padding: 0.75rem 1.4375rem;
+  box-shadow: var(--shadow-dashboard-card);
+  font-size: var(--text-ui-body);
+  font-weight: var(--weight-medium);
+  text-align: left;
+}
+
+.bikeSelect > svg:first-of-type {
+  width: 1.5rem;
+  height: 1rem;
+}
+
+.bikeSelect > svg:first-of-type {
+  color: var(--color-dashboard-action);
+}
+
+.bikeSelect select {
+  min-width: 0;
+  width: 100%;
+  border: 0;
+  appearance: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  outline: 0;
+  cursor: pointer;
+}
+
+.chevron {
+  color: var(--color-text-muted);
+}
+
+.searchButton {
+  min-width: 10.75rem;
+  min-height: 3.1875rem;
+  padding-inline: 1.4375rem;
+  background: var(--color-dashboard-action);
+  box-shadow: var(--shadow-dashboard-card);
+  font-size: var(--text-ui-body);
+}
+
+.srOnly {
+  @include visually-hidden;
+}
+
+@include down("mobile") {
+  .toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .bikeSelect,
+  .searchButton {
+    width: 100%;
+    min-width: 0;
+  }
+}

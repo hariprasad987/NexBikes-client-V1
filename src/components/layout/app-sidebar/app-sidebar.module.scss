@@ -1,0 +1,243 @@
+.sidebar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background: var(--background-dashboard-sidebar);
+  color: var(--color-white);
+  padding: 1.9375rem 1.875rem 1.875rem;
+}
+
+.logoToggle {
+  width: fit-content;
+  border: 0;
+  border-radius: 0.375rem;
+  display: block;
+  margin-bottom: 4rem;
+  padding: 0;
+  background: transparent;
+}
+
+.logoToggle:hover {
+  background: var(--color-white-08);
+}
+
+.navigation {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.navigation svg {
+  flex: 0 0 auto;
+}
+
+.navigation a,
+.navigation button,
+.support {
+  width: 100%;
+  height: 4rem;
+  border: 1px solid transparent;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.875rem;
+  background: transparent;
+  color: var(--color-white);
+  padding: 0 1.25rem;
+  font-size: var(--text-ui-h2);
+  text-decoration: none;
+}
+
+.navigation button:disabled {
+  cursor: default;
+}
+
+.navigation a:hover,
+.navigation button:not(:disabled):hover,
+.navigation .active {
+  border-color: var(--color-white-08);
+  background: var(--color-dashboard-deep);
+  color: var(--color-accent);
+}
+
+.navigation .active {
+  color: var(--color-white);
+}
+
+.navigation .active svg {
+  color: var(--color-accent);
+}
+
+.support {
+  margin-top: auto;
+  min-height: 5rem;
+  border-color: var(--color-dashboard-sidebar-border);
+  background: var(--color-dashboard-deep);
+  color: var(--color-dashboard-logo-mark);
+}
+
+.support:hover {
+  border-color: var(--color-white-08);
+  background: var(--color-dashboard-panel);
+}
+
+.supportCopy {
+  min-width: 0;
+  display: grid;
+  gap: 0.25rem;
+  color: var(--color-white-92);
+  text-align: left;
+}
+
+.supportCopy strong {
+  font-size: var(--text-ui-h2);
+  font-weight: var(--weight-regular);
+}
+
+.supportCopy small {
+  color: var(--color-white);
+  font-size: var(--text-ui-body);
+  font-weight: var(--weight-light);
+}
+
+.collapsed {
+  align-items: center;
+  padding: 1.9375rem 1.875rem 2.875rem;
+}
+
+.collapsed .logoToggle {
+  margin-bottom: 3.9375rem;
+}
+
+.collapsed .navigation a,
+.collapsed .navigation button,
+.collapsed .support {
+  width: 4rem;
+  height: 4rem;
+  min-height: 4rem;
+  justify-content: center;
+  padding: 0;
+}
+
+.sidebar:not(.contentVisible) .label,
+.sidebar:not(.contentVisible) .supportCopy {
+  display: none;
+}
+
+.contentVisible .label,
+.contentVisible .supportCopy {
+  animation: sidebar-content-enter 120ms ease both;
+}
+
+@keyframes sidebar-content-enter {
+  from {
+    opacity: 0;
+    transform: translateX(-0.25rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@include short("laptop-short") {
+  .sidebar {
+    padding-block: 1rem;
+  }
+
+  .logoToggle {
+    margin-bottom: 1rem;
+  }
+
+  .navigation {
+    gap: 0.125rem;
+  }
+
+  .navigation a,
+  .navigation button,
+  .support {
+    min-height: 3.25rem;
+    height: 3.25rem;
+  }
+
+  .collapsed .logoToggle {
+    margin-bottom: 1rem;
+  }
+
+  .collapsed .navigation a,
+  .collapsed .navigation button,
+  .collapsed .support {
+    min-height: 3.25rem;
+    height: 3.25rem;
+  }
+}
+
+@mixin bottom-navigation {
+  .sidebar {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 50;
+    width: 100%;
+    height: calc(4.75rem + env(safe-area-inset-bottom));
+    flex-direction: row;
+    gap: 0.35rem;
+    padding: 0.55rem max(0.55rem, env(safe-area-inset-right)) max(0.55rem, env(safe-area-inset-bottom)) max(0.55rem, env(safe-area-inset-left));
+    box-shadow: 0 -4px 18px var(--color-black-12);
+  }
+
+  .logoToggle {
+    display: none;
+  }
+
+  .label,
+  .supportCopy {
+    display: none;
+  }
+
+  .navigation {
+    min-width: 0;
+    flex: 1;
+    display: flex;
+    gap: 0.25rem;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: inline proximity;
+    scrollbar-width: thin;
+  }
+
+  .navigation a,
+  .navigation button,
+  .support {
+    width: 2.875rem;
+    height: 2.875rem;
+    min-height: 2.875rem;
+    flex: 0 0 2.875rem;
+    padding: 0;
+    scroll-snap-align: start;
+  }
+
+  .collapsed .navigation a,
+  .collapsed .navigation button,
+  .collapsed .support {
+    width: 2.875rem;
+    height: 2.875rem;
+    min-height: 2.875rem;
+  }
+
+  .support {
+    margin-top: 0;
+  }
+}
+
+@include down("desktop-small") {
+  @include bottom-navigation;
+}
+
+@include short("phone-short") {
+  @include bottom-navigation;
+}

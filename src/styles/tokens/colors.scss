@@ -1,0 +1,163 @@
+:root {
+  --color-nex-deep-end: #0f2c2d;
+  --color-nex-olive: #616c19;
+  --color-nex-gravel: #84714b;
+  --color-nex-lime: #c1db79;
+  --color-dark-grey: #333333;
+  --color-medium-grey: #828282;
+  --color-light-grey: #bdbdbd;
+  --color-border-grey: #e0e0e0;
+  --color-dashboard-grey: #f6f6f6;
+  --color-black: #000000;
+  --color-white: #ffffff;
+
+  /* Login artwork values approved by the supplied 1920 x 1080 auth design. */
+  --color-logo-olive: #626e2f;
+  --color-logo-deep: #012b2b;
+  --color-auth-title: #111111;
+  --color-auth-ink: #0e121a;
+  --color-auth-muted: #888888;
+  --color-auth-divider: #e7e7e7;
+  --color-auth-dot: #164a4b;
+  --color-auth-reset-panel: #16494b;
+  --color-auth-reset-ring-02: rgba(184, 220, 131, 0.02);
+  --color-auth-reset-ring-04: rgba(184, 220, 131, 0.04);
+  --color-auth-reset-ring-07: rgba(184, 220, 131, 0.07);
+
+  /* Provider colors are reserved for their official sign-in icons. */
+  --color-google-red: #f44336;
+  --color-google-yellow: #ffc107;
+  --color-google-blue: #448aff;
+  --color-google-green: #43a047;
+
+  /* Garage values approved by the supplied Figma composition. */
+  --color-garage-action: #55781f;
+  --color-garage-selected: #626e2f;
+  --color-garage-ink: #1d1d1d;
+  --color-garage-secondary: #6b7280;
+  --color-garage-muted-surface: #fbfbfb;
+  --color-garage-control-border: #e5e5ea;
+  --color-garage-placeholder: #d1d1d6;
+  --color-garage-track: #dedede;
+  --color-garage-alert: #eb5757;
+  --color-garage-alert-icon: #ef4444;
+  --color-garage-alert-surface: #fce8e7;
+  --color-garage-warning: #ce541d;
+  --color-garage-warning-surface: #fdf3e1;
+  --color-garage-soon: #d4651a;
+  --color-garage-soon-surface: #fdf5e4;
+  --color-garage-chart: #f97316;
+  --color-garage-success: #67b470;
+  --color-garage-selected-surface: rgba(184, 220, 131, 0.04);
+  --color-garage-selected-border: rgba(97, 108, 25, 0.4);
+  --color-garage-grid: rgba(189, 189, 189, 0.27);
+  --color-garage-chart-clear: rgba(255, 255, 255, 0.76);
+  --color-garage-chart-mid: rgba(253, 206, 173, 0.76);
+  --color-garage-chart-strong: rgba(249, 115, 22, 0.76);
+
+  /* Dashboard values approved by the supplied 1920 x 1080 composition. */
+  --color-dashboard-deep: #082b2c;
+  --color-dashboard-panel: #14313a;
+  --color-dashboard-teal: #164849;
+  --color-dashboard-action: #626e2f;
+  --color-dashboard-logo-mark: #b8dc83;
+  --color-dashboard-success: #61a061;
+  --color-dashboard-progress: #9ba47d;
+  --color-dashboard-progress-track: #f3f3f3;
+  --color-dashboard-soft-border: #eef2da;
+  --color-dashboard-card-border: #f5f5f5;
+  --color-dashboard-row-border: #e2e2e2;
+  --color-dashboard-update-border: #eeeeee;
+  --color-dashboard-notification: #fb1c1b;
+  --color-dashboard-profile-arrow: #9b9da3;
+  --color-dashboard-sidebar-border: #204041;
+  --color-dashboard-stat-surface: #e8eae1;
+  --color-dashboard-card-tint: #868e62;
+
+  --color-surface: var(--color-white);
+  --color-surface-muted: var(--color-dashboard-grey);
+  --color-text: var(--color-dark-grey);
+  --color-text-muted: var(--color-medium-grey);
+  --color-placeholder: var(--color-light-grey);
+  --color-border: var(--color-border-grey);
+  --color-primary: var(--color-nex-olive);
+  --color-primary-contrast: var(--color-white);
+  --color-heading: var(--color-nex-deep-end);
+  --color-accent: var(--color-nex-lime);
+  --color-stat: var(--color-nex-gravel);
+  --color-focus: var(--color-nex-lime);
+
+  --color-deep-end-04: rgba(15, 44, 45, 0.04);
+  --color-deep-end-08: rgba(15, 44, 45, 0.08);
+  --color-deep-end-12: rgba(15, 44, 45, 0.12);
+  --color-deep-end-36: rgba(15, 44, 45, 0.36);
+  --color-lime-16: rgba(193, 219, 121, 0.16);
+  --color-lime-30: rgba(193, 219, 121, 0.3);
+  --color-gravel-12: rgba(132, 113, 75, 0.12);
+  --color-gravel-18: rgba(132, 113, 75, 0.18);
+  --color-white-08: rgba(255, 255, 255, 0.08);
+  --color-white-72: rgba(255, 255, 255, 0.72);
+  --color-white-92: rgba(255, 255, 255, 0.92);
+  --color-black-08: rgba(0, 0, 0, 0.08);
+  --color-black-12: rgba(0, 0, 0, 0.12);
+  --color-black-20: rgba(0, 0, 0, 0.2);
+  --color-black-32: rgba(0, 0, 0, 0.32);
+  --color-black-48: rgba(0, 0, 0, 0.48);
+  --color-black-61: rgba(0, 0, 0, 0.61);
+  --color-black-70: rgba(0, 0, 0, 0.7);
+  --color-black-74: rgba(0, 0, 0, 0.74);
+  --color-grey-00: rgba(102, 102, 102, 0);
+
+  --shadow-card: 0 8px 28px rgba(15, 44, 45, 0.06);
+  --shadow-control: 0 3px 10px rgba(0, 0, 0, 0.08);
+  --shadow-garage-card: 0 4px 18px rgba(0, 0, 0, 0.06);
+  --shadow-garage-control: 0 4px 4px rgba(0, 0, 0, 0.06);
+  --shadow-garage-action: 0 3px 6px rgba(0, 0, 0, 0.12);
+  --shadow-garage-app-icon: 0 6px 6px rgba(0, 0, 0, 0.08);
+  --shadow-dashboard-card: 0 3px 6px rgba(0, 0, 0, 0.12);
+  --shadow-dashboard-health-action: 0 4px 4px rgba(0, 0, 0, 0.25);
+  --shadow-dashboard-row: 0 3px 3px rgba(0, 0, 0, 0.05);
+  --shadow-dashboard-section: 0 3px 6px rgba(0, 0, 0, 0.06);
+  --background-dashboard-sidebar: linear-gradient(
+    325.37deg,
+    var(--color-dashboard-teal) -5.93%,
+    var(--color-dashboard-deep) 86.56%
+  );
+  --background-dashboard-card: linear-gradient(
+    210.39deg,
+    var(--color-white) 72.26%,
+    var(--color-dashboard-card-tint) 208.48%
+  );
+  --background-dashboard-health: linear-gradient(
+    240.19deg,
+    var(--color-dashboard-teal) -0.16%,
+    var(--color-dashboard-deep) 73.92%
+  );
+  --background-dashboard-stat: linear-gradient(
+    197.31deg,
+    var(--color-white) 30.57%,
+    var(--color-dashboard-stat-surface) 135.44%
+  );
+  --overlay-auth-health: linear-gradient(
+      360deg,
+      var(--color-black-32) 28.65%,
+      var(--color-grey-00) 101.35%
+    ),
+    linear-gradient(0deg, var(--color-black-20), var(--color-black-20));
+  --overlay-auth-parts: linear-gradient(
+    0deg,
+    var(--color-black-70) 26.97%,
+    var(--color-grey-00) 74.38%
+  );
+  --overlay-auth-maintenance: linear-gradient(
+      180deg,
+      var(--color-grey-00) 0%,
+      var(--color-black-61) 68.75%
+    ),
+    linear-gradient(0deg, var(--color-black-20), var(--color-black-20));
+  --background-auth-reset: linear-gradient(
+    314.74deg,
+    var(--color-auth-reset-panel) 11.69%,
+    var(--color-dashboard-deep) 67.25%
+  );
+}

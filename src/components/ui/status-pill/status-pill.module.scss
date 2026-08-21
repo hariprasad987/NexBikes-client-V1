@@ -1,0 +1,56 @@
+.pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.5rem;
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
+  font-size: var(--text-ui-micro);
+  font-weight: var(--weight-medium);
+  white-space: nowrap;
+  transition: background-color 360ms ease, color 360ms ease;
+}
+
+.attention {
+  background: var(--color-gravel-12);
+  color: var(--color-stat);
+}
+
+.neutral {
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
+}
+
+.primary {
+  background: var(--color-lime-16);
+  color: var(--color-primary);
+}
+
+.solid {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.success {
+  background: var(--color-dashboard-success);
+  color: var(--color-white);
+}
+
+.stat {
+  background: var(--color-stat);
+  color: var(--color-white);
+}
+
+.danger {
+  background: var(--color-garage-alert-surface);
+  color: var(--color-garage-alert);
+}
+
+.warning {
+  background: var(--color-garage-warning-surface);
+  color: var(--color-garage-warning);
+}
+
+.soon {
+  background: var(--color-garage-soon-surface);
+  color: var(--color-garage-soon);
+}

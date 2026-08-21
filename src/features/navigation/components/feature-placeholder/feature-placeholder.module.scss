@@ -1,0 +1,51 @@
+.card {
+  width: min(100%, 45rem);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-color: var(--color-dashboard-card-border);
+  background: var(--background-dashboard-card);
+  padding: clamp(1.5rem, 5vw, 3.5rem);
+  box-shadow: var(--shadow-dashboard-section);
+}
+
+.icon {
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 0.875rem;
+  display: grid;
+  place-items: center;
+  background: var(--color-lime-16);
+  color: var(--color-primary);
+}
+
+.card h1 {
+  margin: 2rem 0 0;
+  color: var(--color-heading);
+  font-size: var(--text-display-page);
+  line-height: 1.1;
+}
+
+.card p {
+  max-width: 38rem;
+  margin: 1rem 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-ui-body);
+  line-height: 1.6;
+}
+
+.status {
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.card a {
+  margin-top: 2rem;
+}
+
+@include down("mobile") {
+  .card a {
+    width: 100%;
+  }
+}

@@ -1,0 +1,18 @@
+:root {
+  --text-display-page: clamp(2.125rem, 3.25vw, 3.375rem);
+  --text-display-bike: 1.5rem;
+  --text-display-section: 1.125rem;
+  --text-stat: clamp(3rem, 5vw, 5.625rem);
+  --text-ui-h1: 1.5rem;
+  --text-ui-h2: 1.125rem;
+  --text-ui-card-title: 1.25rem;
+  --text-ui-body: 1rem;
+  --text-ui-small: 0.875rem;
+  --text-ui-micro: 0.75rem;
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+}

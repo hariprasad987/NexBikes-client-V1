@@ -1,0 +1,48 @@
+.logo {
+  display: block;
+  width: fit-content;
+  text-decoration: none;
+}
+
+.mark {
+  display: block;
+}
+
+.full {
+  width: 8.1875rem;
+  height: 1.6875rem;
+}
+
+.compact {
+  width: 2.4375rem;
+  height: 2.125rem;
+}
+
+.wide .full {
+  width: 10.2975rem;
+  height: auto;
+}
+
+.olive {
+  fill: var(--color-logo-olive);
+}
+
+.deep {
+  fill: var(--color-logo-deep);
+}
+
+.compactMark {
+  fill: var(--color-logo-olive);
+}
+
+.inverse .olive {
+  fill: var(--color-accent);
+}
+
+.inverse .deep {
+  fill: var(--color-white);
+}
+
+.inverse .compactMark {
+  fill: var(--color-dashboard-logo-mark);
+}
