@@ -1,0 +1,48 @@
+.header {
+  min-width: 0;
+  display: grid;
+  gap: 1rem;
+}
+
+.header h1,
+.header p {
+  margin: 0;
+}
+
+.header h1 {
+  color: var(--color-heading);
+  font-size: clamp(1.75rem, 2.1vw, 2.125rem);
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.03em;
+  line-height: 1.25;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.header p {
+  color: var(--color-text-muted);
+  font-size: var(--text-ui-small);
+  line-height: 1.35;
+}
+
+.centered {
+  justify-items: center;
+  text-align: center;
+}
+
+@include down("mobile") {
+  .header,
+  .centered {
+    justify-items: start;
+    text-align: left;
+  }
+
+  .header {
+    gap: 0.75rem;
+  }
+
+  .header h1 {
+    font-size: clamp(1.5rem, 9vw, 1.875rem);
+    line-height: 1.2;
+  }
+}

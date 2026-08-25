@@ -1,0 +1,387 @@
+.step {
+  width: 100%;
+  display: grid;
+  gap: 3.375rem;
+}
+
+.body {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(17rem, 19.9375rem) minmax(0, 1fr);
+  align-items: start;
+  gap: 2.125rem;
+}
+
+.filters {
+  min-width: 0;
+  min-height: 46.5625rem;
+  display: grid;
+  align-content: start;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+}
+
+.searchField,
+.filterSelect {
+  gap: 0.875rem;
+  line-height: 0.875rem;
+}
+
+.searchField > div:first-child,
+.filterSelect > div:first-child {
+  gap: 0.625rem;
+}
+
+.filters label,
+.filterSelect {
+  font-size: var(--text-ui-body);
+  font-weight: var(--weight-medium);
+}
+
+.filters input,
+.filterSelect > button {
+  min-height: 3.1875rem;
+  border-radius: 0.75rem;
+  font-size: var(--text-ui-small);
+}
+
+.searchField input {
+  padding-left: 1.375rem;
+  color: var(--color-primary);
+  font-weight: var(--weight-medium);
+  line-height: 1.214;
+}
+
+.searchField input[type="search"]::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+.filterSelect > button {
+  padding-inline: 1.375rem;
+  color: var(--color-primary);
+  font-weight: var(--weight-medium);
+  line-height: 1.214;
+}
+
+.filterSelect > button > span:last-child {
+  border-color: var(--color-primary);
+}
+
+.help {
+  min-height: 11.375rem;
+  display: grid;
+  align-content: start;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  background: var(--color-surface-muted);
+}
+
+.help strong {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  color: var(--color-heading);
+  font-size: var(--text-ui-body);
+  font-weight: var(--weight-medium);
+}
+
+.help strong svg {
+  flex: 0 0 auto;
+  color: var(--color-heading);
+}
+
+.help p {
+  margin: 0.375rem 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-ui-small);
+  line-height: 1.214;
+}
+
+.help button {
+  min-height: 3.1875rem;
+  border-color: var(--color-border);
+  border-radius: 0.5rem;
+  background: var(--color-white);
+  box-shadow: var(--shadow-auth-onboarding-control);
+  font-size: var(--text-ui-body);
+}
+
+.gallery {
+  min-width: 0;
+  max-height: 40.875rem;
+  overflow-y: scroll;
+  padding-right: 1.4375rem;
+  scrollbar-gutter: stable;
+  scrollbar-color: var(--color-medium-grey) var(--color-border);
+  scrollbar-width: thin;
+}
+
+.gallery::-webkit-scrollbar {
+  width: 0.5rem;
+  border-radius: 1.25rem;
+  background: var(--color-border);
+}
+
+.gallery::-webkit-scrollbar-button,
+.gallery::-webkit-scrollbar-button:single-button,
+.gallery::-webkit-scrollbar-button:vertical:decrement,
+.gallery::-webkit-scrollbar-button:vertical:increment {
+  width: 0;
+  height: 0;
+  display: none;
+  appearance: none;
+  border: 0;
+  background: transparent;
+}
+
+.gallery::-webkit-scrollbar-track {
+  border-radius: 1.25rem;
+  background: var(--color-border);
+}
+
+.gallery::-webkit-scrollbar-thumb {
+  border: 0.15625rem solid var(--color-border);
+  border-radius: 1.25rem;
+  background: var(--color-medium-grey);
+}
+
+.loadingAnnouncement {
+  @include visually-hidden;
+}
+
+.bikeGrid {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.125rem;
+}
+
+.bikeCard,
+.skeletonCard {
+  min-width: 0;
+  display: grid;
+  gap: 0.875rem;
+  padding: 0.875rem;
+  overflow: hidden;
+  border: 0;
+  border-radius: 0.75rem;
+  background: transparent;
+}
+
+.bikeCard {
+  grid-template-rows: auto auto;
+  appearance: none;
+  color: var(--color-heading);
+  text-align: left;
+  transition: background 160ms ease, box-shadow 160ms ease;
+}
+
+.bikeCard:not(.selected):hover .imageFrame {
+  border-color: var(--color-deep-end-36);
+}
+
+.bikeCard:focus-visible {
+  outline: 3px solid var(--color-lime-30);
+  outline-offset: 2px;
+}
+
+.imageFrame,
+.skeletonImage {
+  aspect-ratio: 336 / 222;
+  min-width: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-surface-muted);
+  transition: border-color 160ms ease;
+}
+
+.imageFrame img {
+  width: min(78.28%, 16.4375rem);
+  height: min(69.37%, 9.625rem);
+  object-fit: contain;
+}
+
+.imageFrame {
+  background: var(--color-surface);
+}
+
+.bikeDetails {
+  min-width: 0;
+  display: grid;
+  gap: 0.625rem;
+}
+
+.bikeCard strong {
+  min-width: 0;
+  font-size: var(--text-ui-body);
+  font-weight: var(--weight-medium);
+  line-height: 1.1875;
+}
+
+.meta {
+  color: var(--color-text-muted);
+  font-size: var(--text-ui-small);
+  line-height: 1.214;
+}
+
+.selected {
+  background: var(--color-lime-04);
+  box-shadow: inset 0 0 0 1px var(--color-primary);
+}
+
+.selected .imageFrame {
+  border-color: transparent;
+  background: var(--color-surface);
+}
+
+.selectedName {
+  color: var(--color-primary);
+}
+
+.skeletonImage {
+  color: var(--color-light-grey);
+  background: var(--color-surface-muted);
+}
+
+.skeletonCard {
+  grid-template-rows: auto auto auto;
+}
+
+.skeletonLine,
+.skeletonLineShort {
+  height: 1rem;
+  border-radius: 999px;
+  background: var(--color-border);
+  animation: skeletonPulse 1.2s ease-in-out infinite alternate;
+}
+
+.skeletonLineShort {
+  width: 24%;
+  background: var(--color-surface-muted);
+}
+
+.listLoader {
+  min-height: 4rem;
+  display: grid;
+  place-items: center;
+  margin-top: 1rem;
+}
+
+.listLoader span {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: loaderSpin 700ms linear infinite;
+}
+
+@keyframes skeletonPulse {
+  from {
+    opacity: 0.55;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes loaderSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeletonLine,
+  .skeletonLineShort,
+  .listLoader span {
+    animation: none;
+  }
+}
+
+@include down("wide") {
+  .body {
+    gap: 2rem;
+  }
+
+  .bikeGrid {
+    gap: 2rem;
+  }
+}
+
+@include down("desktop") {
+  .body {
+    grid-template-columns: 1fr;
+  }
+
+  .filters {
+    min-height: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .help {
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr minmax(10rem, 14rem);
+    align-items: center;
+  }
+
+  .gallery {
+    max-height: none;
+    overflow: visible;
+    padding-right: 0;
+    scrollbar-gutter: auto;
+  }
+}
+
+@include down("tablet-small") {
+  .step {
+    gap: 2.5rem;
+  }
+
+  .filters {
+    grid-template-columns: 1fr;
+  }
+
+  .help {
+    grid-column: auto;
+    grid-template-columns: 1fr;
+  }
+}
+
+@include down("mobile") {
+  .bikeGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@include down("mobile-small") {
+  .step {
+    gap: 2rem;
+  }
+
+  .filters {
+    padding: 1rem;
+  }
+}
+
+@include short("laptop-short") {
+  .step {
+    gap: 2rem;
+  }
+
+  .filters {
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .help {
+    padding: 1rem;
+  }
+}

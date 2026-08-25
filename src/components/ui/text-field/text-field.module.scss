@@ -7,6 +7,22 @@
   font-weight: var(--weight-semibold);
 }
 
+.labelRow {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.labelRow label {
+  min-width: 0;
+}
+
+.control {
+  position: relative;
+  min-width: 0;
+}
+
 .field input {
   min-width: 0;
   max-width: 100%;
@@ -21,6 +37,14 @@
   transition: border-color 160ms ease, box-shadow 160ms ease;
 }
 
+.field .passwordInput {
+  padding-right: 3.75rem;
+}
+
+.field .inputWithTrailingIcon {
+  padding-right: 3.5rem;
+}
+
 .field input::placeholder {
   color: var(--color-placeholder);
 }
@@ -29,4 +53,56 @@
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px var(--color-lime-30);
   outline: none;
+}
+
+.visibilityToggle {
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  appearance: none;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--color-placeholder);
+  padding: 0;
+  transform: translateY(-50%);
+}
+
+.trailingIcon {
+  position: absolute;
+  top: 50%;
+  right: 1.375rem;
+  display: grid;
+  place-items: center;
+  color: var(--color-primary);
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.visibilityToggle:hover {
+  color: var(--color-primary);
+}
+
+.visibilityToggle:focus-visible {
+  box-shadow: 0 0 0 3px var(--color-lime-30);
+  color: var(--color-primary);
+  outline: none;
+}
+
+.description {
+  margin-top: -0.25rem;
+  color: var(--color-text-muted);
+  font-size: var(--text-ui-small);
+  font-weight: var(--weight-regular);
+  line-height: 1.25;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .field input {
+    transition: none;
+  }
 }

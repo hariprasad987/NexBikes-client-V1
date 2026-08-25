@@ -1,0 +1,170 @@
+.step {
+  width: min(100%, 61.125rem);
+  display: grid;
+  gap: 3.375rem;
+  margin-inline: auto;
+}
+
+.appGrid {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.125rem;
+}
+
+.appCard {
+  min-width: 0;
+  display: flex;
+  min-height: 40.0625rem;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-surface);
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.connected {
+  box-shadow: var(--shadow-auth-activity-card);
+}
+
+.appContent {
+  min-width: 0;
+  flex: 1;
+  min-height: 32.625rem;
+  padding: 2.125rem;
+}
+
+.appIcon {
+  width: 3.375rem;
+  height: 3.375rem;
+  object-fit: contain;
+}
+
+.appContent h2 {
+  margin: 1.5rem 0 0;
+  color: var(--color-heading);
+  font-size: var(--text-ui-h2);
+  font-weight: var(--weight-semibold);
+  line-height: 1.2222;
+}
+
+.description {
+  min-height: 2.375rem;
+  margin: 0.875rem 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-ui-body);
+  line-height: 1.1875;
+}
+
+.divider {
+  width: calc(100% + 1rem);
+  margin: 2.125rem 0;
+  border-top: 1.5px dashed var(--color-border);
+}
+
+.appContent h3 {
+  margin: 0;
+  color: var(--color-heading);
+  font-size: var(--text-ui-body);
+  font-weight: var(--weight-medium);
+  line-height: 1.1875;
+}
+
+.appContent ul {
+  display: grid;
+  gap: 1.5rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-ui-body);
+  line-height: 1.1875;
+  list-style: none;
+}
+
+.appContent li {
+  display: grid;
+  grid-template-columns: 1rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.appContent li svg {
+  color: var(--color-primary);
+  flex: 0 0 auto;
+}
+
+.appCard footer {
+  display: flex;
+  justify-content: flex-end;
+  min-height: 7.4375rem;
+  padding: 2.125rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.connectButton.connectButton {
+  min-width: 7.5rem;
+  min-height: 3.125rem;
+  font-size: var(--text-ui-body);
+}
+
+@include down("desktop") {
+  .appCard {
+    min-height: 0;
+  }
+
+  .appContent {
+    padding: 1.5rem;
+  }
+
+  .appContent ul {
+    font-size: var(--text-ui-small);
+  }
+}
+
+@include down("tablet-small") {
+  .step {
+    gap: 2.5rem;
+  }
+
+  .appGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@include down("mobile-small") {
+  .step {
+    gap: 2rem;
+  }
+
+  .appContent,
+  .appCard footer {
+    padding: 1rem;
+  }
+
+  .connectButton.connectButton {
+    width: 100%;
+  }
+}
+
+@include short("laptop-short") {
+  .step {
+    gap: 2rem;
+  }
+
+  .appCard {
+    min-height: 0;
+  }
+
+  .appContent {
+    padding: 1.5rem;
+  }
+
+  .appContent ul {
+    gap: 0.9rem;
+  }
+
+  .appCard footer {
+    padding: 1.25rem;
+  }
+}

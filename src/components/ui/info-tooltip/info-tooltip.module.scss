@@ -1,0 +1,68 @@
+.root {
+  position: relative;
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+}
+
+.trigger {
+  position: relative;
+  width: 0.875rem;
+  height: 0.875rem;
+  display: grid;
+  place-items: center;
+  appearance: none;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-primary);
+  padding: 0;
+  cursor: help;
+}
+
+.trigger::before {
+  position: absolute;
+  inset: -0.3125rem;
+  content: "";
+}
+
+.trigger:focus-visible {
+  box-shadow: 0 0 0 3px var(--color-lime-30);
+  outline: none;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 50;
+  top: calc(100% + 0.4rem);
+  left: 50%;
+  width: max-content;
+  max-width: min(16rem, calc(100vw - 2rem));
+  border-radius: 0.5rem;
+  background: var(--color-heading);
+  box-shadow: var(--shadow-card);
+  color: var(--color-white);
+  padding: 0.55rem 0.7rem;
+  font-size: var(--text-ui-micro);
+  font-weight: var(--weight-regular);
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -0.25rem);
+  transition: opacity 140ms ease, transform 140ms ease, visibility 140ms ease;
+  visibility: hidden;
+}
+
+.root:hover .tooltip,
+.root:focus-within .tooltip {
+  opacity: 1;
+  transform: translate(-50%, 0);
+  visibility: visible;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tooltip {
+    transition: none;
+  }
+}

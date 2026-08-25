@@ -1,0 +1,181 @@
+.sidebar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  min-width: 0;
+  min-height: 100svh;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(4rem, 12vh, 8.0625rem) clamp(2.5rem, 6.8vw, 8.1875rem) clamp(3rem, 9vh, 7.875rem);
+  background: var(--background-auth-onboarding-sidebar);
+  color: var(--color-white);
+}
+
+.steps {
+  display: grid;
+  gap: 2.75rem;
+  margin: auto 0;
+  padding: 4rem 0;
+  list-style: none;
+}
+
+.step {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 3.25rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.875rem;
+  color: var(--color-white);
+  font-size: 1.125rem;
+  font-weight: var(--weight-regular);
+  line-height: 1.25;
+  transition: opacity 160ms ease;
+}
+
+.stepIcon {
+  justify-self: center;
+  color: var(--color-accent);
+  overflow: visible;
+}
+
+.stepLabel {
+  min-width: 0;
+}
+
+.active {
+  font-weight: var(--weight-medium);
+  opacity: 1;
+}
+
+.active .stepIcon {
+  filter: drop-shadow(0 2px 2px var(--color-black-12));
+}
+
+.inactive {
+  opacity: 0.34;
+}
+
+.loginPrompt {
+  margin: 0;
+  color: var(--color-white);
+  font-size: var(--text-ui-body);
+  line-height: 1.4;
+}
+
+.loginPrompt a {
+  font-weight: var(--weight-semibold);
+  text-underline-offset: 0.2rem;
+}
+
+@include down("desktop-large") {
+  .sidebar {
+    position: relative;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 2rem;
+    padding: 1.5rem clamp(1rem, 4vw, 2.5rem);
+  }
+
+  .steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .step {
+    grid-template-columns: 2.75rem minmax(0, 1fr);
+    gap: 0.7rem;
+    font-size: var(--text-ui-small);
+  }
+
+  .stepIcon {
+    max-width: 2.5rem;
+    max-height: 2.25rem;
+  }
+
+  .loginPrompt {
+    font-size: var(--text-ui-small);
+    text-align: right;
+  }
+}
+
+@include down("tablet-small") {
+  .sidebar {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .steps {
+    order: 3;
+  }
+
+  .loginPrompt {
+    position: absolute;
+    top: 1.75rem;
+    right: 1rem;
+    max-width: 9rem;
+  }
+}
+
+@include down("mobile-small") {
+  .sidebar {
+    padding-block: 1.25rem;
+  }
+
+  .loginPrompt {
+    position: static;
+    order: 2;
+    max-width: none;
+    text-align: left;
+  }
+
+  .steps {
+    order: 3;
+    gap: 0.5rem;
+  }
+
+  .step {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 0.4rem;
+    font-size: var(--text-ui-micro);
+    text-align: center;
+  }
+
+  .stepIcon {
+    max-width: 2.25rem;
+    max-height: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .step {
+    transition: none;
+  }
+}
+
+@include short("laptop-short") {
+  .sidebar {
+    padding-block: 2rem;
+  }
+
+  .steps {
+    gap: 1.5rem;
+    padding-block: 2rem;
+  }
+
+  @include down("desktop-large") {
+    .sidebar {
+      padding-block: 1rem;
+    }
+
+    .steps {
+      gap: 0.75rem;
+      padding-block: 0;
+    }
+  }
+}

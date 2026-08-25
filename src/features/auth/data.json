@@ -1,0 +1,134 @@
+{
+  "onboardingSteps": [
+    { "id": "account", "label": "Create Account", "icon": "onboarding-account" },
+    { "id": "bike", "label": "Add Your Bike", "icon": "onboarding-bike" },
+    { "id": "activity", "label": "Connect Activity Apps", "icon": "onboarding-activity" }
+  ],
+  "phoneCountries": [
+    { "label": "🇺🇸 +1", "value": "us" },
+    { "label": "🇨🇦 +1", "value": "ca" },
+    { "label": "🇬🇧 +44", "value": "gb" }
+  ],
+  "bikes": [
+    {
+      "id": "supercaliber-flight-attendant",
+      "brand": "Trek",
+      "frameSize": "M (17–18.5\" / 51–54 cm)",
+      "image": "/images/bikes/forgotBike.png",
+      "material": "Carbon",
+      "model": "SLR 9.9 Flight Attendant Gen 2",
+      "name": "Supercaliber SLR 9.9 Flight Attendant Gen 2",
+      "type": "Mountain Bike (Full Suspension)",
+      "year": "2022"
+    },
+    {
+      "id": "supercaliber-slr-9-9",
+      "brand": "Trek",
+      "frameSize": "M (17–18.5\" / 51–54 cm)",
+      "image": "/images/bikes/forgotBike.png",
+      "material": "Carbon",
+      "model": "SLR 9.9 Flight Attendant Gen 2",
+      "name": "Supercaliber SLR 9.9 Flight Attendant Gen 2",
+      "type": "Mountain Bike (Full Suspension)",
+      "year": "2022"
+    },
+    {
+      "id": "supercaliber-slr-9-8",
+      "brand": "Trek",
+      "frameSize": "L (18.5–19.5\" / 54–57 cm)",
+      "image": "/images/bikes/forgotBike.png",
+      "material": "Carbon",
+      "model": "SLR 9.8 GX AXS",
+      "name": "Supercaliber SLR 9.8 GX AXS",
+      "type": "Mountain Bike (Full Suspension)",
+      "year": "2022"
+    },
+    {
+      "id": "supercaliber-sl-9-7",
+      "brand": "Trek",
+      "frameSize": "S (15.5–17\" / 47–51 cm)",
+      "image": "/images/bikes/forgotBike.png",
+      "material": "Carbon",
+      "model": "SL 9.7 Gen 2",
+      "name": "Supercaliber SL 9.7 Gen 2",
+      "type": "Mountain Bike (Full Suspension)",
+      "year": "2022"
+    },
+    {
+      "id": "supercaliber-slr-9-6",
+      "brand": "Trek",
+      "frameSize": "M (17–18.5\" / 51–54 cm)",
+      "image": "/images/bikes/forgotBike.png",
+      "material": "Carbon",
+      "model": "SLR 9.6 Gen 2",
+      "name": "Supercaliber SLR 9.6 Gen 2",
+      "type": "Mountain Bike (Full Suspension)",
+      "year": "2022"
+    },
+    {
+      "id": "supercaliber-sl-9-5",
+      "brand": "Trek",
+      "frameSize": "L (18.5–19.5\" / 54–57 cm)",
+      "image": "/images/bikes/forgotBike.png",
+      "material": "Carbon",
+      "model": "SL 9.5 Gen 2",
+      "name": "Supercaliber SL 9.5 Gen 2",
+      "type": "Mountain Bike (Full Suspension)",
+      "year": "2022"
+    }
+  ],
+  "activityApps": [
+    {
+      "id": "strava",
+      "image": "/images/apps/strava.svg",
+      "title": "Connect Strava",
+      "description": "Sync your activities, distance, elevation and more from Strava",
+      "benefits": [
+        "Import ride activities and cycling performance data",
+        "Improve component wear and lifespan predictions",
+        "Enable smarter maintenance scheduling",
+        "Track mileage across bikes and key components",
+        "Generate personalized service and upgrade insights"
+      ]
+    },
+    {
+      "id": "garmin",
+      "image": "/images/apps/garmin.svg",
+      "title": "Connect Garmin",
+      "description": "Sync your activities, distance, elevation and more from Garmin Connect",
+      "benefits": [
+        "Sync advanced health and fitness tracking metrics",
+        "Enhance ride analysis with sensor and device data",
+        "Monitor training load alongside bike usage trends",
+        "Improve maintenance accuracy",
+        "Receive personalized upgrade recommendations"
+      ]
+    }
+  ],
+  "welcomeBenefits": [
+    {
+      "id": "health",
+      "icon": "welcome-health",
+      "title": "Bike Health Monitoring",
+      "description": "Track wear, get alerts and keep your bike in top shape."
+    },
+    {
+      "id": "maintenance",
+      "icon": "welcome-maintenance",
+      "title": "Maintenance Schedule",
+      "description": "Personalized service schedule based on your bike and riding style."
+    },
+    {
+      "id": "parts",
+      "icon": "welcome-parts",
+      "title": "Compatible Parts Finder",
+      "description": "Find the right parts that fit perfectly every time."
+    },
+    {
+      "id": "price",
+      "icon": "welcome-price",
+      "title": "Retailer Price Comparison",
+      "description": "Compare prices from trusted retailers and save more."
+    }
+  ]
+}

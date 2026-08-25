@@ -75,7 +75,7 @@ export function LoginForm() {
             Login
           </Button>
           <p className={styles.signup}>
-            Don&apos;t have account? <Link href="/login">Sign Up</Link>
+            Don&apos;t have account? <Link href={"/signup" as Route}>Sign Up</Link>
           </p>
         </div>
       </form>

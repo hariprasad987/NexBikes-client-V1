@@ -91,6 +91,8 @@
   --color-deep-end-08: rgba(15, 44, 45, 0.08);
   --color-deep-end-12: rgba(15, 44, 45, 0.12);
   --color-deep-end-36: rgba(15, 44, 45, 0.36);
+  --color-lime-04: rgba(193, 219, 121, 0.04);
+  --color-lime-14: rgba(193, 219, 121, 0.14);
   --color-lime-16: rgba(193, 219, 121, 0.16);
   --color-lime-30: rgba(193, 219, 121, 0.3);
   --color-gravel-12: rgba(132, 113, 75, 0.12);
@@ -110,6 +112,9 @@
 
   --shadow-card: 0 8px 28px rgba(15, 44, 45, 0.06);
   --shadow-control: 0 3px 10px rgba(0, 0, 0, 0.08);
+  --shadow-auth-onboarding-card: 0 4px 4px rgba(0, 0, 0, 0.12);
+  --shadow-auth-onboarding-control: 0 2px 4px rgba(2, 6, 14, 0.1);
+  --shadow-auth-activity-card: 0 4px 8px rgba(0, 0, 0, 0.08);
   --shadow-garage-card: 0 4px 18px rgba(0, 0, 0, 0.06);
   --shadow-garage-control: 0 4px 4px rgba(0, 0, 0, 0.06);
   --shadow-garage-action: 0 3px 6px rgba(0, 0, 0, 0.12);
@@ -159,5 +164,10 @@
     314.74deg,
     var(--color-auth-reset-panel) 11.69%,
     var(--color-dashboard-deep) 67.25%
+  );
+  --background-auth-onboarding-sidebar: linear-gradient(
+    314.6deg,
+    var(--color-auth-reset-panel) 13.2%,
+    var(--color-dashboard-deep) 66.57%
   );
 }

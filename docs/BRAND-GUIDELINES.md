@@ -48,6 +48,10 @@ Use for all normal UI elements.
 
 The approved auth compositions include a small set of exact artwork values in addition to the core product palette. They are limited to auth pages and official provider artwork: logo olive `#626E2F`, logo deep `#012B2B`, title black `#111111`, auth ink `#0E121A`, muted text `#888888`, divider `#E7E7E7`, inactive pagination `#164A4B`, password-reset panel teal `#16494B`, the supplied `#B8DC83` password-reset ring transparencies, and the official Google icon colors. Their implementation tokens remain centralized in `src/styles/tokens/colors.scss`.
 
+The approved signup onboarding sidebar uses a `314.6deg` gradient from auth reset panel teal at `13.2%` to dashboard deep teal at `66.57%`. Its current step uses the supplied Nex Lime outlined icon artwork; non-current steps use the same artwork in a subdued disabled treatment.
+
+Signup onboarding controls use the supplied compact `0 2px 4px` soft shadow, while the selected-bike details and bike-added confirmation cards use the supplied `0 4px 4px` panel shadow. The emphasized activity-app card uses its supplied `0 4px 8px` soft shadow. Selected bike options use the approved 4% Nex Lime surface with a Nex Olive outline; the bike-added success banner uses the approved 14% Nex Lime surface; unselected bike results keep their text outside the bordered image frame.
+
 ### Supplied Garage composition colors
 
 The approved Garage composition adds exact, page-scoped semantic values for selected bikes, secondary actions, maintenance states, connected-app states, and the ride-usage chart. These values include action green `#55781F`, selected green `#626E2F`, content ink `#1D1D1D`, secondary slate `#6B7280`, alert red `#EB5757`, alert icon red `#EF4444`, success green `#67B470`, chart orange `#F97316`, and their supplied muted surfaces and chart/shadow transparencies. They are limited to reproducing the supplied Garage design and are centralized as `--color-garage-*` and `--shadow-garage-*` tokens in `src/styles/tokens/colors.scss`.

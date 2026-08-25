@@ -97,6 +97,15 @@ component-name/
 - Keep domain and component contracts typed. Do not use `any` to avoid defining a proper type.
 - Avoid extracting a component that only renames one native element and adds no shared behavior, accessibility, or visual contract.
 
+### Dropdown controls
+
+- All select-style controls must use the shared custom dropdown primitives under `src/components/ui/`; do not render native `<select>` elements in routes, layouts, or feature components.
+- Use `src/components/ui/select-field/` for single-choice selection and `src/components/ui/multi-select-field/` for multiple-choice selection.
+- Single-select and multi-select controls must have visibly distinct interaction designs. Multi-select controls must expose selected values and selection state without imitating a single-select control.
+- Custom dropdowns must preserve accessible labels, keyboard navigation, visible focus states, Escape and outside-click dismissal, appropriate listbox semantics, and hidden form values when a `name` is supplied.
+- Dropdown menus must reflow or reposition safely in narrow containers and must not be clipped, overlap required actions, or cause horizontal page overflow.
+- Keep single-select and multi-select implementations as separate focused components; do not merge them into one highly configurable dropdown monolith.
+
 ## SCSS architecture
 
 - Use `.module.scss` for all component-level styles.

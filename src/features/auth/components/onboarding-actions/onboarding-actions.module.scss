@@ -1,0 +1,90 @@
+.actions {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.previousSlot,
+.forwardActions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.secondaryAction.secondaryAction,
+.primaryAction.primaryAction {
+  min-width: 10.875rem;
+  min-height: 3.125rem;
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow-auth-onboarding-control);
+  font-size: var(--text-ui-body);
+}
+
+.secondaryAction.secondaryAction {
+  border-color: var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-heading);
+  box-shadow: var(--shadow-control);
+}
+
+.primaryAction.primaryAction {
+  border-color: var(--color-logo-olive);
+  background: var(--color-logo-olive);
+}
+
+.primaryAction.primaryAction:hover {
+  border-color: var(--color-heading);
+  background: var(--color-heading);
+}
+
+.secondaryAction.secondaryAction:hover {
+  background: var(--color-lime-16);
+}
+
+@include down("tablet-small") {
+  .actions,
+  .forwardActions {
+    align-items: stretch;
+  }
+
+  .secondaryAction.secondaryAction,
+  .primaryAction.primaryAction {
+    min-width: 8rem;
+  }
+}
+
+@include down("mobile") {
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .previousSlot:empty {
+    display: none;
+  }
+
+  .previousSlot,
+  .forwardActions {
+    width: 100%;
+  }
+
+  .previousSlot > *,
+  .forwardActions > * {
+    flex: 1;
+  }
+
+  .forwardActions {
+    gap: 0.75rem;
+  }
+
+  .secondaryAction.secondaryAction,
+  .primaryAction.primaryAction {
+    width: 100%;
+    min-width: 0;
+    min-height: 3rem;
+    padding-inline: 0.75rem;
+    font-size: var(--text-ui-small);
+  }
+}

@@ -1,0 +1,178 @@
+.step {
+  width: min(100%, 61.5rem);
+  display: grid;
+  gap: 3.375rem;
+  margin-inline: auto;
+}
+
+.form {
+  min-width: 0;
+  display: grid;
+  gap: 3.5rem;
+}
+
+.fieldCard {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2.125rem;
+  padding: 2.125rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-surface);
+}
+
+.fieldCard > div {
+  gap: 0.875rem;
+}
+
+.fieldCard label {
+  color: var(--color-auth-ink);
+  font-size: var(--text-ui-body);
+  font-weight: var(--weight-regular);
+  line-height: 1.2;
+}
+
+.fieldCard input {
+  min-height: 3.125rem;
+  border-radius: 0.75rem;
+  color: var(--color-auth-ink);
+  font-size: var(--text-ui-small);
+  padding-inline: 1.375rem;
+}
+
+.dateField.dateField {
+  color: var(--color-auth-ink);
+  font-size: var(--text-ui-body);
+  font-weight: var(--weight-regular);
+}
+
+.dateField > button {
+  min-height: 3.125rem;
+  border-radius: 0.75rem;
+  padding-inline: 1.375rem;
+}
+
+.footer {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.agreement {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  color: var(--color-text-muted);
+  font-size: var(--text-ui-small);
+  line-height: 1.5;
+}
+
+.agreement input {
+  width: 0.875rem;
+  height: 0.875rem;
+  flex: 0 0 auto;
+  margin: 0;
+  accent-color: var(--color-primary);
+}
+
+.agreement a {
+  color: var(--color-primary);
+  font-weight: var(--weight-medium);
+  text-underline-offset: 0.15rem;
+}
+
+.continue.continue {
+  width: 10.875rem;
+  min-height: 3.375rem;
+  flex: 0 0 auto;
+  font-size: var(--text-ui-body);
+}
+
+.continue.continue {
+  border-color: var(--color-logo-olive);
+  background: var(--color-logo-olive);
+}
+
+.continue.continue:hover {
+  border-color: var(--color-heading);
+  background: var(--color-heading);
+}
+
+@include down("tablet") {
+  .step,
+  .form {
+    gap: 2.5rem;
+  }
+
+  .fieldCard {
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+}
+
+@include down("tablet-small") {
+  .fieldCard {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .agreement {
+    align-items: flex-start;
+  }
+
+  .agreement input {
+    margin-top: 0.25rem;
+  }
+
+  .continue.continue {
+    width: 100%;
+  }
+}
+
+@include down("mobile-small") {
+  .step,
+  .form {
+    gap: 2rem;
+  }
+
+  .fieldCard {
+    gap: 1.25rem;
+    padding: 1rem;
+  }
+
+  .fieldCard input {
+    min-height: 3rem;
+  }
+
+  .dateField > button {
+    min-height: 3rem;
+  }
+}
+
+@include short("laptop-short") {
+  .step,
+  .form {
+    gap: 2rem;
+  }
+
+  .fieldCard {
+    gap: 1.25rem 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .fieldCard input {
+    min-height: 3rem;
+  }
+
+  .dateField > button {
+    min-height: 3rem;
+  }
+}

@@ -1,0 +1,152 @@
+.field {
+  position: relative;
+  min-width: 0;
+  display: grid;
+  gap: 0.55rem;
+  color: var(--color-heading);
+  font-size: var(--text-ui-body);
+  font-weight: var(--weight-semibold);
+}
+
+.label {
+  min-width: 0;
+}
+
+.labelRow {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.hiddenLabelRow {
+  position: absolute;
+}
+
+.srOnly {
+  @include visually-hidden;
+}
+
+.trigger {
+  width: 100%;
+  min-width: 0;
+  min-height: 3.5rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.75rem;
+  appearance: none;
+  border: 1px solid var(--color-border);
+  border-radius: 0.7rem;
+  background: var(--color-surface);
+  color: var(--color-text);
+  padding: 0.75rem 1rem;
+  font: inherit;
+  font-weight: var(--weight-regular);
+  text-align: left;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.triggerWithIcon {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.leadingIcon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-primary);
+}
+
+.trigger:focus-visible,
+.trigger[aria-expanded="true"] {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-lime-30);
+  outline: none;
+}
+
+.trigger:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.value,
+.placeholder {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.placeholder {
+  color: var(--color-placeholder);
+}
+
+.chevron {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-right: 1.5px solid var(--color-medium-grey);
+  border-bottom: 1.5px solid var(--color-medium-grey);
+  transform: translateY(-20%) rotate(45deg);
+  transition: transform 160ms ease;
+}
+
+.chevronOpen {
+  transform: translateY(20%) rotate(225deg);
+}
+
+.menu {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  width: 100%;
+  max-height: min(18rem, 40vh);
+  margin: 0;
+  padding: 0.4rem;
+  overflow-y: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 0.7rem;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  list-style: none;
+}
+
+.option {
+  min-height: 2.75rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 0.5rem;
+  padding: 0.65rem 0.75rem;
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: var(--text-ui-small);
+  font-weight: var(--weight-regular);
+}
+
+.option[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.activeOption {
+  background: var(--color-lime-16);
+}
+
+.selectedOption {
+  color: var(--color-primary);
+  font-weight: var(--weight-medium);
+}
+
+.check {
+  color: var(--color-primary);
+  font-weight: var(--weight-bold);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trigger,
+  .chevron {
+    transition: none;
+  }
+}
