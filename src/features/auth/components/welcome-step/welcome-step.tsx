@@ -36,7 +36,7 @@ export function WelcomeStep({ benefits }: WelcomeStepProps) {
     <section aria-busy={isLoading} aria-label="Signup complete" className={styles.page}>
       <section className={styles.content}>
         <div className={styles.successIcon}>
-          <Icon name="success-tick" size={42} />
+          <Icon name="success-tick" size={56} />
         </div>
         <header>
           <h1 className={fontClasses.display}>Welcome to NexBikes!</h1>

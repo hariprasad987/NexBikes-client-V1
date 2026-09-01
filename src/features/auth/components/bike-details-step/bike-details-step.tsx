@@ -57,7 +57,13 @@ export function BikeDetailsStep({ bike, onAddBike, onPrevious, onSkip }: BikeDet
 
         <article className={styles.bikeSummary}>
           <div className={styles.imageFrame}>
-            <Image alt={bike.name} height={800} priority src={bike.image} width={1200} />
+            <Image
+              alt={bike.name}
+              fill
+              priority
+              sizes="(max-width: 40rem) calc(100vw - 4rem), 38rem"
+              src={bike.image}
+            />
           </div>
           <div className={styles.summaryDetails}>
             <h2 className={fontClasses.display}>{bike.name}</h2>
