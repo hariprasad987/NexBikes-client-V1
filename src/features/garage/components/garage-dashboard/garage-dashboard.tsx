@@ -8,7 +8,12 @@ import { GarageHeading } from "@/features/garage/components/garage-heading/garag
 import { MaintenanceCard } from "@/features/garage/components/maintenance-card/maintenance-card";
 import { PartsCard } from "@/features/garage/components/parts-card/parts-card";
 import { RideUsageCard } from "@/features/garage/components/ride-usage-card/ride-usage-card";
-import { bikes, defaultBikeId, getBikeById } from "@/features/garage/data";
+import {
+  bikes,
+  connectedAppLinkingProfiles,
+  defaultBikeId,
+  getBikeById,
+} from "@/features/garage/data";
 
 import styles from "./garage-dashboard.module.scss";
 
@@ -26,7 +31,11 @@ export function GarageDashboard() {
         className={styles.detailsGrid}
       >
         <div className={styles.overviewColumn}>
-          <BikeOverview bike={selectedBike} />
+          <BikeOverview
+            bike={selectedBike}
+            bikes={bikes}
+            linkingProfiles={connectedAppLinkingProfiles}
+          />
         </div>
         <div className={styles.secondaryContent}>
           <div className={styles.statusGrid}>

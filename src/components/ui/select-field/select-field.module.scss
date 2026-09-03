@@ -4,7 +4,7 @@
   display: grid;
   gap: 0.55rem;
   color: var(--color-heading);
-  font-size: var(--text-ui-body);
+  font-size: var(--select-font-size, var(--text-ui-body));
   font-weight: var(--weight-semibold);
 }
 
@@ -30,17 +30,18 @@
 .trigger {
   width: 100%;
   min-width: 0;
-  min-height: 3.5rem;
+  height: var(--select-height, auto);
+  min-height: var(--select-min-height, 3.5rem);
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: 0.75rem;
+  gap: var(--select-gap, 0.75rem);
   appearance: none;
-  border: 1px solid var(--color-border);
-  border-radius: 0.7rem;
+  border: 1px solid var(--select-border, var(--color-border));
+  border-radius: var(--select-radius, 0.7rem);
   background: var(--color-surface);
   color: var(--color-text);
-  padding: 0.75rem 1rem;
+  padding: var(--select-padding, 0.75rem 1rem);
   font: inherit;
   font-weight: var(--weight-regular);
   text-align: left;
@@ -84,8 +85,8 @@
 .chevron {
   width: 0.55rem;
   height: 0.55rem;
-  border-right: 1.5px solid var(--color-medium-grey);
-  border-bottom: 1.5px solid var(--color-medium-grey);
+  border-right: 1.5px solid var(--select-chevron, var(--color-medium-grey));
+  border-bottom: 1.5px solid var(--select-chevron, var(--color-medium-grey));
   transform: translateY(-20%) rotate(45deg);
   transition: transform 160ms ease;
 }
@@ -94,12 +95,20 @@
   transform: translateY(20%) rotate(225deg);
 }
 
+.trailingIcon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--select-chevron, var(--color-medium-grey));
+}
+
 .menu {
   position: absolute;
   z-index: 30;
   top: calc(100% + 0.5rem);
-  left: 0;
-  width: 100%;
+  left: var(--select-menu-left, 0);
+  right: var(--select-menu-right, auto);
+  width: var(--select-menu-width, 100%);
+  min-width: 100%;
   max-height: min(18rem, 40vh);
   margin: 0;
   padding: 0.4rem;
@@ -123,6 +132,11 @@
   cursor: pointer;
   font-size: var(--text-ui-small);
   font-weight: var(--weight-regular);
+}
+
+.option > span:first-child {
+  min-width: 0;
+  white-space: nowrap;
 }
 
 .option[aria-disabled="true"] {

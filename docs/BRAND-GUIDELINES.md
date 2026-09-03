@@ -54,7 +54,7 @@ Signup onboarding controls use the supplied compact `0 2px 4px` soft shadow, whi
 
 ### Supplied Garage composition colors
 
-The approved Garage composition adds exact, page-scoped semantic values for selected bikes, secondary actions, maintenance states, connected-app states, and the ride-usage chart. These values include action green `#55781F`, selected green `#626E2F`, content ink `#1D1D1D`, secondary slate `#6B7280`, alert red `#EB5757`, alert icon red `#EF4444`, success green `#67B470`, chart orange `#F97316`, and their supplied muted surfaces and chart/shadow transparencies. They are limited to reproducing the supplied Garage design and are centralized as `--color-garage-*` and `--shadow-garage-*` tokens in `src/styles/tokens/colors.scss`.
+The approved Garage composition adds exact, page-scoped semantic values for selected bikes, secondary actions, maintenance states, connected-app states, bike-part health states, and the ride-usage chart. These values include action green `#55781F`, selected green `#626E2F`, content ink `#1D1D1D`, secondary slate `#6B7280`, installed-part text `#4B5563`, installed-part surface `#F3F4F6`, alert red `#EB5757`, alert icon red `#EF4444`, bike-part attention reds `#E34343` and `#E34242`, bike-part excellent blue `#1D4ED8`, bike-part good amber `#B45309`, success green `#67B470`, chart orange `#F97316`, and their supplied muted surfaces and chart/shadow transparencies. The part-details drawer uses the supplied 25% black content overlay. These values are limited to reproducing the supplied Garage design and are centralized as `--color-garage-*`, `--color-black-*`, and `--shadow-garage-*` tokens in `src/styles/tokens/colors.scss`.
 
 ### Supplied Dashboard composition colors
 

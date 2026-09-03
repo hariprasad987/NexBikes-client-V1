@@ -1,0 +1,506 @@
+.summary {
+  min-width: 0;
+  padding: 2.0625rem;
+  box-shadow: none;
+  container-type: inline-size;
+}
+
+.header {
+  min-width: 0;
+  min-height: 3.75rem;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 2.125rem;
+}
+
+.heading {
+  min-width: 0;
+  flex: 1;
+}
+
+.heading h1 {
+  margin: 0;
+  color: var(--color-garage-ink);
+  font-size: var(--text-display-page-compact);
+  line-height: 1;
+  letter-spacing: 0.03em;
+  overflow-wrap: anywhere;
+}
+
+.heading p {
+  margin: 0.5rem 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-ui-small);
+  line-height: 1.2;
+}
+
+.bikeSelector {
+  --select-border: var(--color-garage-selected);
+  --select-chevron: var(--color-primary);
+  --select-gap: 0.875rem;
+  --select-height: 3.75rem;
+  --select-min-height: 3.75rem;
+  --select-padding: 0.6875rem;
+  --select-radius: 0.5rem;
+
+  width: min(100%, 22.875rem);
+  flex: 0 1 22.875rem;
+  gap: 0;
+}
+
+.selectorImage {
+  position: relative;
+  width: 3.875rem;
+  height: 2.25rem;
+  display: block;
+  overflow: hidden;
+}
+
+.selectorImage img,
+.bikeImage img {
+  object-fit: contain;
+  transform: scale(1.2);
+}
+
+.selectorText {
+  min-width: 0;
+  display: grid;
+  gap: 0.375rem;
+  color: var(--color-text);
+}
+
+.selectorText strong,
+.selectorText span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.selectorText strong {
+  font-size: var(--text-ui-body);
+  font-weight: var(--weight-semibold);
+  line-height: 1;
+}
+
+.selectorText span {
+  font-size: var(--text-ui-small);
+  font-weight: var(--weight-regular);
+  line-height: 1;
+}
+
+.bikePanel {
+  min-width: 0;
+  height: 12rem;
+  min-height: 12rem;
+  display: grid;
+  grid-template-columns: minmax(0, 679fr) minmax(0, 881fr);
+  align-items: center;
+  gap: 3.25rem;
+  margin-top: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 1.4375rem;
+}
+
+.bikeIdentity {
+  min-width: 0;
+  min-height: 9rem;
+  display: grid;
+  grid-template-columns: minmax(11rem, 15.1875rem) minmax(14rem, 1fr);
+  align-items: center;
+  gap: 2.125rem;
+}
+
+.bikeImage {
+  position: relative;
+  width: 100%;
+  height: 9rem;
+  aspect-ratio: 243 / 144;
+  overflow: hidden;
+}
+
+.bikeInformation {
+  min-width: 0;
+}
+
+.bikeName {
+  min-width: 0;
+  height: 2.875rem;
+  display: grid;
+  align-content: space-between;
+}
+
+.bikeInformation h2 {
+  margin: 0;
+  color: var(--color-garage-ink);
+  font-size: var(--text-display-bike);
+  line-height: 1;
+  overflow-wrap: anywhere;
+}
+
+.bikeInformation p {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--text-ui-body);
+  line-height: 1.2;
+}
+
+.bikeDetails {
+  min-width: 0;
+  height: 3.125rem;
+  min-height: 3.125rem;
+  display: grid;
+  grid-template-columns: 5.75rem 7.875rem minmax(0, 1fr);
+  margin: 1.5rem 0 0;
+}
+
+.bikeDetails div {
+  min-width: 0;
+  display: grid;
+  align-content: center;
+  gap: 0.875rem;
+  border-left: 1px solid var(--color-border);
+  padding: 0 2.125rem;
+}
+
+.bikeDetails div:first-child {
+  border-left: 0;
+  padding-left: 0;
+}
+
+.bikeDetails div:last-child {
+  padding-right: 0;
+}
+
+.bikeDetails dt {
+  color: var(--color-text);
+  font-size: var(--text-ui-small);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.bikeDetails dd {
+  margin: 0;
+  color: var(--color-text);
+  font-size: var(--text-ui-body);
+  font-weight: var(--weight-medium);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+  white-space: nowrap;
+}
+
+.statsPanel {
+  min-width: 0;
+  min-height: 8.9375rem;
+  display: grid;
+  grid-template-columns: minmax(0, 40.1875rem) 8.5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.125rem;
+  border-radius: 0.5rem;
+  background: var(--color-surface-muted);
+  padding: 2.125rem;
+}
+
+.stats {
+  min-width: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 10.3125rem repeat(3, minmax(0, 1fr));
+  align-items: center;
+  gap: 2.125rem;
+}
+
+.stat {
+  min-width: 0;
+  min-height: 4.6875rem;
+  display: grid;
+  align-content: center;
+  gap: 0.875rem;
+  border-left: 1px solid var(--color-border);
+  padding-left: 2.125rem;
+}
+
+.stat span {
+  color: var(--color-text-muted);
+  font-size: var(--text-ui-small);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.stat strong {
+  color: var(--color-heading);
+  font-size: var(--text-ui-body);
+  font-weight: var(--weight-medium);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+  white-space: nowrap;
+}
+
+.healthStat {
+  grid-template-columns: 4.6875rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.875rem;
+  border-left: 0;
+  padding-left: 0;
+}
+
+.healthStat > div:last-child {
+  min-width: 0;
+  display: grid;
+  gap: 0.875rem;
+}
+
+.healthRing {
+  position: relative;
+  width: 4.6875rem;
+  height: 4.6875rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+}
+
+.healthRingGraphic {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.healthRingTrack,
+.healthRingValue {
+  fill: none;
+  stroke-width: 5;
+}
+
+.healthRingTrack {
+  stroke: var(--color-border);
+}
+
+.healthRingValue {
+  stroke: var(--color-stat);
+  stroke-linecap: round;
+}
+
+.healthRing strong {
+  position: relative;
+  z-index: 1;
+  color: var(--color-stat);
+  font-size: var(--text-display-section);
+  font-weight: var(--weight-bold);
+  line-height: 1;
+}
+
+.garageAction.garageAction {
+  width: 8.5rem;
+  min-width: 8.5rem;
+  min-height: 2.5rem;
+  margin: 0;
+  border-color: var(--color-garage-action);
+  color: var(--color-garage-action);
+  padding: 0.75rem;
+  box-shadow: var(--shadow-garage-control);
+  white-space: nowrap;
+}
+
+@container (max-width: 100rem) {
+  .bikePanel {
+    grid-template-columns: minmax(34rem, 0.82fr) minmax(0, 1.18fr);
+    gap: 1.5rem;
+  }
+
+  .bikeIdentity {
+    grid-template-columns: minmax(9rem, 12.5rem) minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+
+  .bikeImage {
+    height: auto;
+  }
+
+  .bikeDetails {
+    grid-template-columns: 5rem 6.5rem minmax(0, 1fr);
+  }
+
+  .bikeDetails div {
+    padding-inline: 1.25rem;
+  }
+
+  .statsPanel {
+    grid-template-columns: minmax(0, 1fr) 7.5rem;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .stats {
+    grid-template-columns: minmax(8.5rem, 1.3fr) repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .stat {
+    padding-left: 1rem;
+  }
+
+  .garageAction.garageAction {
+    width: 7.5rem;
+    min-width: 7.5rem;
+  }
+}
+
+@container (max-width: 80rem) {
+  .bikePanel {
+    height: auto;
+    grid-template-columns: minmax(0, 1fr);
+    padding: 1.5rem;
+  }
+
+  .bikeIdentity {
+    grid-template-columns: minmax(11rem, 15.1875rem) minmax(14rem, 1fr);
+    gap: 2.125rem;
+  }
+
+  .bikeImage {
+    height: 9rem;
+  }
+
+  .bikeDetails {
+    grid-template-columns: 5.75rem 7.875rem minmax(0, 1fr);
+  }
+
+  .bikeDetails div {
+    padding: 0 2.125rem;
+  }
+
+  .bikeDetails div:first-child {
+    padding-left: 0;
+  }
+
+  .bikeDetails div:last-child {
+    padding-right: 0;
+  }
+
+  .statsPanel {
+    grid-template-columns: minmax(0, 40.1875rem) 8.5rem;
+    gap: 2.125rem;
+    padding: 2.125rem;
+  }
+
+  .stats {
+    grid-template-columns: 10.3125rem repeat(3, minmax(0, 1fr));
+    gap: 2.125rem;
+  }
+
+  .stat {
+    padding-left: 2.125rem;
+  }
+
+  .garageAction.garageAction {
+    width: 8.5rem;
+    min-width: 8.5rem;
+  }
+}
+
+@container (max-width: 55rem) {
+  .header {
+    flex-direction: column;
+  }
+
+  .bikeSelector {
+    width: 100%;
+    flex-basis: auto;
+  }
+
+  .statsPanel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 0;
+  }
+
+  .stat:nth-child(3) {
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .stat span,
+  .stat strong {
+    white-space: normal;
+  }
+
+  .garageAction.garageAction {
+    width: 100%;
+  }
+}
+
+@container (max-width: 40rem) {
+  .bikeIdentity {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .bikeImage {
+    max-width: 23rem;
+    height: auto;
+    margin: 0 auto;
+  }
+}
+
+@container (max-width: 28rem) {
+  .summary,
+  .bikePanel {
+    padding: 1rem;
+  }
+
+  .header,
+  .bikePanel {
+    gap: 1rem;
+  }
+
+  .statsPanel {
+    padding: 1rem;
+  }
+
+  .stats {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .stat,
+  .stat:nth-child(3) {
+    min-height: 0;
+    border-top: 1px solid var(--color-border);
+    border-left: 0;
+    padding: 1rem 0 0;
+  }
+
+  .healthStat {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .bikeDetails {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .bikeDetails div,
+  .bikeDetails div:first-child {
+    border-left: 0;
+    padding: 0;
+  }
+
+  .bikeDetails dt,
+  .bikeDetails dd {
+    white-space: normal;
+  }
+}
+
+@container (max-width: 19rem) {
+  .heading h1 {
+    font-size: var(--text-display-page-mobile);
+    overflow-wrap: normal;
+  }
+}

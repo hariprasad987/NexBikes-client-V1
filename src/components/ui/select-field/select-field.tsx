@@ -26,6 +26,8 @@ type SelectFieldProps = {
   onValueChange?: (value: string) => void;
   options: SelectOption[];
   placeholder?: string;
+  selectedContent?: ReactNode;
+  trailingIcon?: ReactNode;
   value?: string;
 };
 
@@ -68,6 +70,8 @@ export function SelectField({
   onValueChange,
   options,
   placeholder = "Select an option",
+  selectedContent,
+  trailingIcon,
   value,
 }: SelectFieldProps) {
   const generatedId = useId();
@@ -207,9 +211,13 @@ export function SelectField({
       >
         {leadingIcon && <span aria-hidden="true" className={styles.leadingIcon}>{leadingIcon}</span>}
         <span className={selectedOption ? styles.value : styles.placeholder} id={valueId}>
-          {selectedOption?.label ?? placeholder}
+          {selectedOption && selectedContent ? selectedContent : (selectedOption?.label ?? placeholder)}
         </span>
-        <span aria-hidden="true" className={`${styles.chevron} ${isOpen ? styles.chevronOpen : ""}`} />
+        {trailingIcon ? (
+          <span aria-hidden="true" className={styles.trailingIcon}>{trailingIcon}</span>
+        ) : (
+          <span aria-hidden="true" className={`${styles.chevron} ${isOpen ? styles.chevronOpen : ""}`} />
+        )}
       </button>
 
       {isOpen && (

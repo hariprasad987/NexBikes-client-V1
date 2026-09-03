@@ -21,19 +21,37 @@
 }
 
 .app {
+  width: 100%;
   min-width: 0;
+  appearance: none;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   gap: 0.875rem;
   border: 1px solid var(--color-border);
   border-radius: 0.5rem;
+  background: var(--color-surface);
+  color: inherit;
   min-height: 5.6875rem;
   padding: 0.875rem;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
 }
 
 .app:last-child {
   min-height: 5.5625rem;
+}
+
+.app:hover {
+  border-color: var(--color-garage-action);
+  background: var(--color-garage-selected-surface);
+}
+
+.app:focus-visible {
+  border-color: var(--color-garage-action);
+  box-shadow: 0 0 0 3px var(--color-lime-30);
+  outline: none;
 }
 
 .appIcon {

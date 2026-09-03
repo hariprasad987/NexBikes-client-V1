@@ -173,6 +173,16 @@ Approved brand palette:
 - Use brand assets and shared brand components instead of recreating the logo or wordmark per page.
 - When a design decision is not specified, extend the established patterns from existing pages rather than inventing a conflicting style.
 
+## SEO and route metadata requirements
+
+- Every route must define unique, accurate metadata through `metadata` or `generateMetadata`; derive dynamic titles and descriptions from the same typed feature data used by the page.
+- Public, indexable routes must provide a concise title and description, a canonical URL, and appropriate Open Graph metadata when the route is intended to be shared.
+- Authentication, account, dashboard, garage, and other signed-in or user-specific routes must explicitly use `robots: { index: false, follow: false }` and must not be exposed through public sitemap entries.
+- Keep route metadata truthful. Do not add unsupported structured data, fabricated ratings, hidden keyword text, or duplicate metadata merely to target search terms.
+- Use semantic document structure with one clear page-level heading, orderly heading levels, descriptive link text, and meaningful image alternative text. Do not use visual styling to replace semantic hierarchy.
+- Preserve stable, human-readable route segments. When a detail route is data-driven, return `notFound()` for unknown records and generate canonical metadata from the validated record identifier.
+- Treat performance, responsive rendering, accessible controls, and useful rendered content as SEO requirements; do not defer essential page meaning to client-only effects when a Server Component can render it.
+
 ## Responsive layout requirements
 
 - Responsiveness is a release requirement, not an optional refinement. Every new page and every changed existing page must remain usable across the full continuous range of supported viewport widths and heights.
@@ -253,12 +263,13 @@ Before reporting any code update as complete:
 6. Confirm no raw color exists outside `src/styles/tokens/colors.scss`.
 7. Confirm no font configuration exists outside `src/styles/fonts.ts`.
 8. Confirm the UI follows the branding guide and supplied design references.
-9. Confirm every affected route against the full mandatory responsive verification matrix, including narrow/wide widths, short heights, portrait/landscape behavior, and 200% zoom. Record any viewport that could not be rendered and reviewed.
-10. Run `pnpm check:design`.
-11. Run `pnpm lint`.
-12. Run `pnpm typecheck`.
-13. Run `pnpm build` for UI, layout, routing, configuration, dependency, or production-impacting changes.
-14. Run `pnpm audit --prod` after dependency changes.
-15. Report any check that could not be run and the exact reason.
+9. Confirm each affected route has accurate metadata, canonical handling where applicable, semantic headings, descriptive links, and the correct public-indexing or private-`noindex` policy.
+10. Confirm every affected route against the full mandatory responsive verification matrix, including narrow/wide widths, short heights, portrait/landscape behavior, and 200% zoom. Record any viewport that could not be rendered and reviewed.
+11. Run `pnpm check:design`.
+12. Run `pnpm lint`.
+13. Run `pnpm typecheck`.
+14. Run `pnpm build` for UI, layout, routing, configuration, dependency, or production-impacting changes.
+15. Run `pnpm audit --prod` after dependency changes.
+16. Report any check that could not be run and the exact reason.
 
 An update is not complete while a required check is failing.

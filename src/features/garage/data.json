@@ -1,4 +1,406 @@
 {
+  "bikeManagement": {
+    "bike": {
+      "id": "gravel-king",
+      "image": "/images/bikes/gravel-bike.png",
+      "name": "Gravel King",
+      "model": "Rotwild R.R275 X PRO",
+      "frame": "Carbon",
+      "year": "2023",
+      "groupset": "Shimano GRX 1×12s",
+      "health": 89,
+      "healthStatus": "Good",
+      "syncedApps": "Connected",
+      "lastSynced": "2 hours ago",
+      "totalDistance": "5,980"
+    },
+    "categories": [
+      { "id": "all", "label": "All" },
+      { "id": "fork-frame-fit", "label": "Fork Frame & Fit" },
+      { "id": "brake-rotors", "label": "Brake & Rotors" },
+      { "id": "wheels", "label": "Wheels" },
+      { "id": "cockpit", "label": "Cockpit" },
+      { "id": "drivetrain", "label": "Driveterain" },
+      { "id": "e-system", "label": "E-System", "disabled": true }
+    ],
+    "partDetailPage": {
+      "dateRange": "14 May - 12 Jun",
+      "historyFilters": [
+        { "label": "All History", "value": "all" },
+        { "label": "Replacement", "value": "replacement" },
+        { "label": "Inspection", "value": "inspection" },
+        { "label": "Service", "value": "service" }
+      ],
+      "maintenanceHistory": [
+        {
+          "id": "replacement-2026-06-18",
+          "title": "Replacement",
+          "description": "Component removed, cleaned and reinstalled.",
+          "mileage": "2,950 mi",
+          "date": "18 Jun 2026",
+          "icon": "refresh"
+        },
+        {
+          "id": "inspection-2026-06-18",
+          "title": "Inspection",
+          "description": "Wear, alignment, and mounting points inspected.",
+          "mileage": "2,950 mi",
+          "date": "18 Jun 2026",
+          "icon": "history"
+        },
+        {
+          "id": "measurement-2026-06-18",
+          "title": "Measurement",
+          "description": "Component wear measured and recorded.",
+          "mileage": "2,950 mi",
+          "date": "18 Jun 2026",
+          "icon": "settings"
+        },
+        {
+          "id": "service-2026-03-12",
+          "title": "Service",
+          "description": "Component cleaned, adjusted, and lubricated.",
+          "mileage": "2,410 mi",
+          "date": "12 Mar 2026",
+          "icon": "tools"
+        },
+        {
+          "id": "inspection-2025-11-08",
+          "title": "Inspection",
+          "description": "Routine condition inspection completed.",
+          "mileage": "1,860 mi",
+          "date": "08 Nov 2025",
+          "icon": "history"
+        }
+      ],
+      "spareFilters": [
+        { "id": "all", "label": "All", "count": 24 },
+        { "id": "sprockets", "label": "Sprockets", "count": 16 },
+        { "id": "locking", "label": "Locking", "count": 2 },
+        { "id": "spacers", "label": "Spacers", "count": 4 },
+        { "id": "other", "label": "Other", "count": 2 }
+      ],
+      "spareParts": [
+        { "id": "lock-ring-washer", "name": "Lock Ring & Washer", "category": "locking", "status": "Replaced", "date": "18 Jun 2026" },
+        { "id": "lock-ring", "name": "Lock Ring", "category": "locking", "status": "Replaced", "date": "18 Jun 2026" },
+        { "id": "sprocket-cluster", "name": "Sprocket Wheel (10T & 12T Cluster)", "category": "sprockets", "status": "Original", "date": "18 Jun 2026" },
+        { "id": "sprocket-14t", "name": "Sprocket Wheel (14T)", "category": "sprockets", "status": "Original", "date": "18 Jun 2026" },
+        { "id": "sprocket-16t", "name": "Sprocket Wheel (16T)", "category": "sprockets", "status": "Original", "date": "18 Jun 2026" },
+        { "id": "sprocket-18t", "name": "Sprocket Wheel (18T)", "category": "sprockets", "status": "Original", "date": "18 Jun 2026" },
+        { "id": "cassette-spacer", "name": "Cassette Spacer", "category": "spacers", "status": "Original", "date": "18 Jun 2026" },
+        { "id": "carrier-plate", "name": "Sprocket Carrier Plate", "category": "other", "status": "Original", "date": "18 Jun 2026" }
+      ]
+    },
+    "parts": [
+      {
+        "id": "cassette",
+        "category": "drivetrain",
+        "categoryLabel": "Cassette",
+        "name": "Shimano Doere",
+        "model": "CS-M6100 12s",
+        "health": 47,
+        "status": "Need Attention",
+        "visual": { "kind": "image", "src": "/images/bike-management/cassette.png" },
+        "details": {
+          "displayName": "Shimano Deore M6100 Cassette",
+          "installationStatus": "Currently Installed",
+          "metadata": ["12-Speed", "10–51T", "7 Spare Parts"],
+          "description": "The Shimano Deore M6100 Cassette is a reliable 12-speed mountain bike cassette designed to deliver smooth, consistent shifting and dependable performance across a wide range of trail conditions. Featuring a 10–51T gear range and Hyperglide+ technology, it provides faster gear transitions and improved pedalling efficiency.",
+          "installedOn": "12 May 2024",
+          "lastMaintenance": "18 Jun 2026",
+          "usage": { "current": 2950, "expected": 5000, "remaining": 2050, "usedPercent": 53, "unit": "mi", "endOfLife": "~300 mi" },
+          "specifications": [
+            { "label": "Part Type", "value": "Cassette" },
+            { "label": "Brand", "value": "Shimano" },
+            { "label": "Series", "value": "Deore M6100" },
+            { "label": "Model", "value": "CS-M6100-12" },
+            { "label": "Drivetrain", "value": "12-Speed" },
+            { "label": "Gear Range", "value": "10–51T" },
+            { "label": "Smallest Cog", "value": "10T" },
+            { "label": "Largest Cog", "value": "51T" },
+            { "label": "Number of Cogs", "value": "12" },
+            { "label": "Mounting Type", "value": "Cassette Lockring" },
+            { "label": "Product Code (SKU)", "value": "CS-M6100-12" },
+            { "label": "Technology", "value": "Hyperglide+" }
+          ]
+        }
+      },
+      {
+        "id": "rear-derailleur",
+        "category": "drivetrain",
+        "categoryLabel": "Rear Derailleur",
+        "name": "Shimano Doere",
+        "model": "M6100",
+        "health": 92,
+        "status": "Excellent",
+        "visual": { "kind": "image", "src": "/images/bike-management/rear-derailleur.png" },
+        "details": {
+          "displayName": "Shimano Deore M6100 Rear Derailleur",
+          "installationStatus": "Currently Installed",
+          "metadata": ["12-Speed", "Shadow RD+", "2 Spare Parts"],
+          "description": "The Shimano Deore M6100 rear derailleur delivers stable, precise shifting across a wide-range 12-speed drivetrain, with a low-profile design that stays composed on rough terrain.",
+          "installedOn": "12 May 2024",
+          "lastMaintenance": "18 Jun 2026",
+          "usage": { "current": 920, "expected": 5000, "remaining": 4080, "usedPercent": 18, "unit": "mi", "endOfLife": "~780 mi" },
+          "specifications": [
+            { "label": "Part Type", "value": "Rear Derailleur" },
+            { "label": "Brand", "value": "Shimano" },
+            { "label": "Series", "value": "Deore M6100" },
+            { "label": "Model", "value": "RD-M6100-SGS" },
+            { "label": "Drivetrain", "value": "12-Speed" },
+            { "label": "Max Sprocket", "value": "51T" },
+            { "label": "Clutch", "value": "Shadow RD+" }
+          ]
+        }
+      },
+      {
+        "id": "crankset",
+        "category": "drivetrain",
+        "categoryLabel": "Crankset",
+        "name": "RaceFace Aeffect",
+        "model": "32T",
+        "health": 93,
+        "status": "Excellent",
+        "visual": { "kind": "image", "src": "/images/bike-management/crankset.png" },
+        "details": {
+          "displayName": "RaceFace Aeffect 32T Crankset",
+          "installationStatus": "Currently Installed",
+          "metadata": ["32T", "1×12", "Cinch System"],
+          "description": "The RaceFace Aeffect crankset combines trail-ready stiffness with the adaptable Cinch chainring system for dependable power transfer and straightforward servicing.",
+          "installedOn": "12 May 2024",
+          "lastMaintenance": "18 Jun 2026",
+          "usage": { "current": 680, "expected": 6000, "remaining": 5320, "usedPercent": 11, "unit": "mi", "endOfLife": "~1,100 mi" },
+          "specifications": [
+            { "label": "Part Type", "value": "Crankset" },
+            { "label": "Brand", "value": "RaceFace" },
+            { "label": "Series", "value": "Aeffect" },
+            { "label": "Chainring", "value": "32T" },
+            { "label": "Drivetrain", "value": "1×12" },
+            { "label": "Spindle", "value": "24 mm" },
+            { "label": "System", "value": "Cinch" }
+          ]
+        }
+      },
+      {
+        "id": "pedals",
+        "category": "cockpit",
+        "categoryLabel": "Pedals",
+        "name": "Race Face Aeffect R",
+        "model": "6061 Aluminum",
+        "health": 76,
+        "status": "Good",
+        "visual": { "kind": "image", "src": "/images/bike-management/pedals.png" },
+        "details": {
+          "displayName": "Race Face Aeffect R Pedals",
+          "installationStatus": "Currently Installed",
+          "metadata": ["Platform", "6061 Aluminium", "10 Pins"],
+          "description": "Race Face Aeffect R platform pedals provide a broad, supportive platform with replaceable traction pins and a durable aluminium body for confident trail control.",
+          "installedOn": "12 May 2024",
+          "lastMaintenance": "18 Jun 2026",
+          "usage": { "current": 1650, "expected": 5000, "remaining": 3350, "usedPercent": 33, "unit": "mi", "endOfLife": "~620 mi" },
+          "specifications": [
+            { "label": "Part Type", "value": "Pedals" },
+            { "label": "Brand", "value": "Race Face" },
+            { "label": "Series", "value": "Aeffect R" },
+            { "label": "Body", "value": "6061 Aluminium" },
+            { "label": "Platform", "value": "110 × 115 mm" },
+            { "label": "Pins", "value": "10 per side" },
+            { "label": "Axle", "value": "Chromoly Steel" }
+          ]
+        }
+      },
+      {
+        "id": "frame",
+        "category": "fork-frame-fit",
+        "categoryLabel": "Frame",
+        "name": "Rotwild R.R275 X PRO",
+        "model": "XL",
+        "health": 99,
+        "status": "Excellent",
+        "visual": { "kind": "image", "src": "/images/bike-management/frame.png" },
+        "details": {
+          "displayName": "Rotwild R.R275 X PRO Frame",
+          "installationStatus": "Currently Installed",
+          "metadata": ["Carbon", "Size XL", "Full Suspension"],
+          "description": "The Rotwild R.R275 X PRO carbon frame balances low weight, stiffness, and controlled suspension performance for precise handling across demanding terrain.",
+          "installedOn": "12 May 2024",
+          "lastMaintenance": "18 Jun 2026",
+          "usage": { "current": 1280, "expected": 12000, "remaining": 10720, "usedPercent": 11, "unit": "mi", "endOfLife": "~2,600 mi" },
+          "specifications": [
+            { "label": "Part Type", "value": "Frame" },
+            { "label": "Brand", "value": "Rotwild" },
+            { "label": "Series", "value": "R.R275 X PRO" },
+            { "label": "Size", "value": "XL" },
+            { "label": "Material", "value": "Carbon" },
+            { "label": "Suspension", "value": "Full Suspension" },
+            { "label": "Wheel Size", "value": "27.5 in" }
+          ]
+        }
+      },
+      {
+        "id": "rear-tyre",
+        "category": "wheels",
+        "categoryLabel": "Rear Tyre",
+        "name": "Schwalbe G-One R Pro Gravel",
+        "model": "700C",
+        "health": 73,
+        "status": "Good",
+        "visual": { "kind": "image", "src": "/images/bike-management/gravel-tyre.png" },
+        "details": {
+          "displayName": "Schwalbe G-One R Pro Rear Tyre",
+          "installationStatus": "Currently Installed",
+          "metadata": ["700C", "Tubeless Ready", "Rear"],
+          "description": "The Schwalbe G-One R Pro rear tyre blends fast rolling performance with confident cornering grip for mixed gravel surfaces and long-distance riding.",
+          "installedOn": "12 May 2024",
+          "lastMaintenance": "18 Jun 2026",
+          "usage": { "current": 1350, "expected": 3500, "remaining": 2150, "usedPercent": 39, "unit": "mi", "endOfLife": "~420 mi" },
+          "specifications": [
+            { "label": "Part Type", "value": "Rear Tyre" },
+            { "label": "Brand", "value": "Schwalbe" },
+            { "label": "Series", "value": "G-One R Pro" },
+            { "label": "Wheel Size", "value": "700C" },
+            { "label": "Position", "value": "Rear" },
+            { "label": "Casing", "value": "Super Race" },
+            { "label": "Tubeless", "value": "Ready" }
+          ]
+        }
+      },
+      {
+        "id": "front-tyre",
+        "category": "wheels",
+        "categoryLabel": "Front Tyre",
+        "name": "Schwalbe G-One R Pro Gravel",
+        "model": "700C",
+        "health": 36,
+        "status": "Need Attention",
+        "visual": { "kind": "image", "src": "/images/bike-management/gravel-tyre.png" },
+        "details": {
+          "displayName": "Schwalbe G-One R Pro Front Tyre",
+          "installationStatus": "Currently Installed",
+          "metadata": ["700C", "Tubeless Ready", "Front"],
+          "description": "The Schwalbe G-One R Pro front tyre delivers predictable steering grip and low rolling resistance across hardpack, loose gravel, and changing trail conditions.",
+          "installedOn": "12 May 2024",
+          "lastMaintenance": "18 Jun 2026",
+          "usage": { "current": 2400, "expected": 3500, "remaining": 1100, "usedPercent": 69, "unit": "mi", "endOfLife": "~180 mi" },
+          "specifications": [
+            { "label": "Part Type", "value": "Front Tyre" },
+            { "label": "Brand", "value": "Schwalbe" },
+            { "label": "Series", "value": "G-One R Pro" },
+            { "label": "Wheel Size", "value": "700C" },
+            { "label": "Position", "value": "Front" },
+            { "label": "Casing", "value": "Super Race" },
+            { "label": "Tubeless", "value": "Ready" }
+          ]
+        }
+      },
+      {
+        "id": "tail-light",
+        "category": "e-system",
+        "categoryLabel": "Tail Light",
+        "name": "Supernova Dynamo",
+        "model": "TL3 Mini",
+        "health": 89,
+        "status": "Good",
+        "visual": { "kind": "image", "src": "/images/bike-management/tail-light.png" },
+        "details": {
+          "displayName": "Supernova Dynamo TL3 Mini Tail Light",
+          "installationStatus": "Currently Installed",
+          "metadata": ["Dynamo", "TL3 Mini", "Road Legal"],
+          "description": "The Supernova TL3 Mini tail light provides compact, efficient dynamo-powered visibility with a robust housing designed for dependable all-weather use.",
+          "installedOn": "12 May 2024",
+          "lastMaintenance": "18 Jun 2026",
+          "usage": { "current": 890, "expected": 8000, "remaining": 7110, "usedPercent": 11, "unit": "mi", "endOfLife": "~1,450 mi" },
+          "specifications": [
+            { "label": "Part Type", "value": "Tail Light" },
+            { "label": "Brand", "value": "Supernova" },
+            { "label": "Series", "value": "Dynamo" },
+            { "label": "Model", "value": "TL3 Mini" },
+            { "label": "Power", "value": "Dynamo" },
+            { "label": "Housing", "value": "Aluminium" },
+            { "label": "Mount", "value": "Seatpost" }
+          ]
+        }
+      },
+      {
+        "id": "stem",
+        "category": "cockpit",
+        "categoryLabel": "Stem",
+        "name": "Ras-114 ID28.6×31.8xE80 -8° CT",
+        "model": "Alloy",
+        "health": 92,
+        "status": "Excellent",
+        "visual": { "kind": "image", "src": "/images/bike-management/stem.png" },
+        "details": {
+          "displayName": "RAS-114 Alloy Stem",
+          "installationStatus": "Currently Installed",
+          "metadata": ["80 mm", "−8°", "31.8 mm"],
+          "description": "The RAS-114 alloy stem uses an 80 mm reach and negative rise to create a direct, controlled cockpit position with dependable clamp support.",
+          "installedOn": "12 May 2024",
+          "lastMaintenance": "18 Jun 2026",
+          "usage": { "current": 960, "expected": 10000, "remaining": 9040, "usedPercent": 10, "unit": "mi", "endOfLife": "~1,900 mi" },
+          "specifications": [
+            { "label": "Part Type", "value": "Stem" },
+            { "label": "Series", "value": "RAS-114" },
+            { "label": "Material", "value": "Alloy" },
+            { "label": "Length", "value": "80 mm" },
+            { "label": "Rise", "value": "−8°" },
+            { "label": "Bar Clamp", "value": "31.8 mm" },
+            { "label": "Steerer", "value": "28.6 mm" }
+          ]
+        }
+      },
+      {
+        "id": "saddle",
+        "category": "cockpit",
+        "categoryLabel": "Saddle",
+        "name": "Ergon All Road SR Road Bike",
+        "model": "Medium",
+        "health": 41,
+        "status": "Need Attention",
+        "visual": { "kind": "image", "src": "/images/bike-management/saddle.png" },
+        "details": {
+          "displayName": "Ergon All Road SR Saddle",
+          "installationStatus": "Currently Installed",
+          "metadata": ["Medium", "Road & Gravel", "Relief Channel"],
+          "description": "The Ergon All Road SR saddle supports efficient road and gravel riding with a pressure-relief profile, balanced padding, and a performance-oriented shape.",
+          "installedOn": "12 May 2024",
+          "lastMaintenance": "18 Jun 2026",
+          "usage": { "current": 2950, "expected": 5000, "remaining": 2050, "usedPercent": 59, "unit": "mi", "endOfLife": "~300 mi" },
+          "specifications": [
+            { "label": "Part Type", "value": "Saddle" },
+            { "label": "Brand", "value": "Ergon" },
+            { "label": "Series", "value": "All Road SR" },
+            { "label": "Size", "value": "Medium" },
+            { "label": "Use", "value": "Road & Gravel" },
+            { "label": "Rails", "value": "CroMo" },
+            { "label": "Shell", "value": "Nylon Composite" }
+          ]
+        }
+      }
+    ]
+  },
+  "connectedAppLinkingProfiles": [
+    {
+      "provider": "strava",
+      "account": "benjirider@gmail.com",
+      "gears": [
+        { "id": "gravel-bike", "name": "Gravel Bike", "model": "Rotwild X PRO", "distance": "1,320 mi", "lastRide": "2hrs ago", "linked": true },
+        { "id": "speedster", "name": "Speedster", "model": "Cannondale Quick 2 Bike", "distance": "3,009 mi", "lastRide": "24hrs ago" },
+        { "id": "weekend-beast", "name": "Weekend Beast", "model": "Ultimate SLX 8 Di2", "distance": "467 mi", "lastRide": "43hrs ago" },
+        { "id": "canyon-ultimate", "name": "Canyon Ultimate", "model": "Trek Fuel EX 8", "distance": "765 mi", "lastRide": "13hrs ago" }
+      ]
+    },
+    {
+      "provider": "garmin",
+      "account": "benjirider97@gmail.com",
+      "gears": [
+        { "id": "gravel-bike", "name": "Gravel Bike", "model": "Rotwild X PRO", "distance": "1,284 mi", "lastRide": "3hrs ago", "linked": true },
+        { "id": "trail-beast", "name": "Trail Beast", "model": "Trek Fuel EX 8", "distance": "2,346 mi", "lastRide": "1 day ago" },
+        { "id": "lightning-fast", "name": "Lightning Fast", "model": "Ultimate CF SLX 8 Di2", "distance": "3,105 mi", "lastRide": "2 days ago" },
+        { "id": "endurance-ace", "name": "Endurance Ace", "model": "Trek Domane SL 6 Gen 4", "distance": "1,842 mi", "lastRide": "4 days ago" }
+      ]
+    }
+  ],
   "bikes": [
     {
       "id": "trail-beast",

@@ -1,4 +1,7 @@
 .header {
+  position: sticky;
+  z-index: 40;
+  top: 0;
   min-width: 0;
   height: 6rem;
   display: flex;

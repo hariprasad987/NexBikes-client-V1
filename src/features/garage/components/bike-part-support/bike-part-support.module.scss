@@ -1,0 +1,68 @@
+.section {
+  min-width: 0;
+  display: grid;
+  gap: 2.125rem;
+  padding: 2.125rem;
+  box-shadow: none;
+}
+
+.supportCard {
+  min-width: 0;
+  min-height: 10.5625rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+}
+
+.heading {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-heading);
+}
+
+.heading h2 {
+  margin: 0;
+  font-size: var(--text-ui-body);
+  font-weight: var(--weight-medium);
+  line-height: 1.2;
+}
+
+.supportCard p {
+  margin: 0.75rem 0 1.5rem 2rem;
+  color: var(--color-text-muted);
+  font-size: var(--text-ui-small);
+  line-height: 1.2143;
+}
+
+.action,
+.guideAction {
+  min-height: 3rem;
+  margin-left: 2rem;
+  padding-inline: 1.25rem;
+  box-shadow: var(--shadow-garage-action);
+  font-size: var(--text-ui-body);
+}
+
+@container (max-width: 30rem) {
+  .section {
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .supportCard {
+    padding: 1rem;
+  }
+
+  .supportCard p,
+  .action,
+  .guideAction {
+    margin-left: 0;
+  }
+
+  .action,
+  .guideAction {
+    width: 100%;
+  }
+}

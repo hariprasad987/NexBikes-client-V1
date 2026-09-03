@@ -69,7 +69,8 @@
   gap: 0.875rem;
 }
 
-.actions button {
+.actions button,
+.modifierAction {
   width: 11rem;
   min-height: 2.5rem;
   padding: 0.75rem 1.5rem;
@@ -81,7 +82,7 @@
   background: var(--color-garage-action);
 }
 
-.actions button:last-child {
+.modifierAction {
   border-color: var(--color-garage-action);
   color: var(--color-garage-action);
   box-shadow: var(--shadow-garage-control);
@@ -163,7 +164,8 @@
     margin-left: 0;
   }
 
-  .actions button {
+  .actions button,
+  .modifierAction {
     width: 100%;
     min-width: 0;
   }
@@ -203,7 +205,8 @@
     margin-left: 0;
   }
 
-  .actions button {
+  .actions button,
+  .modifierAction {
     width: 100%;
     min-width: 0;
   }

@@ -1,18 +1,26 @@
 import Image from "next/image";
 
 import { AnimatedText } from "@/components/ui/animated-value/animated-value";
-import { Button } from "@/components/ui/button/button";
+import { Button, ButtonLink } from "@/components/ui/button/button";
 import { Card } from "@/components/ui/card/card";
 import { StatusPill } from "@/components/ui/status-pill/status-pill";
 import { BikeDetails } from "@/features/garage/components/bike-details/bike-details";
 import { ConnectedApps } from "@/features/garage/components/connected-apps/connected-apps";
 import { HealthScore } from "@/features/garage/components/health-score/health-score";
-import type { Bike } from "@/features/garage/types";
+import type { Bike, ConnectedAppLinkProfile } from "@/features/garage/types";
 import { fontClasses } from "@/styles/fonts";
 
 import styles from "./bike-overview.module.scss";
 
-export function BikeOverview({ bike }: { bike: Bike }) {
+export function BikeOverview({
+  bike,
+  bikes,
+  linkingProfiles,
+}: {
+  bike: Bike;
+  bikes: Bike[];
+  linkingProfiles: ConnectedAppLinkProfile[];
+}) {
   return (
     <Card className={styles.overview}>
       <div className={styles.hero}>
@@ -30,7 +38,9 @@ export function BikeOverview({ bike }: { bike: Bike }) {
           </div>
           <div className={styles.actions}>
             <Button>Edit Bike Details</Button>
-            <Button variant="secondary">Go to Bike Modifier</Button>
+            <ButtonLink className={styles.modifierAction} href="/bike-management" variant="secondary">
+              Go to Bike Modifier
+            </ButtonLink>
           </div>
         </header>
 
@@ -48,7 +58,12 @@ export function BikeOverview({ bike }: { bike: Bike }) {
       <div className={styles.information}>
         <HealthScore health={bike.health} />
         <BikeDetails details={bike.details} />
-        <ConnectedApps apps={bike.connectedApps} />
+        <ConnectedApps
+          apps={bike.connectedApps}
+          bikes={bikes}
+          linkingProfiles={linkingProfiles}
+          selectedBikeId={bike.id}
+        />
       </div>
     </Card>
   );

@@ -1,5 +1,6 @@
 .shell {
   --app-sidebar-collapsed-width: 7.75rem;
+  --app-sidebar-width: 19.375rem;
 
   min-height: 100svh;
   display: grid;
@@ -9,6 +10,8 @@
 }
 
 .sidebarCollapsed {
+  --app-sidebar-width: var(--app-sidebar-collapsed-width);
+
   grid-template-columns: var(--app-sidebar-collapsed-width) minmax(0, 1fr);
 }
 
@@ -31,6 +34,8 @@
 
 @mixin compact-shell {
   .shell {
+    --app-sidebar-width: 0rem;
+
     display: block;
     padding-bottom: calc(4.75rem + env(safe-area-inset-bottom));
   }

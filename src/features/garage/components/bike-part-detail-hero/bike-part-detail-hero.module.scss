@@ -1,0 +1,42 @@
+.hero {
+  min-width: 0;
+  min-height: 19.1875rem;
+  display: grid;
+  grid-template-columns: minmax(0, 945fr) minmax(28rem, 613fr);
+  align-items: center;
+  gap: 2.125rem;
+  padding: 2.125rem;
+  box-shadow: none;
+  container-type: inline-size;
+}
+
+.identity {
+  min-height: 14.9375rem;
+}
+
+.usage {
+  height: 100%;
+}
+
+@container (max-width: 73rem) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .usage {
+    height: auto;
+  }
+}
+
+@include down("tablet") {
+  .hero {
+    padding: 1.5rem;
+  }
+}
+
+@include down("mobile") {
+  .hero {
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+}

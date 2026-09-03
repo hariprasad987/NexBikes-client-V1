@@ -1,0 +1,247 @@
+.section {
+  min-width: 0;
+  min-height: 32rem;
+  padding: 2.125rem;
+  box-shadow: none;
+  container-type: inline-size;
+}
+
+.header {
+  min-width: 0;
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.header h2 {
+  margin: 0;
+  color: var(--color-garage-ink);
+  font-size: var(--text-ui-h2);
+  font-weight: var(--weight-semibold);
+  line-height: 1.2;
+}
+
+.controls {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.filter {
+  --select-height: 2.5rem;
+  --select-min-height: 2.5rem;
+  --select-radius: 0.5rem;
+  --select-padding: 0.625rem 0.875rem;
+  --select-border: var(--color-primary);
+  --select-chevron: var(--color-primary);
+  --select-menu-width: 12rem;
+
+  width: 10.625rem;
+  flex: 0 0 10.625rem;
+  gap: 0;
+  font-size: var(--text-ui-small);
+  font-weight: var(--weight-medium);
+}
+
+.dateRange {
+  min-width: 10.625rem;
+  min-height: 2.5rem;
+  padding: 0.625rem 0.875rem;
+  font-size: var(--text-ui-small);
+  white-space: nowrap;
+}
+
+.historyFrame {
+  position: relative;
+  min-width: 0;
+  height: 23.75rem;
+  margin-top: 1.5rem;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+}
+
+.historyScroll {
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 1.25rem 1.5rem 6rem;
+  scrollbar-color: var(--color-medium-grey) var(--color-border);
+  scrollbar-width: thin;
+}
+
+.historyScroll::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+.historyScroll::-webkit-scrollbar-track {
+  border-radius: 1rem;
+  background: var(--color-border);
+}
+
+.historyScroll::-webkit-scrollbar-thumb {
+  border-radius: 1rem;
+  background: var(--color-medium-grey);
+}
+
+.historyScroll::-webkit-scrollbar-button {
+  display: none;
+}
+
+.timeline {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.timeline::before {
+  position: absolute;
+  top: 2.875rem;
+  bottom: 2.875rem;
+  left: 1.4375rem;
+  width: 1px;
+  background: var(--color-border);
+  content: "";
+}
+
+.record {
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  min-height: 5.9375rem;
+  display: grid;
+  grid-template-columns: 3rem minmax(12rem, 1fr) minmax(8.5rem, 0.44fr) minmax(7rem, 0.34fr);
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.record + .record {
+  border-top: 1px solid var(--color-border);
+}
+
+.recordIcon {
+  width: 3rem;
+  height: 3rem;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--color-surface);
+  color: var(--color-primary);
+}
+
+.recordContent,
+.recordMetric,
+.recordDate {
+  min-width: 0;
+  display: grid;
+  gap: 0.875rem;
+  font-size: var(--text-ui-small);
+  line-height: 1.2143;
+}
+
+.recordMetric,
+.recordDate {
+  border-left: 1px solid var(--color-border);
+  padding-left: 1.25rem;
+}
+
+.record strong {
+  color: var(--color-garage-secondary);
+  font-weight: var(--weight-semibold);
+}
+
+.record span {
+  color: var(--color-text-muted);
+}
+
+.historyAction {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  background: var(--color-white-92);
+  padding: 1.5rem;
+  box-shadow: 0 -1.5rem 2rem var(--color-white-92);
+}
+
+.historyAction > * {
+  min-width: 17.5rem;
+}
+
+@container (max-width: 48rem) {
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .controls {
+    width: 100%;
+  }
+
+  .filter,
+  .dateRange {
+    width: 50%;
+    min-width: 0;
+    flex: 1;
+  }
+
+  .record {
+    grid-template-columns: 3rem minmax(0, 1fr) minmax(7rem, auto);
+  }
+
+  .recordMetric {
+    display: none;
+  }
+}
+
+@container (max-width: 30rem) {
+  .section {
+    padding: 1rem;
+  }
+
+  .controls {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .filter,
+  .dateRange {
+    width: 100%;
+  }
+
+  .historyFrame {
+    height: 27rem;
+  }
+
+  .historyScroll {
+    padding: 1rem 1rem 6rem;
+  }
+
+  .record {
+    grid-template-columns: 3rem minmax(0, 1fr);
+    padding-block: 1rem;
+  }
+
+  .recordDate {
+    grid-column: 2;
+    border-left: 0;
+    padding-left: 0;
+  }
+
+  .timeline::before {
+    left: 1.4375rem;
+  }
+
+  .historyAction > * {
+    width: 100%;
+    min-width: 0;
+  }
+}

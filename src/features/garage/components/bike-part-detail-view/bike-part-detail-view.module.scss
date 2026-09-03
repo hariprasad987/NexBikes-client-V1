@@ -1,0 +1,85 @@
+.page {
+  min-width: 0;
+  width: 100%;
+  display: grid;
+  gap: 1.5rem;
+  container-type: inline-size;
+}
+
+.detailSurface {
+  min-width: 0;
+  display: grid;
+  gap: 2.125rem;
+  padding: 2.125rem;
+  box-shadow: none;
+  container-type: inline-size;
+}
+
+.breadcrumb {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--color-heading);
+  font-size: var(--text-ui-small);
+  line-height: 1.2;
+}
+
+.breadcrumb a {
+  color: var(--color-placeholder);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: var(--color-primary);
+}
+
+.contentGrid {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(22rem, 1fr);
+  align-items: start;
+  gap: 2.125rem;
+}
+
+.primaryColumn,
+.secondaryColumn {
+  min-width: 0;
+  display: grid;
+  gap: 2.125rem;
+}
+
+@container (max-width: 73rem) {
+  .contentGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .secondaryColumn {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container (max-width: 48rem) {
+  .detailSurface {
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .contentGrid,
+  .primaryColumn,
+  .secondaryColumn {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@include down("mobile") {
+  .page {
+    gap: 1rem;
+  }
+
+  .detailSurface {
+    gap: 1rem;
+    padding: 1rem;
+  }
+}

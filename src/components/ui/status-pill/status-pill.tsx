@@ -4,7 +4,19 @@ import styles from "./status-pill.module.scss";
 
 type StatusPillProps = {
   children: ReactNode;
-  tone?: "attention" | "danger" | "neutral" | "primary" | "solid" | "soon" | "stat" | "success" | "warning";
+  tone?:
+    | "attention"
+    | "danger"
+    | "neutral"
+    | "partAttention"
+    | "partExcellent"
+    | "partGood"
+    | "primary"
+    | "solid"
+    | "soon"
+    | "stat"
+    | "success"
+    | "warning";
 };
 
 export function StatusPill({ children, tone = "neutral" }: StatusPillProps) {

@@ -18,8 +18,11 @@ export type IconName =
   | "chevron"
   | "clock"
   | "dashboard"
+  | "document"
+  | "edit"
   | "eye"
   | "eye-off"
+  | "filter"
   | "frame"
   | "garage"
   | "gauge"
@@ -56,6 +59,7 @@ export type IconName =
   | "terrain"
   | "shield"
   | "tools"
+  | "upgrade"
   | "user-plus"
   | "users"
   | "wheel"
@@ -561,7 +565,10 @@ const paths: Record<
   chain: <path d="m9.5 14.5-2 2a3.5 3.5 0 0 1-5-5l3-3a3.5 3.5 0 0 1 5 0m4-1 2-2a3.5 3.5 0 0 1 5 5l-3 3a3.5 3.5 0 0 1-5 0m-6 3 9-9" />,
   clock: <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-13v5l3 2" />,
   dashboard: <path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z" />,
+  document: <path d="M6 2h8l4 4v16H6V2Zm8 0v5h4M9 12h6m-6 4h6" />,
+  edit: <path d="m4 16-1 5 5-1L20 8l-4-4L4 16Zm10-10 4 4M4 16l4 4" />,
   frame: <path d="M7 3v18m10-18v18M3 7h18M3 17h18" />,
+  filter: <path d="M3 4h18l-7 8v6l-4 2v-8L3 4Z" />,
   garage: <path d="m3 10 9-7 9 7v10H3V10Zm5 10v-7h8v7M8 10h8" />,
   gauge: <path d="M12 21a9 9 0 1 1 9-9m-9 5a5 5 0 1 1 5-5m-3-7-3 6h4l-3 6" />,
   history: <path d="M3 12a9 9 0 1 0 3-6.7L3 8m0-5v5h5m4-1v6l4 2" />,
@@ -578,6 +585,7 @@ const paths: Record<
   terrain: <path d="m3 19 6-10 4 6 2.5-3 5.5 7H3Z" />,
   shield: <path d="M12 2 5 5v5c0 5 3 9 7 11 4-2 7-6 7-11V5l-7-3Zm-3 9 2 2 4-4" />,
   tools: <path d="m14 6 4-4 4 4-4 4m-4-4 4 4-8 8-4-4 8-8ZM3 3l5 5m-3-5H3v2m2 14-3 3m15-7 5 5m-2-5h2v2" />,
+  upgrade: <path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-5V8m-4 4 4-4 4 4" />,
   "user-plus": <path d="M15 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2m7-10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm11-4v6m3-3h-6" />,
   users: <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2m7-10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm8-1a3 3 0 1 0 0-6m5 17v-2a4 4 0 0 0-3-3.9" />,
   wheel: (

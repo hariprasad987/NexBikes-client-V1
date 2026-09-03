@@ -1,5 +1,7 @@
 :root {
   --text-display-page: clamp(2.125rem, 3.25vw, 3.375rem);
+  --text-display-page-compact: 2.125rem;
+  --text-display-page-mobile: 1.875rem;
   --text-display-bike: 1.5rem;
   --text-display-section: 1.125rem;
   --text-stat: clamp(3rem, 5vw, 5.625rem);

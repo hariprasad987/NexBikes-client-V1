@@ -45,6 +45,21 @@
   color: var(--color-garage-alert);
 }
 
+.partAttention {
+  background: var(--color-garage-part-attention-surface);
+  color: var(--color-garage-part-attention);
+}
+
+.partExcellent {
+  background: var(--color-garage-part-excellent-surface);
+  color: var(--color-garage-part-excellent);
+}
+
+.partGood {
+  background: var(--color-garage-part-good-surface);
+  color: var(--color-garage-part-good);
+}
+
 .warning {
   background: var(--color-garage-warning-surface);
   color: var(--color-garage-warning);
