@@ -12,6 +12,7 @@ type DateFieldProps = {
   className?: string;
   defaultValue?: string;
   description?: string;
+  displayFormat?: "dash" | "slash";
   id?: string;
   info?: string;
   label: string;
@@ -78,16 +79,18 @@ function getCalendarWeeks(monthDate: Date) {
   );
 }
 
-function formatValue(value: string) {
+function formatValue(value: string, displayFormat: NonNullable<DateFieldProps["displayFormat"]>) {
   const date = parseDateValue(value);
+  const formattedValue = date ? valueFormatter.format(date) : value;
 
-  return date ? valueFormatter.format(date) : value;
+  return displayFormat === "dash" ? formattedValue.replaceAll("/", "-") : formattedValue;
 }
 
 export function DateField({
   className,
   defaultValue = "",
   description,
+  displayFormat = "slash",
   id,
   info,
   label,
@@ -248,7 +251,7 @@ export function DateField({
         type="button"
       >
         <span className={selectedValue ? styles.value : styles.placeholder} id={displayId}>
-          {selectedValue ? formatValue(selectedValue) : placeholder}
+          {selectedValue ? formatValue(selectedValue, displayFormat) : placeholder}
         </span>
         <Icon name="calendar" size={20} />
       </button>

@@ -184,6 +184,10 @@ export const garageData: GarageData = {
       ...item,
       priority: parsePriority(item.priority),
     })),
+    editDetails: {
+      ...bike.editDetails,
+      purchaseDate: parseIsoDate(bike.editDetails.purchaseDate),
+    },
     rideUsage: {
       ...bike.rideUsage,
       dateEnd: parseIsoDate(bike.rideUsage.dateEnd),

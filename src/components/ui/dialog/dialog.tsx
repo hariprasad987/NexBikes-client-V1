@@ -35,6 +35,14 @@ export function Dialog({ ariaLabelledBy, children, className = "", onClose }: Di
 
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape" && !event.defaultPrevented) {
+        const nestedDialog = event.target instanceof Element
+          ? event.target.closest("[role='dialog']")
+          : null;
+
+        if (nestedDialog && nestedDialog !== panelRef.current) {
+          return;
+        }
+
         event.preventDefault();
         onClose();
         return;

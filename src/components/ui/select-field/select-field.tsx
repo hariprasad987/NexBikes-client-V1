@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import type { KeyboardEvent, ReactNode } from "react";
 
+import { Icon } from "@/components/ui/icon/icon";
 import { InfoTooltip } from "@/components/ui/info-tooltip/info-tooltip";
 
 import styles from "./select-field.module.scss";
@@ -216,7 +217,11 @@ export function SelectField({
         {trailingIcon ? (
           <span aria-hidden="true" className={styles.trailingIcon}>{trailingIcon}</span>
         ) : (
-          <span aria-hidden="true" className={`${styles.chevron} ${isOpen ? styles.chevronOpen : ""}`} />
+          <Icon
+            className={`${styles.chevron} ${isOpen ? styles.chevronOpen : ""}`}
+            name="chevron"
+            size={14}
+          />
         )}
       </button>
 

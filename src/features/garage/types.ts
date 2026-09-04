@@ -1,6 +1,7 @@
 export type Bike = {
   connectedApps: ConnectedApp[];
   details: BikeDetail[];
+  editDetails: BikeEditDetails;
   health: HealthSummary;
   id: string;
   image: string;
@@ -10,6 +11,16 @@ export type Bike = {
   partCategories: PartCategory[];
   primary?: boolean;
   rideUsage: RideUsage;
+};
+
+export type BikeEditDetails = {
+  brand: string;
+  frameSize: string;
+  model: string;
+  purchaseDate: string;
+  serialNumber: string;
+  series: string;
+  year: string;
 };
 
 export type BikeDetail = {

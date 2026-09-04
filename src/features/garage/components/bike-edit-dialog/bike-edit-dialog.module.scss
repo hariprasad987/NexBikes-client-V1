@@ -1,0 +1,204 @@
+.dialog.dialog {
+  width: min(100%, 43.125rem);
+  padding: 2.125rem;
+  container-type: inline-size;
+}
+
+.form {
+  min-width: 0;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.header {
+  min-width: 0;
+  min-height: 1.375rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.header h2 {
+  margin: 0;
+  color: var(--color-garage-ink);
+  font-size: var(--text-ui-h2);
+  font-weight: var(--weight-semibold);
+  line-height: 1.2222;
+}
+
+.closeButton {
+  width: 2.75rem;
+  height: 2.75rem;
+  margin: -0.75rem -0.75rem 0 0;
+  border: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  color: var(--color-garage-action);
+}
+
+.closeButton svg {
+  transform: rotate(45deg);
+}
+
+.closeButton:hover {
+  background: var(--color-lime-16);
+}
+
+.closeButton:focus-visible {
+  box-shadow: 0 0 0 3px var(--color-lime-30);
+  outline: none;
+}
+
+.formCard {
+  min-width: 0;
+  min-height: 42.4375rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+}
+
+.fields {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.field {
+  min-width: 0;
+  gap: 0.875rem;
+  color: var(--color-heading);
+  font-size: var(--text-ui-body);
+  font-weight: var(--weight-medium);
+}
+
+.field label,
+.dateField > div:first-child {
+  min-height: 0.875rem;
+  line-height: 0.875rem;
+}
+
+.field input,
+.dateField > button {
+  min-height: 3.1875rem;
+  border-radius: 0.75rem;
+  padding-inline: 1.375rem;
+  color: var(--color-text-muted);
+  font-size: var(--text-ui-small);
+  font-weight: var(--weight-medium);
+}
+
+.lockedField {
+  color: var(--color-placeholder);
+}
+
+.lockedField input:disabled {
+  opacity: 1;
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  -webkit-text-fill-color: var(--color-text-muted);
+}
+
+.lockedField svg {
+  color: var(--color-text-muted);
+}
+
+.dateField > button {
+  color: var(--color-primary);
+}
+
+.dateField > button svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--color-primary);
+}
+
+.fullField {
+  grid-column: 1 / -1;
+}
+
+.primarySetting {
+  min-width: 0;
+  min-height: 7.25rem;
+  border-radius: 0.75rem;
+  display: grid;
+  align-content: center;
+  gap: 0.625rem;
+  background: var(--color-garage-edit-surface);
+  padding: 1.5rem;
+}
+
+.primarySetting p {
+  max-width: 32.875rem;
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-ui-small);
+  line-height: 1.2143;
+}
+
+.footer {
+  min-width: 0;
+  min-height: 4.5rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 0.875rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.cancelAction,
+.updateAction {
+  min-height: 3rem;
+  font-size: var(--text-ui-body);
+}
+
+.cancelAction.cancelAction {
+  min-width: 6.9375rem;
+  border-color: var(--color-border);
+  color: var(--color-placeholder);
+}
+
+.updateAction {
+  min-width: 7.1875rem;
+  box-shadow: var(--shadow-garage-action);
+}
+
+@container (max-width: 38rem) {
+  .dialog.dialog {
+    padding: 1rem;
+  }
+
+  .form,
+  .fields {
+    gap: 1rem;
+  }
+
+  .formCard {
+    min-height: 0;
+    padding: 1rem;
+  }
+
+  .fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .fullField {
+    grid-column: auto;
+  }
+}
+
+@container (max-width: 24rem) {
+  .footer {
+    align-items: stretch;
+    flex-direction: column-reverse;
+    padding-top: 1rem;
+  }
+
+  .cancelAction.cancelAction,
+  .updateAction {
+    width: 100%;
+  }
+}

@@ -408,6 +408,15 @@
       "model": "Trek Fuel EX 8",
       "name": "Trail Beast",
       "primary": true,
+      "editDetails": {
+        "brand": "Trek",
+        "series": "Fuel EX",
+        "model": "8",
+        "year": "2017",
+        "frameSize": "M (17.5’)",
+        "purchaseDate": "2017-08-11",
+        "serialNumber": "WTU1234X5678"
+      },
       "health": {
         "score": 92,
         "status": "Good",
@@ -473,6 +482,15 @@
       "image": "/images/bikes/gravel-bike.png",
       "model": "Rotwild R.R275 X PRO",
       "name": "Gravel King",
+      "editDetails": {
+        "brand": "Rotwild",
+        "series": "R.R275",
+        "model": "X PRO",
+        "year": "2021",
+        "frameSize": "L (19’)",
+        "purchaseDate": "2021-04-21",
+        "serialNumber": "RW275X90418"
+      },
       "health": {
         "score": 88,
         "status": "Good",
@@ -538,6 +556,15 @@
       "image": "/images/bikes/road-bike.png",
       "model": "Ultimate CF SLX 8 Di2",
       "name": "Lightning Fast",
+      "editDetails": {
+        "brand": "Canyon",
+        "series": "Ultimate CF SLX",
+        "model": "8 Di2",
+        "year": "2022",
+        "frameSize": "M (18’)",
+        "purchaseDate": "2022-02-16",
+        "serialNumber": "CNULT8D22109"
+      },
       "health": {
         "score": 95,
         "status": "Excellent",
@@ -603,6 +630,15 @@
       "image": "/images/bikes/road-bike.png",
       "model": "Trek Domane SL 6 Gen 4",
       "name": "Endurance Ace",
+      "editDetails": {
+        "brand": "Trek",
+        "series": "Domane SL",
+        "model": "6 Gen 4",
+        "year": "2023",
+        "frameSize": "L (20’)",
+        "purchaseDate": "2023-08-09",
+        "serialNumber": "WTUDMN6G41984"
+      },
       "health": {
         "score": 90,
         "status": "Good",

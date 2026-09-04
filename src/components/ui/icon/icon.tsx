@@ -72,14 +72,19 @@ type IconProps = SVGProps<SVGSVGElement> & { name: IconName; size?: number };
 
 type NativeStrokeIconName = "bell" | "chevron" | "message";
 
-const nativeStrokeIcons: Record<NativeStrokeIconName, { path: string; viewBox: string }> = {
+const nativeStrokeIcons: Record<
+  NativeStrokeIconName,
+  { heightRatio?: number; path: string; strokeWidth?: number; viewBox: string }
+> = {
   bell: {
     path: "M17.417 21.1447C17.417 21.7495 17.2963 22.3484 17.0617 22.9071C16.8272 23.4658 16.4834 23.9735 16.05 24.4012C15.6166 24.8288 15.102 25.168 14.5357 25.3994C13.9695 25.6309 13.3625 25.75 12.7496 25.75C12.1367 25.75 11.5297 25.6309 10.9635 25.3994C10.3972 25.168 9.88265 24.8288 9.44924 24.4012C9.01583 23.9735 8.67203 23.4658 8.43747 22.9071C8.20291 22.3484 8.08219 21.7495 8.08219 21.1447M22.3925 21.1447H3.10806C2.64154 21.1445 2.18556 21.0079 1.79776 20.752C1.40996 20.4962 1.10775 20.1326 0.929337 19.7073C0.750923 19.282 0.704318 18.814 0.795413 18.3626C0.886508 17.9112 1.11121 17.4965 1.44112 17.1711L2.24392 16.3776C2.99375 15.6373 3.4149 14.6335 3.41477 13.5868V9.96053C3.41477 7.51774 4.39826 5.17501 6.14888 3.4477C7.8995 1.72039 10.2739 0.75 12.7496 0.75C15.2254 0.75 17.5997 1.72039 19.3503 3.4477C21.101 5.17501 22.0844 7.51774 22.0844 9.96053V13.5868C22.0847 14.6337 22.5063 15.6375 23.2566 16.3776L24.0608 17.1711C24.39 17.4967 24.6141 17.9114 24.7049 18.3626C24.7956 18.8138 24.7489 19.2814 24.5706 19.7065C24.3923 20.1315 24.0904 20.495 23.703 20.7509C23.3156 21.0069 22.8587 21.1439 22.3925 21.1447Z",
     viewBox: "0 0 26 27",
   },
   chevron: {
-    path: "M0.75 0.75L5.75 5.75L10.75 0.75",
-    viewBox: "0 0 12 7",
+    heightRatio: 8 / 14,
+    path: "M0.699219 0.69922L6.69922 6.69922L12.6992 0.699219",
+    strokeWidth: 1.4,
+    viewBox: "0 0 14 8",
   },
   message: {
     path: "M12.75 24.75C15.1234 24.75 17.4434 24.0462 19.4168 22.7276C21.3902 21.4091 22.9283 19.5349 23.8365 17.3422C24.7448 15.1495 24.9824 12.7367 24.5194 10.4089C24.0564 8.08115 22.9135 5.94295 21.2353 4.26472C19.557 2.58649 17.4189 1.4436 15.0911 0.980582C12.7633 0.517559 10.3505 0.755199 8.1578 1.66345C5.96508 2.5717 4.09094 4.10977 2.77236 6.08316C1.45379 8.05655 0.75 10.3766 0.75 12.75C0.75 14.734 1.23 16.6047 2.08333 18.2527L0.75 24.75L7.24733 23.4167C8.89533 24.27 10.7673 24.75 12.75 24.75Z",
@@ -553,6 +558,7 @@ const paths: Record<
     | "google"
     | "headphones"
     | "message"
+    | "filter"
     | SuppliedIconName
   >,
   React.ReactNode
@@ -568,7 +574,7 @@ const paths: Record<
   document: <path d="M6 2h8l4 4v16H6V2Zm8 0v5h4M9 12h6m-6 4h6" />,
   edit: <path d="m4 16-1 5 5-1L20 8l-4-4L4 16Zm10-10 4 4M4 16l4 4" />,
   frame: <path d="M7 3v18m10-18v18M3 7h18M3 17h18" />,
-  filter: <path d="M3 4h18l-7 8v6l-4 2v-8L3 4Z" />,
+  // filter: <path d="M3 4h18l-7 8v6l-4 2v-8L3 4Z" />,
   garage: <path d="m3 10 9-7 9 7v10H3V10Zm5 10v-7h8v7M8 10h8" />,
   gauge: <path d="M12 21a9 9 0 1 1 9-9m-9 5a5 5 0 1 1 5-5m-3-7-3 6h4l-3 6" />,
   history: <path d="M3 12a9 9 0 1 0 3-6.7L3 8m0-5v5h5m4-1v6l4 2" />,
@@ -604,11 +610,11 @@ export function Icon({ name, size = 20, ...props }: IconProps) {
       <svg
         aria-hidden="true"
         fill="none"
-        height={size}
+        height={size * (icon.heightRatio ?? 1)}
         stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth="1.5"
+        strokeWidth={icon.strokeWidth ?? 1.5}
         viewBox={icon.viewBox}
         width={size}
         {...props}
@@ -633,6 +639,15 @@ export function Icon({ name, size = 20, ...props }: IconProps) {
         {icon.content}
       </svg>
     );
+  }
+
+  if(name === "filter") {
+    return(
+      <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0.5 0.5L4.5625 7.08824V12.0294L9.4375 14.5V7.08824L13.5 0.5H0.5Z" stroke="#616C19" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+
+    )
   }
 
   if (name === "google") {

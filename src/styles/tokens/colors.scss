@@ -57,6 +57,8 @@
   --color-garage-soon-surface: #fdf5e4;
   --color-garage-chart: #f97316;
   --color-garage-success: #67b470;
+  --color-garage-toggle: #51b541;
+  --color-garage-edit-surface: rgba(242, 242, 242, 0.6);
   --color-garage-selected-surface: rgba(184, 220, 131, 0.04);
   --color-garage-selected-border: rgba(97, 108, 25, 0.4);
   --color-garage-grid: rgba(189, 189, 189, 0.27);
@@ -129,6 +131,7 @@
   --shadow-garage-control: 0 4px 4px rgba(0, 0, 0, 0.06);
   --shadow-garage-action: 0 3px 6px rgba(0, 0, 0, 0.12);
   --shadow-garage-app-icon: 0 6px 6px rgba(0, 0, 0, 0.08);
+  --shadow-garage-toggle: 0 3px 1px rgba(0, 0, 0, 0.03), 0 3px 8px rgba(0, 0, 0, 0.1);
   --shadow-dashboard-card: 0 3px 6px rgba(0, 0, 0, 0.12);
   --shadow-dashboard-health-action: 0 4px 4px rgba(0, 0, 0, 0.25);
   --shadow-dashboard-row: 0 3px 3px rgba(0, 0, 0, 0.05);

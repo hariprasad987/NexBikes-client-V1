@@ -83,16 +83,13 @@
 }
 
 .chevron {
-  width: 0.55rem;
-  height: 0.55rem;
-  border-right: 1.5px solid var(--select-chevron, var(--color-medium-grey));
-  border-bottom: 1.5px solid var(--select-chevron, var(--color-medium-grey));
-  transform: translateY(-20%) rotate(45deg);
+  color: var(--select-chevron, var(--color-medium-grey));
+  transform: rotate(0deg);
   transition: transform 160ms ease;
 }
 
 .chevronOpen {
-  transform: translateY(20%) rotate(225deg);
+  transform: rotate(180deg);
 }
 
 .trailingIcon {

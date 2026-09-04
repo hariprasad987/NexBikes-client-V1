@@ -1,10 +1,11 @@
 import Image from "next/image";
 
 import { AnimatedText } from "@/components/ui/animated-value/animated-value";
-import { Button, ButtonLink } from "@/components/ui/button/button";
+import { ButtonLink } from "@/components/ui/button/button";
 import { Card } from "@/components/ui/card/card";
 import { StatusPill } from "@/components/ui/status-pill/status-pill";
 import { BikeDetails } from "@/features/garage/components/bike-details/bike-details";
+import { BikeEditDialogTrigger } from "@/features/garage/components/bike-edit-dialog/bike-edit-dialog";
 import { ConnectedApps } from "@/features/garage/components/connected-apps/connected-apps";
 import { HealthScore } from "@/features/garage/components/health-score/health-score";
 import type { Bike, ConnectedAppLinkProfile } from "@/features/garage/types";
@@ -37,7 +38,7 @@ export function BikeOverview({
             {bike.primary && <StatusPill tone="stat">• Primary Bike</StatusPill>}
           </div>
           <div className={styles.actions}>
-            <Button>Edit Bike Details</Button>
+            <BikeEditDialogTrigger bike={bike} />
             <ButtonLink className={styles.modifierAction} href="/bike-management" variant="secondary">
               Go to Bike Modifier
             </ButtonLink>
