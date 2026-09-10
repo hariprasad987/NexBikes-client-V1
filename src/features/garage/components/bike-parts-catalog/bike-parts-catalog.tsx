@@ -88,7 +88,7 @@ export function BikePartsCatalog({
               iconPosition="start"
               label="Search bike parts"
               onChange={(event) => setQuery(event.currentTarget.value)}
-              placeholder="Search parts......"
+              placeholder="Search parts....."
               value={query}
             />
             <SelectField

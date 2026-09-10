@@ -16,7 +16,14 @@ import type {
 } from "./types";
 
 function parseDetailIcon(icon: string): BikePartDetailIcon {
-  if (icon === "edit" || icon === "history" || icon === "refresh" || icon === "settings" || icon === "tools") {
+  if (
+    icon === "edit" ||
+    icon === "history" ||
+    icon === "measurement" ||
+    icon === "refresh" ||
+    icon === "settings" ||
+    icon === "tools"
+  ) {
     return icon;
   }
 
@@ -25,7 +32,9 @@ function parseDetailIcon(icon: string): BikePartDetailIcon {
 
 function parsePartDetailPage(page: typeof garageDataSource.bikeManagement.partDetailPage): BikePartDetailPageData {
   return {
-    dateRange: page.dateRange,
+    dateRange: { ...page.dateRange },
+    toolsFilters: page.toolsFilters.map((filter) => ({ ...filter })),
+    toolsResources: page.toolsResources.map((tool) => ({ ...tool })),
     historyFilters: page.historyFilters.map((option) => ({ ...option })),
     maintenanceHistory: page.maintenanceHistory.map((record) => ({
       ...record,

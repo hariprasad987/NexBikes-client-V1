@@ -4,8 +4,8 @@ import Image from "next/image";
 import { useId, useState } from "react";
 
 import { Button } from "@/components/ui/button/button";
+import { DialogCloseButton } from "@/components/ui/dialog-close-button/dialog-close-button";
 import { Dialog } from "@/components/ui/dialog/dialog";
-import { Icon } from "@/components/ui/icon/icon";
 import { SelectField } from "@/components/ui/select-field/select-field";
 import { ConnectedAppLogo } from "@/features/garage/components/connected-app-logo/connected-app-logo";
 import type {
@@ -71,9 +71,7 @@ export function ConnectedAppLinkDialog({
               Choose which bike (Gear) from your {activeApp.name} account should provide ride data for this NexBikes bike.
             </p>
           </div>
-          <button aria-label="Close connected app link settings" className={styles.closeButton} onClick={onClose} type="button">
-            <Icon name="add" size={22} />
-          </button>
+          <DialogCloseButton label="Close connected app link settings" onClose={onClose} />
         </header>
 
         <section className={styles.bikeSection}>

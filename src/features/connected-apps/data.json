@@ -1,0 +1,9 @@
+{
+  "title": "Connected Apps",
+  "description": "Manage your Strava and Garmin activity connections and review imported rides and sync status.",
+  "benefits": ["Import activity data", "Improve wear predictions", "Better maintenance scheduling"],
+  "apps": [
+    {"id": "strava", "name": "Strava", "image": "/images/apps/strava-flat.svg", "description": "Sync your activities, distance, elevation and more from Strava", "connection": {"connectedOn": "Jan 12, 2026", "importedActivities": "1,854 Rides", "lastSynced": "Today, 10:42 AM"}},
+    {"id": "garmin", "name": "Garmin", "image": "/images/apps/garmin.svg", "description": "Sync your activities, performance metrics and more from Garmin Connect", "connection": null}
+  ]
+}

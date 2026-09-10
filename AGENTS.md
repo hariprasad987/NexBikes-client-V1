@@ -119,6 +119,12 @@ component-name/
 - Keep selector nesting shallow and readable. Prefer a clear local class over deeply nested selectors.
 - Do not use inline styles for visual styling. Inline values are permitted only when a true runtime value is required, such as a calculated progress width.
 
+### Application scrollbars
+
+- Every page, scrollable section, dropdown, drawer, and popup must use the shared scrollbar treatment from the signup “Add Your Bike” step.
+- `src/app/globals.scss` is the single implementation: 8px track, Border Grey track, Medium Grey inset thumb, rounded ends, and no arrow buttons; use the thin native fallback in browsers without WebKit scrollbar styling.
+- Do not hide scrollbars or add component-specific scrollbar colors, widths, or pseudo-element styles. Components may control overflow, scroll height, gutter, and content spacing.
+
 ## Color system — single source only
 
 - `src/styles/tokens/colors.scss` is the only file inside `src/` allowed to contain literal color values.

@@ -85,3 +85,48 @@ svg {
     animation-iteration-count: 1 !important;
   }
 }
+
+/* Shared Add Your Bike scrollbar treatment for every scroll container. */
+*::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 1.25rem;
+  background: var(--color-border);
+}
+
+*::-webkit-scrollbar-button,
+*::-webkit-scrollbar-button:single-button,
+*::-webkit-scrollbar-button:vertical:decrement,
+*::-webkit-scrollbar-button:vertical:increment,
+*::-webkit-scrollbar-button:vertical:start:decrement,
+*::-webkit-scrollbar-button:vertical:start:increment,
+*::-webkit-scrollbar-button:vertical:end:decrement,
+*::-webkit-scrollbar-button:vertical:end:increment {
+  width: 0;
+  height: 0;
+  min-block-size: 0;
+  max-block-size: 0;
+  display: none;
+  appearance: none;
+  border: 0;
+  background: transparent;
+}
+
+*::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track-piece {
+  border-radius: 1.25rem;
+  background: var(--color-border);
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 0.15625rem solid var(--color-border);
+  border-radius: 1.25rem;
+  background: var(--color-medium-grey);
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-color: var(--color-medium-grey) var(--color-border);
+    scrollbar-width: thin;
+  }
+}

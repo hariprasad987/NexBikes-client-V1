@@ -1,4 +1,16 @@
 :root {
+  /* Supplied Connected Apps page. */
+  --color-connected-check: #0d8008;
+  --color-connected-border: #d9d9d9;
+  --color-connected-copy: #3e4958;
+  --color-connected-divider: #e4e5e7;
+  --color-connected-success-surface: #e8f4e3;
+  --color-connected-success-text: #0f3807;
+  --color-connected-idle-surface: #eff1f4;
+  --color-connected-idle-text: #0d132c;
+  --color-connected-danger: #ec3836;
+  --color-connected-danger-border: #ffcfce;
+
   --color-nex-deep-end: #0f2c2d;
   --color-nex-olive: #616c19;
   --color-nex-gravel: #84714b;
@@ -33,6 +45,8 @@
   /* Garage values approved by the supplied Figma composition. */
   --color-garage-action: #55781f;
   --color-garage-selected: #626e2f;
+  --color-garage-resource-ink: #0f172a;
+  --color-garage-resource-header: #f7f7f7;
   --color-garage-ink: #1d1d1d;
   --color-garage-secondary: #6b7280;
   --color-garage-muted-surface: #fbfbfb;
@@ -58,6 +72,8 @@
   --color-garage-chart: #f97316;
   --color-garage-success: #67b470;
   --color-garage-toggle: #51b541;
+  --color-garage-toggle-off: #d4dbde;
+  --color-garage-lock: #8e8e93;
   --color-garage-edit-surface: rgba(242, 242, 242, 0.6);
   --color-garage-selected-surface: rgba(184, 220, 131, 0.04);
   --color-garage-selected-border: rgba(97, 108, 25, 0.4);

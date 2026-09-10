@@ -1,0 +1,12 @@
+.identity {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 3.625rem minmax(0, 1fr);
+  align-items: center;
+  gap: 0.875rem;
+  color: var(--color-garage-resource-ink);
+  font-size: var(--text-ui-body);
+  font-weight: var(--weight-medium);
+  line-height: 1.2;
+}
+.identity img { width: 3.625rem; height: 3.625rem; object-fit: contain; }

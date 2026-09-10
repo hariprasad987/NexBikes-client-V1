@@ -27,31 +27,6 @@
   line-height: 1.2222;
 }
 
-.closeButton {
-  width: 2.75rem;
-  height: 2.75rem;
-  margin: -0.75rem -0.75rem 0 0;
-  border: 0;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: transparent;
-  color: var(--color-garage-action);
-}
-
-.closeButton svg {
-  transform: rotate(45deg);
-}
-
-.closeButton:hover {
-  background: var(--color-lime-16);
-}
-
-.closeButton:focus-visible {
-  box-shadow: 0 0 0 3px var(--color-lime-30);
-  outline: none;
-}
-
 .formCard {
   min-width: 0;
   min-height: 42.4375rem;
@@ -102,8 +77,8 @@
   -webkit-text-fill-color: var(--color-text-muted);
 }
 
-.lockedField svg {
-  color: var(--color-text-muted);
+.lockedField .lockIcon {
+  color: var(--color-garage-lock);
 }
 
 .dateField > button {
@@ -131,12 +106,20 @@
   padding: 1.5rem;
 }
 
+.primaryToggle.primaryToggle {
+  color: var(--color-heading);
+  font-size: var(--text-ui-body);
+  font-weight: var(--weight-medium);
+  line-height: 1.1875;
+}
+
 .primarySetting p {
   max-width: 32.875rem;
   margin: 0;
   color: var(--color-text-muted);
   font-size: var(--text-ui-small);
-  line-height: 1.2143;
+  font-weight: var(--weight-light);
+  line-height: 1.2142857143;
 }
 
 .footer {
@@ -149,20 +132,20 @@
   border-top: 1px solid var(--color-border);
 }
 
-.cancelAction,
-.updateAction {
+.cancelAction.cancelAction,
+.updateAction.updateAction {
+  width: 7.1875rem;
+  min-width: 0;
   min-height: 3rem;
   font-size: var(--text-ui-body);
 }
 
 .cancelAction.cancelAction {
-  min-width: 6.9375rem;
   border-color: var(--color-border);
   color: var(--color-placeholder);
 }
 
 .updateAction {
-  min-width: 7.1875rem;
   box-shadow: var(--shadow-garage-action);
 }
 
@@ -198,7 +181,7 @@
   }
 
   .cancelAction.cancelAction,
-  .updateAction {
+  .updateAction.updateAction {
     width: 100%;
   }
 }

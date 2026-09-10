@@ -24,12 +24,24 @@
       { "id": "e-system", "label": "E-System", "disabled": true }
     ],
     "partDetailPage": {
-      "dateRange": "14 May - 12 Jun",
+      "dateRange": { "startDate": "2026-05-14", "endDate": "2026-06-12" },
       "historyFilters": [
-        { "label": "All History", "value": "all" },
-        { "label": "Replacement", "value": "replacement" },
-        { "label": "Inspection", "value": "inspection" },
-        { "label": "Service", "value": "service" }
+        {
+          "label": "All History",
+          "value": "all"
+        },
+        {
+          "label": "Replacement",
+          "value": "replacement"
+        },
+        {
+          "label": "Inspection",
+          "value": "inspection"
+        },
+        {
+          "label": "Service",
+          "value": "service"
+        }
       ],
       "maintenanceHistory": [
         {
@@ -54,7 +66,7 @@
           "description": "Component wear measured and recorded.",
           "mileage": "2,950 mi",
           "date": "18 Jun 2026",
-          "icon": "settings"
+          "icon": "measurement"
         },
         {
           "id": "service-2026-03-12",
@@ -74,21 +86,158 @@
         }
       ],
       "spareFilters": [
-        { "id": "all", "label": "All", "count": 24 },
-        { "id": "sprockets", "label": "Sprockets", "count": 16 },
-        { "id": "locking", "label": "Locking", "count": 2 },
-        { "id": "spacers", "label": "Spacers", "count": 4 },
-        { "id": "other", "label": "Other", "count": 2 }
+        {
+          "id": "all",
+          "label": "All",
+          "count": 24
+        },
+        {
+          "id": "sprockets",
+          "label": "Sprockets",
+          "count": 16
+        },
+        {
+          "id": "locking",
+          "label": "Lockring",
+          "count": 2
+        },
+        {
+          "id": "spacers",
+          "label": "Spacers",
+          "count": 4
+        },
+        {
+          "id": "other",
+          "label": "Other",
+          "count": 2
+        }
       ],
       "spareParts": [
-        { "id": "lock-ring-washer", "name": "Lock Ring & Washer", "category": "locking", "status": "Replaced", "date": "18 Jun 2026" },
-        { "id": "lock-ring", "name": "Lock Ring", "category": "locking", "status": "Replaced", "date": "18 Jun 2026" },
-        { "id": "sprocket-cluster", "name": "Sprocket Wheel (10T & 12T Cluster)", "category": "sprockets", "status": "Original", "date": "18 Jun 2026" },
-        { "id": "sprocket-14t", "name": "Sprocket Wheel (14T)", "category": "sprockets", "status": "Original", "date": "18 Jun 2026" },
-        { "id": "sprocket-16t", "name": "Sprocket Wheel (16T)", "category": "sprockets", "status": "Original", "date": "18 Jun 2026" },
-        { "id": "sprocket-18t", "name": "Sprocket Wheel (18T)", "category": "sprockets", "status": "Original", "date": "18 Jun 2026" },
-        { "id": "cassette-spacer", "name": "Cassette Spacer", "category": "spacers", "status": "Original", "date": "18 Jun 2026" },
-        { "id": "carrier-plate", "name": "Sprocket Carrier Plate", "category": "other", "status": "Original", "date": "18 Jun 2026" }
+        {
+          "id": "lock-ring-washer",
+          "name": "Lock Ring & Washer",
+          "category": "locking",
+          "status": "Replaced",
+          "date": "18 Jun 2026",
+          "image": "/images/bike-management/resources/lock-ring-washer.jpg"
+        },
+        {
+          "id": "lock-ring",
+          "name": "Lock Ring",
+          "category": "locking",
+          "status": "Replaced",
+          "date": "18 Jun 2026",
+          "image": "/images/bike-management/resources/lock-ring.jpg"
+        },
+        {
+          "id": "sprocket-cluster",
+          "name": "Sprocket Wheel (10T & 12T Cluster)",
+          "category": "sprockets",
+          "status": "Original",
+          "date": "18 Jun 2026",
+          "image": "/images/bike-management/resources/sprocket-cluster.jpg"
+        },
+        {
+          "id": "sprocket-14t",
+          "name": "Sprocket Wheel (14T)",
+          "category": "sprockets",
+          "status": "Original",
+          "date": "18 Jun 2026",
+          "image": "/images/bike-management/resources/sprocket-14t.jpg"
+        },
+        {
+          "id": "sprocket-16t",
+          "name": "Sprocket Wheel (16T)",
+          "category": "sprockets",
+          "status": "Original",
+          "date": "18 Jun 2026",
+          "image": "/images/bike-management/resources/sprocket-16t.jpg"
+        },
+        {
+          "id": "sprocket-18t",
+          "name": "Sprocket Wheel (18T)",
+          "category": "sprockets",
+          "status": "Original",
+          "date": "18 Jun 2026",
+          "image": "/images/bike-management/resources/sprocket-18t.jpg"
+        },
+        {
+          "id": "cassette-spacer",
+          "name": "Cassette Spacer",
+          "category": "spacers",
+          "status": "Original",
+          "date": "18 Jun 2026",
+          "image": "/images/bike-management/resources/cassette-spacer.jpg"
+        },
+        {
+          "id": "carrier-plate",
+          "name": "Sprocket Carrier Plate",
+          "category": "other",
+          "status": "Original",
+          "date": "18 Jun 2026",
+          "image": "/images/bike-management/cassette.png"
+        }
+      ],
+      "toolsFilters": [
+        {
+          "id": "all",
+          "label": "All",
+          "count": 24
+        },
+        {
+          "id": "removal",
+          "label": "Removal / Installation",
+          "count": 16
+        },
+        {
+          "id": "adjustment",
+          "label": "Adjustment",
+          "count": 2
+        },
+        {
+          "id": "measuring",
+          "label": "Measuring",
+          "count": 4
+        },
+        {
+          "id": "cleaning",
+          "label": "Cleaning",
+          "count": 2
+        }
+      ],
+      "toolsResources": [
+        {
+          "id": "shimano-tool",
+          "name": "Shimano TL-LR15 Cassette Tool",
+          "category": "removal",
+          "specification": "Shimano . 12-Speed",
+          "href": "https://bike.shimano.com/en-US/products/service-and-upgrade-parts/pdp.P-TL-LR15.html",
+          "image": "/images/bike-management/resources/shimano-tool.jpg"
+        },
+        {
+          "id": "lockring-tool",
+          "name": "Park Tool Cassette Lockring Tool",
+          "category": "removal",
+          "specification": "Shimano . 12-Speed",
+          "href": "https://www.parktool.com/en-us/product/cassette-lockring-tool-fr-5-2",
+          "image": "/images/bike-management/resources/lockring-tool.jpg"
+        },
+        {
+          "id": "chain-whip",
+          "name": "12-Speed Compatible Chain Whip",
+          "category": "removal",
+          "specification": "Shimano . 10T & 12T cluster",
+          "href": "https://www.parktool.com/en-us/product/sprocket-remover-chain-whip-sr-12-2",
+          "image": "/images/bike-management/resources/chain-whip.jpg"
+        },
+        {
+          "id": "wrench",
+          "name": "Large Adjustable Wrench or 24mm Spanner",
+          "category": "adjustment",
+          "specification": "Shimano . 14T",
+          "href": "https://www.parktool.com/en-us/product/adjustable-wrench-paw-12",
+          "image": "/images/bike-management/resources/wrench.jpg"
+        }
       ]
     },
     "parts": [

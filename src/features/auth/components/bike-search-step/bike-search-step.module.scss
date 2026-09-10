@@ -117,49 +117,6 @@
   scrollbar-gutter: stable;
 }
 
-.gallery::-webkit-scrollbar {
-  width: 0.5rem;
-  border-radius: 1.25rem;
-  background: var(--color-border);
-}
-
-.gallery::-webkit-scrollbar-button,
-.gallery::-webkit-scrollbar-button:single-button,
-.gallery::-webkit-scrollbar-button:vertical:decrement,
-.gallery::-webkit-scrollbar-button:vertical:increment,
-.gallery::-webkit-scrollbar-button:vertical:start:decrement,
-.gallery::-webkit-scrollbar-button:vertical:start:increment,
-.gallery::-webkit-scrollbar-button:vertical:end:decrement,
-.gallery::-webkit-scrollbar-button:vertical:end:increment {
-  width: 0;
-  height: 0;
-  min-block-size: 0;
-  max-block-size: 0;
-  display: none;
-  appearance: none;
-  border: 0;
-  background: transparent;
-}
-
-.gallery::-webkit-scrollbar-track,
-.gallery::-webkit-scrollbar-track-piece {
-  border-radius: 1.25rem;
-  background: var(--color-border);
-}
-
-.gallery::-webkit-scrollbar-thumb {
-  border: 0.15625rem solid var(--color-border);
-  border-radius: 1.25rem;
-  background: var(--color-medium-grey);
-}
-
-@supports not selector(::-webkit-scrollbar) {
-  .gallery {
-    scrollbar-color: var(--color-medium-grey) var(--color-border);
-    scrollbar-width: thin;
-  }
-}
-
 .loadingAnnouncement {
   @include visually-hidden;
 }

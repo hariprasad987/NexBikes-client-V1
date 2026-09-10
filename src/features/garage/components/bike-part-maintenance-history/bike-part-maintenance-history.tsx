@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 
 import { Button } from "@/components/ui/button/button";
 import { Card } from "@/components/ui/card/card";
+import { DateRangePicker } from "@/components/ui/date-range-picker/date-range-picker";
 import { Icon } from "@/components/ui/icon/icon";
 import { SelectField } from "@/components/ui/select-field/select-field";
 import type { BikePartDetailPageData } from "@/features/garage/types";
@@ -38,14 +39,11 @@ export function BikePartMaintenanceHistory({
             options={data.historyFilters}
             value={filter}
           />
-          <Button
-            aria-label={`Maintenance history date range: ${data.dateRange}`}
-            className={styles.dateRange}
-            leadingIcon={<Icon name="calendar" size={18} />}
-            variant="secondary"
-          >
-            {data.dateRange}
-          </Button>
+          <DateRangePicker
+            initialStartDate={data.dateRange.startDate}
+            initialEndDate={data.dateRange.endDate}
+            label="Choose maintenance history date range"
+          />
         </div>
       </div>
 
@@ -75,7 +73,7 @@ export function BikePartMaintenanceHistory({
         </div>
 
         <div className={styles.historyAction}>
-          <Button>View Full Maintenance History →</Button>
+          <Button trailingIcon={<Icon name="arrow-right" size={16} />}>View Full Maintenance History</Button>
         </div>
       </div>
     </Card>

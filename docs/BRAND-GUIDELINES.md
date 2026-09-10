@@ -56,6 +56,8 @@ Signup onboarding controls use the supplied compact `0 2px 4px` soft shadow, whi
 
 The approved Garage composition adds exact, page-scoped semantic values for selected bikes, secondary actions, maintenance states, connected-app states, bike-part health states, edit controls, and the ride-usage chart. These values include action green `#55781F`, selected green `#626E2F`, primary-bike toggle green `#51B541`, content ink `#1D1D1D`, secondary slate `#6B7280`, the supplied 60% `#F2F2F2` edit-panel surface, installed-part text `#4B5563`, installed-part surface `#F3F4F6`, alert red `#EB5757`, alert icon red `#EF4444`, bike-part attention reds `#E34343` and `#E34242`, bike-part excellent blue `#1D4ED8`, bike-part good amber `#B45309`, success green `#67B470`, chart orange `#F97316`, and their supplied muted surfaces and chart/shadow transparencies. The part-details drawer and modal dialogs use the supplied 25% black content overlay. These values are limited to reproducing the supplied Garage design and are centralized as `--color-garage-*`, `--color-black-*`, and `--shadow-garage-*` tokens in `src/styles/tokens/colors.scss`.
 
+The supplied Garage edit-bike refinement uses lock grey `#8E8E93` and inactive toggle grey `#D4DBDE`, centralized as `--color-garage-lock` and `--color-garage-toggle-off`. Its primary-bike panel uses Inter 16px/500 with 19px line height for the label and Inter 14px/400 with 17px line height for the description, with 24px padding and a 10px row gap.
+
 ### Supplied Dashboard composition colors
 
 The approved Dashboard composition adds page-scoped deep teal surfaces `#082B2C`, `#14313A`, and `#164849`; sidebar border teal `#204041`; action olive `#626E2F`; collapsed-sidebar logo green `#B8DC83`; status green `#61A061`; progress olive `#9BA47D`; notification red `#FB1C1B`; profile-arrow grey `#9B9DA3`; and the supplied soft border and panel-tint values. They are limited to reproducing the supplied Dashboard and shared signed-in shell reference and are centralized as `--color-dashboard-*`, `--shadow-dashboard-*`, and `--background-dashboard-*` tokens in `src/styles/tokens/colors.scss`.
@@ -66,3 +68,9 @@ The approved Dashboard composition adds page-scoped deep teal surfaces `#082B2C`
 - Avoid introducing colors outside the approved palette without design approval.
 - Statistics typography remains adaptive until the design phase is finalized.
 - Keep the product voice direct, calm, capable, and useful.
+
+The supplied spare-parts and maintenance-resource tables use resource ink `#0F172A` and header surface `#F7F7F7`, centralized as `--color-garage-resource-ink` and `--color-garage-resource-header`. All application scrollbars share the Add Your Bike 8px rounded Border Grey track and inset Medium Grey thumb.
+
+### Supplied Connected Apps composition
+
+The supplied Connected Apps design approves border `#D9D9D9`, copy `#3E4958`, divider `#E4E5E7`, connected status `#E8F4E3` / `#0F3807`, disconnected status `#EFF1F4` / `#0D132C`, benefit check `#0D8008`, and disconnect action `#EC3836` / `#FFCFCE`. These page-specific values use `--color-connected-*` tokens. Cards reuse the approved subtle section shadow, provider logo assets, and shared controls.

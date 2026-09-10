@@ -65,6 +65,16 @@
 }
 
 .icon {
+  flex-shrink: 0;
   display: grid;
   place-items: center;
+}
+
+.text,
+.text:hover {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+  color: var(--color-garage-selected);
+  transform: none;
 }

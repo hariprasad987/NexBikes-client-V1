@@ -8,7 +8,8 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: ReactNode;
   fullWidth?: boolean;
   leadingIcon?: ReactNode;
-  variant?: "primary" | "secondary" | "social" | "ghost";
+  trailingIcon?: ReactNode;
+  variant?: "primary" | "secondary" | "social" | "ghost" | "text";
 };
 
 type ButtonLinkProps = Omit<ComponentProps<typeof Link>, "href"> & {
@@ -16,6 +17,7 @@ type ButtonLinkProps = Omit<ComponentProps<typeof Link>, "href"> & {
   fullWidth?: boolean;
   href: string;
   leadingIcon?: ReactNode;
+  trailingIcon?: ReactNode;
   variant?: ButtonProps["variant"];
 };
 
@@ -28,6 +30,7 @@ export function Button({
   className = "",
   fullWidth = false,
   leadingIcon,
+  trailingIcon,
   type = "button",
   variant = "primary",
   ...props
@@ -40,6 +43,7 @@ export function Button({
     >
       {leadingIcon && <span className={styles.icon}>{leadingIcon}</span>}
       <span>{children}</span>
+      {trailingIcon && <span className={styles.icon}>{trailingIcon}</span>}
     </button>
   );
 }
@@ -50,6 +54,7 @@ export function ButtonLink({
   fullWidth = false,
   href,
   leadingIcon,
+  trailingIcon,
   variant = "primary",
   ...props
 }: ButtonLinkProps) {
@@ -57,6 +62,7 @@ export function ButtonLink({
     <Link className={getClassName(className, fullWidth, variant)} href={href as Route} {...props}>
       {leadingIcon && <span className={styles.icon}>{leadingIcon}</span>}
       <span>{children}</span>
+      {trailingIcon && <span className={styles.icon}>{trailingIcon}</span>}
     </Link>
   );
 }

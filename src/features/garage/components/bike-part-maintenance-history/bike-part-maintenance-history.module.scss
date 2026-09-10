@@ -46,13 +46,7 @@
   font-weight: var(--weight-medium);
 }
 
-.dateRange {
-  min-width: 10.625rem;
-  min-height: 2.5rem;
-  padding: 0.625rem 0.875rem;
-  font-size: var(--text-ui-small);
-  white-space: nowrap;
-}
+
 
 .historyFrame {
   position: relative;
@@ -69,26 +63,6 @@
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: 1.25rem 1.5rem 6rem;
-  scrollbar-color: var(--color-medium-grey) var(--color-border);
-  scrollbar-width: thin;
-}
-
-.historyScroll::-webkit-scrollbar {
-  width: 0.5rem;
-}
-
-.historyScroll::-webkit-scrollbar-track {
-  border-radius: 1rem;
-  background: var(--color-border);
-}
-
-.historyScroll::-webkit-scrollbar-thumb {
-  border-radius: 1rem;
-  background: var(--color-medium-grey);
-}
-
-.historyScroll::-webkit-scrollbar-button {
-  display: none;
 }
 
 .timeline {
@@ -186,8 +160,7 @@
     width: 100%;
   }
 
-  .filter,
-  .dateRange {
+  .filter {
     width: 50%;
     min-width: 0;
     flex: 1;
@@ -212,8 +185,7 @@
     flex-direction: column;
   }
 
-  .filter,
-  .dateRange {
+  .filter {
     width: 100%;
   }
 

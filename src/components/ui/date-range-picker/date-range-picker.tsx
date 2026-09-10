@@ -14,6 +14,7 @@ type DateRange = {
 };
 
 type DateRangePickerProps = {
+  label?: string;
   initialEndDate: string;
   initialStartDate: string;
   onChange?: (range: DateRange) => void;
@@ -94,6 +95,7 @@ function formatDateRange({ endDate, startDate }: DateRange) {
 }
 
 export function DateRangePicker({
+  label = "Choose ride usage date range",
   initialEndDate,
   initialStartDate,
   onChange,
@@ -245,7 +247,7 @@ export function DateRangePicker({
 
       {isOpen && (
         <form
-          aria-label="Choose ride usage date range"
+          aria-label={label}
           className={styles.panel}
           id={panelId}
           onSubmit={(event) => {

@@ -2,7 +2,7 @@
   min-width: 0;
   display: grid;
   gap: 2.125rem;
-  padding: 2.125rem;
+  padding: clamp(1rem, 2.2vw, 2.125rem);
   box-shadow: none;
 }
 
@@ -18,19 +18,19 @@
   min-width: 0;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
   color: var(--color-heading);
 }
 
 .heading h2 {
   margin: 0;
-  font-size: var(--text-ui-body);
+  font-size: var(--text-ui-h2);
   font-weight: var(--weight-medium);
   line-height: 1.2;
 }
 
 .supportCard p {
-  margin: 0.75rem 0 1.5rem 2rem;
+  margin: 0.5rem 0 1.5rem;
   color: var(--color-text-muted);
   font-size: var(--text-ui-small);
   line-height: 1.2143;
@@ -39,13 +39,15 @@
 .action,
 .guideAction {
   min-height: 3rem;
-  margin-left: 2rem;
-  padding-inline: 1.25rem;
+  margin-left: 0;
+  padding: 0.75rem 1.8125rem;
+  gap: 0.625rem;
+  line-height: 1.1875rem;
   box-shadow: var(--shadow-garage-action);
   font-size: var(--text-ui-body);
 }
 
-@container (max-width: 30rem) {
+@include down("mobile") {
   .section {
     gap: 1rem;
     padding: 1rem;
@@ -65,4 +67,12 @@
   .guideAction {
     width: 100%;
   }
+}
+
+.heading > svg {
+  flex-shrink: 0;
+}
+
+.guideAction {
+  color: var(--color-garage-selected);
 }

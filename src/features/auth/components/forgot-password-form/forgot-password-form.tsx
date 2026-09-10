@@ -33,6 +33,7 @@ export function ForgotPasswordForm() {
 
       <div className={styles.emailField}>
         <TextField
+          fieldClassName={styles.emailControl}
           autoComplete="email"
           id="reset-email"
           label="Email Address"

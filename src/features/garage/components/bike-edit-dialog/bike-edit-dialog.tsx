@@ -4,6 +4,7 @@ import { useId, useState } from "react";
 
 import { Button } from "@/components/ui/button/button";
 import { DateField } from "@/components/ui/date-field/date-field";
+import { DialogCloseButton } from "@/components/ui/dialog-close-button/dialog-close-button";
 import { Dialog } from "@/components/ui/dialog/dialog";
 import { Icon } from "@/components/ui/icon/icon";
 import { TextField } from "@/components/ui/text-field/text-field";
@@ -43,9 +44,7 @@ function BikeEditDialog({ bike, onClose }: { bike: Bike; onClose: () => void }) 
       >
         <header className={styles.header}>
           <h2 id={headingId}>Edit Bike Details</h2>
-          <button aria-label="Close edit bike details" className={styles.closeButton} onClick={onClose} type="button">
-            <Icon name="add" size={22} />
-          </button>
+          <DialogCloseButton label="Close edit bike details" onClose={onClose} />
         </header>
 
         <div className={styles.formCard}>
@@ -55,7 +54,7 @@ function BikeEditDialog({ bike, onClose }: { bike: Bike; onClose: () => void }) 
               fieldClassName={`${styles.field} ${styles.lockedField}`}
               info={lockedFieldHelp}
               label="Bike Brand*"
-              trailingIcon={<Icon name="lock" size={20} />}
+              trailingIcon={<Icon className={styles.lockIcon} name="lock-outline" size={18} />}
               value={bike.editDetails.brand}
             />
             <TextField
@@ -63,7 +62,7 @@ function BikeEditDialog({ bike, onClose }: { bike: Bike; onClose: () => void }) 
               fieldClassName={`${styles.field} ${styles.lockedField}`}
               info={lockedFieldHelp}
               label="Bike Series*"
-              trailingIcon={<Icon name="lock" size={20} />}
+              trailingIcon={<Icon className={styles.lockIcon} name="lock-outline" size={18} />}
               value={bike.editDetails.series}
             />
             <TextField
@@ -71,7 +70,7 @@ function BikeEditDialog({ bike, onClose }: { bike: Bike; onClose: () => void }) 
               fieldClassName={`${styles.field} ${styles.lockedField}`}
               info={lockedFieldHelp}
               label="Bike Model*"
-              trailingIcon={<Icon name="lock" size={20} />}
+              trailingIcon={<Icon className={styles.lockIcon} name="lock-outline" size={18} />}
               value={bike.editDetails.model}
             />
             <TextField
@@ -79,7 +78,7 @@ function BikeEditDialog({ bike, onClose }: { bike: Bike; onClose: () => void }) 
               fieldClassName={`${styles.field} ${styles.lockedField}`}
               info={lockedFieldHelp}
               label="Year"
-              trailingIcon={<Icon name="lock" size={20} />}
+              trailingIcon={<Icon className={styles.lockIcon} name="lock-outline" size={18} />}
               value={bike.editDetails.year}
             />
             <TextField
@@ -87,7 +86,7 @@ function BikeEditDialog({ bike, onClose }: { bike: Bike; onClose: () => void }) 
               fieldClassName={`${styles.field} ${styles.lockedField}`}
               info={lockedFieldHelp}
               label="Frame Size"
-              trailingIcon={<Icon name="lock" size={20} />}
+              trailingIcon={<Icon className={styles.lockIcon} name="lock-outline" size={18} />}
               value={bike.editDetails.frameSize}
             />
             <DateField
@@ -119,6 +118,7 @@ function BikeEditDialog({ bike, onClose }: { bike: Bike; onClose: () => void }) 
             <section aria-label="Primary bike setting" className={`${styles.primarySetting} ${styles.fullField}`}>
               <ToggleSwitch
                 checked={isPrimary}
+                className={styles.primaryToggle}
                 label="Set as Primary Bike"
                 onCheckedChange={setIsPrimary}
               />

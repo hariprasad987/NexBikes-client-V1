@@ -8,6 +8,7 @@ import { BikePartMaintenanceHistory } from "@/features/garage/components/bike-pa
 import { BikePartQuickActions } from "@/features/garage/components/bike-part-quick-actions/bike-part-quick-actions";
 import { BikePartSpareParts } from "@/features/garage/components/bike-part-spare-parts/bike-part-spare-parts";
 import { BikePartSpecifications } from "@/features/garage/components/bike-part-specifications/bike-part-specifications";
+import { BikePartToolsResources } from "@/features/garage/components/bike-part-tools-resources/bike-part-tools-resources";
 import { BikePartSupport } from "@/features/garage/components/bike-part-support/bike-part-support";
 import type { BikeManagementData, ManagedBikePart } from "@/features/garage/types";
 
@@ -38,6 +39,7 @@ export function BikePartDetailView({
             <BikePartQuickActions />
             <BikePartMaintenanceHistory categoryLabel={part.categoryLabel} data={data.partDetailPage} />
             <BikePartSpareParts categoryLabel={part.categoryLabel} data={data.partDetailPage} />
+            <BikePartToolsResources data={data.partDetailPage} />
           </div>
 
           <aside aria-label={`${part.categoryLabel} specifications and support`} className={styles.secondaryColumn}>

@@ -146,7 +146,7 @@ export type BikePartSpecification = {
   value: string;
 };
 
-export type BikePartDetailIcon = "edit" | "history" | "refresh" | "settings" | "tools";
+export type BikePartDetailIcon = "edit" | "history" | "measurement" | "refresh" | "settings" | "tools";
 
 export type BikePartMaintenanceRecord = {
   date: string;
@@ -163,7 +163,17 @@ export type BikePartSpareFilter = {
   label: string;
 };
 
+export type BikePartToolResource = {
+  category: string;
+  href: string;
+  id: string;
+  image: string;
+  name: string;
+  specification: string;
+};
+
 export type BikePartSparePart = {
+  image: string;
   category: string;
   date: string;
   id: string;
@@ -172,11 +182,13 @@ export type BikePartSparePart = {
 };
 
 export type BikePartDetailPageData = {
-  dateRange: string;
+  dateRange: { startDate: string; endDate: string };
   historyFilters: Array<{ label: string; value: string }>;
   maintenanceHistory: BikePartMaintenanceRecord[];
   spareFilters: BikePartSpareFilter[];
   spareParts: BikePartSparePart[];
+  toolsFilters: BikePartSpareFilter[];
+  toolsResources: BikePartToolResource[];
 };
 
 export type ManagedBikePartDetails = {

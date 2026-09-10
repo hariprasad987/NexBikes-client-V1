@@ -1,29 +1,6 @@
 .dialog {
   padding: 2.125rem;
-  scrollbar-color: var(--color-medium-grey) var(--color-border);
-  scrollbar-width: thin;
   container-type: inline-size;
-}
-
-.dialog::-webkit-scrollbar {
-  width: 0.5rem;
-}
-
-.dialog::-webkit-scrollbar-track,
-.dialog::-webkit-scrollbar-thumb {
-  border-radius: 1rem;
-}
-
-.dialog::-webkit-scrollbar-track {
-  background: var(--color-border);
-}
-
-.dialog::-webkit-scrollbar-thumb {
-  background: var(--color-medium-grey);
-}
-
-.dialog::-webkit-scrollbar-button {
-  display: none;
 }
 
 .header {
@@ -66,27 +43,6 @@
   white-space: nowrap;
 }
 
-.closeButton {
-  width: 2.75rem;
-  height: 2.75rem;
-  margin: -0.75rem -0.75rem 0 0;
-  border: 0;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: transparent;
-  color: var(--color-garage-action);
-}
-
-.closeButton svg {
-  transform: rotate(45deg);
-}
-
-.closeButton:hover {
-  background: var(--color-lime-16);
-}
-
-.closeButton:focus-visible,
 .appOption:focus-visible {
   box-shadow: 0 0 0 3px var(--color-lime-30);
   outline: none;

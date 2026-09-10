@@ -5,11 +5,16 @@ import type { NextConfig } from "next";
 const sassToolsPath = path.join(process.cwd(), "src/styles/tools").replaceAll("\\", "/");
 
 const nextConfig: NextConfig = {
-  // Permit the browser-facing workspace addresses so client chunks and HMR
-  // use a stable WebSocket connection during remote development.
-  allowedDevOrigins: ["127.0.0.1", "172.17.0.120", "172.17.7.120"],
+  // Comma-separated hostnames only, without a protocol or port.
+  allowedDevOrigins: (process.env.ALLOWED_DEV_ORIGINS ?? "")
+    .split(",")
+    .map((hostname) => hostname.trim())
+    .filter(Boolean),
   sassOptions: {
     additionalData: `@use "${sassToolsPath}" as *;`,
+  },
+  experimental: {
+    useTypeScriptCli: false,
   },
   typedRoutes: true,
 };

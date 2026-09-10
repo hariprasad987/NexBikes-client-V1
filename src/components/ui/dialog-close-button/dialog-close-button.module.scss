@@ -1,0 +1,25 @@
+.button {
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: 0 0 2.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: transparent;
+  color: var(--color-garage-action);
+}
+
+.button svg {
+  transform: rotate(45deg);
+}
+
+.button:hover {
+  background: transparent;
+}
+
+.button:focus-visible {
+  box-shadow: 0 0 0 3px var(--color-lime-30);
+  outline: none;
+}

@@ -3,30 +3,38 @@
   display: flex;
   align-items: center;
   gap: 0.875rem;
+  flex-wrap: wrap;
 }
 
 .bikeSelect {
-  width: min(100%, 17.125rem);
+  width: min(100%, 17.25rem);
 }
 
 .bikeSelect > button {
-  min-height: 3.1875rem;
+  min-height: 3rem;
   border-color: var(--color-dashboard-soft-border);
   border-radius: 0.5rem;
   color: var(--color-black);
-  padding-inline: 1.4375rem;
+  padding-inline: 1.25rem;
   box-shadow: var(--shadow-dashboard-card);
   font-size: var(--text-ui-body);
   font-weight: var(--weight-medium);
 }
 
 .searchButton {
-  min-width: 10.75rem;
-  min-height: 3.1875rem;
-  padding-inline: 1.4375rem;
+  min-width: 9.6875rem;
+  min-height: 3rem;
+  padding-inline: 1.25rem;
   background: var(--color-dashboard-action);
+  color: var(--color-white);
   box-shadow: var(--shadow-dashboard-card);
   font-size: var(--text-ui-body);
+  font-weight: var(--weight-semibold);
+  white-space: nowrap;
+}
+
+.searchButton:hover {
+  background: var(--color-dashboard-action);
 }
 
 @include down("mobile") {
