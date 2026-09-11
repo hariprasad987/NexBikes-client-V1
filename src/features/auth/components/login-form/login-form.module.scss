@@ -135,6 +135,13 @@
   gap: 1.25rem;
 }
 
+.error {
+  margin: -1rem 0 0;
+  color: var(--color-garage-alert);
+  font-size: 0.9375rem;
+  line-height: 1.4;
+}
+
 .submit.submit {
   width: 100%;
   height: 3.5rem;

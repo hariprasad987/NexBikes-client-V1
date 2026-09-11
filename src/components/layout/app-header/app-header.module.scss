@@ -86,10 +86,14 @@
 .profile {
   gap: 0.4375rem;
   border-radius: 999px;
-  padding: 0;
+  padding: 0.25rem 0.75rem 0.25rem 0.25rem;
   color: var(--color-dark-grey);
   font-size: var(--text-ui-body);
   font-weight: var(--weight-medium);
+}
+
+.profileMenu {
+  position: relative;
 }
 
 .profileDetails {
@@ -100,6 +104,11 @@
 
 .profileChevron {
   color: var(--color-dashboard-profile-arrow);
+  transition: transform 160ms ease;
+}
+
+.profileOpen .profileChevron {
+  transform: rotate(180deg);
 }
 
 .avatar {
@@ -116,6 +125,59 @@
 
 .avatar img {
   object-fit: cover;
+}
+
+.menu {
+  position: absolute;
+  z-index: 2;
+  top: calc(100% + 0.75rem);
+  right: 0;
+  width: min(18rem, calc(100vw - 1.5rem));
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.menuIdentity {
+  display: grid;
+  gap: 0.25rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-heading);
+}
+
+.menuIdentity strong {
+  font-size: var(--text-ui-small);
+  font-weight: var(--weight-semibold);
+}
+
+.menuIdentity span {
+  color: var(--color-text-muted);
+  font-size: var(--text-ui-micro);
+}
+
+.logout {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  color: var(--color-heading);
+  padding: 0.9rem 1rem;
+  text-align: left;
+  font-size: var(--text-ui-small);
+  font-weight: var(--weight-medium);
+}
+
+.logout:hover,
+.logout:focus-visible {
+  background: var(--color-lime-16);
+  outline: none;
+}
+
+.logout:disabled {
+  cursor: wait;
+  opacity: 0.65;
 }
 
 @include down("desktop-small") {

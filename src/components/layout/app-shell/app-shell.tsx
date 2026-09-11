@@ -5,6 +5,7 @@ import { useState } from "react";
 
 import { AppHeader } from "@/components/layout/app-header/app-header";
 import { AppSidebar } from "@/components/layout/app-sidebar/app-sidebar";
+import { AuthGate } from "@/components/layout/auth-gate/auth-gate";
 
 import styles from "./app-shell.module.scss";
 
@@ -33,19 +34,21 @@ export function AppShell({ children }: Readonly<{ children: ReactNode }>) {
   }
 
   return (
-    <div
-      className={`${styles.shell} ${isSidebarCollapsed ? styles.sidebarCollapsed : ""}`}
-      onTransitionEnd={showExpandedSidebarContent}
-    >
-      <AppSidebar
-        collapsed={isSidebarCollapsed}
-        contentVisible={isSidebarContentVisible}
-        onToggle={toggleSidebar}
-      />
-      <div className={styles.content}>
-        <AppHeader />
-        <main className={styles.main}>{children}</main>
+    <AuthGate>
+      <div
+        className={`${styles.shell} ${isSidebarCollapsed ? styles.sidebarCollapsed : ""}`}
+        onTransitionEnd={showExpandedSidebarContent}
+      >
+        <AppSidebar
+          collapsed={isSidebarCollapsed}
+          contentVisible={isSidebarContentVisible}
+          onToggle={toggleSidebar}
+        />
+        <div className={styles.content}>
+          <AppHeader />
+          <main className={styles.main}>{children}</main>
+        </div>
       </div>
-    </div>
+    </AuthGate>
   );
 }

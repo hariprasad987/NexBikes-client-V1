@@ -1,0 +1,10 @@
+.loading {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  color: var(--color-heading);
+  font-size: var(--text-ui-body);
+  font-weight: var(--weight-medium);
+  text-align: center;
+}

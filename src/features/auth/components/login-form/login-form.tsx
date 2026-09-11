@@ -1,6 +1,6 @@
 "use client";
 
-import type { FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import type { Route } from "next";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -10,15 +10,43 @@ import { Button } from "@/components/ui/button/button";
 import { Icon } from "@/components/ui/icon/icon";
 import { TextField } from "@/components/ui/text-field/text-field";
 import { fontClasses } from "@/styles/fonts";
+import { AuthApiError, login, storeAuthSession } from "@/lib/auth/auth-client";
 
 import styles from "./login-form.module.scss";
 
 export function LoginForm() {
   const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    router.push("/garage" as Route);
+    setErrorMessage(null);
+    setIsSubmitting(true);
+
+    const formData = new FormData(event.currentTarget);
+    const email = String(formData.get("email") ?? "").trim();
+    const password = String(formData.get("password") ?? "");
+
+    if (!email || !password) {
+      setErrorMessage("Enter your email and password to continue.");
+      setIsSubmitting(false);
+      return;
+    }
+
+    try {
+      const session = await login(email, password);
+      storeAuthSession({ ...session, email });
+      router.replace("/garage" as Route);
+    } catch (error) {
+      setErrorMessage(
+        error instanceof AuthApiError
+          ? error.message
+          : "Unable to log in right now. Please try again.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -55,6 +83,7 @@ export function LoginForm() {
             label="Email"
             name="email"
             placeholder="Enter your email"
+            required
             type="email"
           />
           <TextField
@@ -63,6 +92,7 @@ export function LoginForm() {
             label="Password"
             name="password"
             placeholder="Enter your password"
+            required
             type="password"
           />
           <Link className={styles.forgot} href={"/forgot-password" as Route}>
@@ -70,9 +100,15 @@ export function LoginForm() {
           </Link>
         </div>
 
+        {errorMessage && (
+          <p aria-live="polite" className={styles.error} role="alert">
+            {errorMessage}
+          </p>
+        )}
+
         <div className={styles.actions}>
-          <Button className={styles.submit} fullWidth type="submit">
-            Login
+          <Button className={styles.submit} disabled={isSubmitting} fullWidth type="submit">
+            {isSubmitting ? "Logging in..." : "Login"}
           </Button>
           <p className={styles.signup}>
             Don&apos;t have account? <Link href={"/signup" as Route}>Sign Up</Link>
