@@ -247,6 +247,7 @@ If an automated browser or screenshot tool is unavailable, perform a code-level 
 - Images must have meaningful alt text or an empty alt attribute when purely decorative.
 - Avoid unnecessary client-side JavaScript and keep Server Components as the default.
 - Do not duplicate constants, labels, business data, or rendering logic.
+- All transient success, error, and informational feedback must be presented through the shared reusable toast component at the top right with its matching tone and progress indicator. Do not render these messages inline inside pages or feature components.
 
 ## Dependency and command rules
 
