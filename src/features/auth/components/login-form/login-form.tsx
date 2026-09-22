@@ -52,7 +52,7 @@ export function LoginForm() {
     <div className={styles.wrapper}>
       <div className={styles.accessOptions}>
         <header className={styles.header}>
-          <Logo href="/login" />
+          <Logo href="/login" size="wide" />
           <h1 className={fontClasses.display}>WELCOME BACK</h1>
         </header>
         <div className={styles.methodOptions}>

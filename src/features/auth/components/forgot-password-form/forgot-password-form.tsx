@@ -39,7 +39,7 @@ export function ForgotPasswordForm() {
   return (
     <form className={styles.form} noValidate onSubmit={handleSubmit}>
       <header className={styles.header}>
-        <Logo href="/login" />
+        <Logo href="/login" size="wide" />
         <div className={styles.instructions}>
           <h1 className={fontClasses.display}><span>FORGOT</span><span>PASSWORD?</span></h1>
           <p>Don&apos;t worry, we will send you a password reset link to your registered email id</p>

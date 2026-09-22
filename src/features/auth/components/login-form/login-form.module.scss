@@ -19,7 +19,7 @@
 
 .header {
   width: min(100%, 30.25rem);
-  height: 6.3125rem;
+  min-height: 6.3125rem;
   display: grid;
   gap: 2.375rem;
 }

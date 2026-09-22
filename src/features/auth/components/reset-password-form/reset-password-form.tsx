@@ -95,7 +95,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
   return (
     <form className={styles.form} noValidate onSubmit={handleSubmit}>
       <header className={styles.header}>
-        <Logo href="/login" />
+        <Logo href="/login" size="wide" />
         <div className={styles.instructions}>
           <h1 className={fontClasses.display}>
             <span>RESET</span>
