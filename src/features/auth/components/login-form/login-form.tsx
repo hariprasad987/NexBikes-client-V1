@@ -7,11 +7,12 @@ import { useRouter } from "next/navigation";
 
 import { Logo } from "@/components/brand/logo/logo";
 import { Button } from "@/components/ui/button/button";
-import { Icon } from "@/components/ui/icon/icon";
 import { TextField } from "@/components/ui/text-field/text-field";
 import { useToast } from "@/components/ui/toast-provider/toast-provider";
 import { fontClasses } from "@/styles/fonts";
-import { AuthApiError, login, storeAuthSession } from "@/lib/auth/auth-client";
+import { AuthApiError, getPostAuthRoute, login, storeAuthSession } from "@/lib/auth/auth-client";
+
+import { ProviderAuthOptions } from "../provider-auth-options/provider-auth-options";
 
 import styles from "./login-form.module.scss";
 
@@ -35,9 +36,9 @@ export function LoginForm() {
 
     try {
       const session = await login(email, password);
-      storeAuthSession({ ...session, email });
-      showToast({ message: "Login successful.", tone: "success" });
-      router.replace("/garage" as Route);
+      storeAuthSession(session);
+      showToast({ message: session.message ?? "Login successful.", tone: "success" });
+      router.replace(getPostAuthRoute(session.user) as Route);
     } catch (error) {
       showToast({
         message: error instanceof AuthApiError ? error.message : "Unable to log in right now. Please try again.",
@@ -55,13 +56,7 @@ export function LoginForm() {
           <Logo href="/login" size="wide" />
           <h1 className={fontClasses.display}>WELCOME BACK</h1>
         </header>
-        <div className={styles.methodOptions}>
-          <div className={styles.socials}>
-            <Button fullWidth leadingIcon={<Icon name="google" size={24} />} variant="social">Continue with Google</Button>
-            <Button fullWidth leadingIcon={<Icon name="apple" size={17} />} variant="social">Continue with Apple</Button>
-          </div>
-          <div className={styles.divider}><span /><p>or login using email</p><span /></div>
-        </div>
+        <ProviderAuthOptions intent="login" />
       </div>
       <form className={styles.form} noValidate onSubmit={handleSubmit}>
         <div className={styles.credentials}>

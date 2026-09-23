@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button/button";
 import styles from "./onboarding-actions.module.scss";
 
 type OnboardingActionsProps = {
+  isSubmitting?: boolean;
   onContinue: () => void;
   onPrevious?: () => void;
   onSkip?: () => void;
@@ -10,6 +11,7 @@ type OnboardingActionsProps = {
 };
 
 export function OnboardingActions({
+  isSubmitting = false,
   onContinue,
   onPrevious,
   onSkip,
@@ -26,15 +28,21 @@ export function OnboardingActions({
       </span>
       <span className={styles.forwardActions}>
         {onSkip && (
-          <Button className={styles.secondaryAction} onClick={onSkip} variant="ghost">
+          <Button
+            className={styles.secondaryAction}
+            disabled={isSubmitting}
+            onClick={onSkip}
+            variant="ghost"
+          >
             Skip
           </Button>
         )}
         <Button
           className={styles.primaryAction}
+          disabled={isSubmitting}
           onClick={onContinue}
         >
-          {primaryLabel}
+          {isSubmitting ? "Finishing..." : primaryLabel}
         </Button>
       </span>
     </nav>

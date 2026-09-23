@@ -6,23 +6,59 @@ const apiBaseUrl = (process.env.NEXT_PUBLIC_API_BASE_URL ?? "http://172.17.7.225
 const ACCESS_TOKEN_KEY = "nexbikes.access-token";
 const REFRESH_TOKEN_KEY = "nexbikes.refresh-token";
 const USER_KEY = "nexbikes.user";
+const GOOGLE_EMAIL_KEY = "nexbikes.google-email";
 const AUTH_CHANGE_EVENT = "nexbikes-auth-change";
 
 export type AuthUser = {
+  authProvider?: string;
+  avatar?: string;
   email: string;
   firstName: string;
+  id?: string;
+  isOnboarded: boolean;
+  isOnboardingCompleted: boolean;
   lastName: string;
   name: string;
+  onboardingStep: number;
 };
 
-type LoginResponse = {
+type ApiUser = {
+  authProvider?: string;
+  avatar?: string;
+  email?: string;
+  firstName?: string;
+  id?: string;
+  isOnboarded?: boolean;
+  isOnboardingCompleted?: boolean;
+  lastName?: string;
+  name?: string;
+  onboardingStep?: number;
+};
+
+type AuthResponse = ApiUser & {
   accessToken?: string;
   access_token?: string;
-  firstName?: string;
-  lastName?: string;
   message?: string;
   refreshToken?: string;
   status?: string;
+  user?: ApiUser;
+};
+
+export type AuthSession = {
+  accessToken: string;
+  message?: string;
+  refreshToken: string;
+  user: AuthUser;
+};
+
+export type RegisterPayload = {
+  dateOfBirth: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  phone: string;
+  zipCode: string;
 };
 
 type RefreshResponse = {
@@ -47,6 +83,19 @@ type VerifyTokenResponse = {
   is_verified?: boolean;
   message?: string;
   name?: string;
+  status?: string;
+};
+
+type OnboardingResponse = {
+  isOnboarded?: boolean;
+  isOnboardingCompleted?: boolean;
+  message?: string;
+  onboardingStep?: number;
+  user?: ApiUser;
+};
+
+type ApiMessageResponse = {
+  message: string;
   status?: string;
 };
 
@@ -139,29 +188,31 @@ export function getStoredUser(): AuthUser | null {
   }
 }
 
-export function storeAuthSession({
-  accessToken,
-  email,
-  firstName,
-  lastName,
-  refreshToken,
-}: {
-  accessToken: string;
-  email: string;
-  firstName?: string;
-  lastName?: string;
-  refreshToken: string;
-}) {
-  const name = [firstName, lastName].filter(Boolean).join(" ").trim();
-  const user: AuthUser = {
-    email,
-    firstName: firstName ?? "",
-    lastName: lastName ?? "",
-    name: name || email,
-  };
+export function getStoredGoogleEmail() {
+  if (typeof window === "undefined") return "";
 
+  return getStoredValue(GOOGLE_EMAIL_KEY) ?? "";
+}
+
+export function storeGoogleEmail(email: string) {
+  if (typeof window === "undefined") return;
+
+  const normalizedEmail = email.trim();
+
+  if (!normalizedEmail) return;
+
+  window.localStorage.setItem(GOOGLE_EMAIL_KEY, normalizedEmail);
+  notifyAuthChange();
+}
+
+export function storeAuthSession({ accessToken, refreshToken, user }: AuthSession) {
   window.localStorage.setItem(ACCESS_TOKEN_KEY, accessToken);
   window.localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken);
+  window.localStorage.setItem(USER_KEY, JSON.stringify(user));
+  notifyAuthChange();
+}
+
+export function storeAuthUser(user: AuthUser) {
   window.localStorage.setItem(USER_KEY, JSON.stringify(user));
   notifyAuthChange();
 }
@@ -192,11 +243,35 @@ export function subscribeToAuthChanges(listener: () => void) {
   };
 }
 
-export async function login(email: string, password: string) {
-  const response = await request<LoginResponse>("/api/users/login", {
-    body: JSON.stringify({ email, password }),
-    method: "POST",
-  });
+function toAuthUser(response: ApiUser, fallback: ApiUser = {}): AuthUser {
+  const email = response.email ?? fallback.email ?? "";
+  const firstName = response.firstName ?? fallback.firstName ?? "";
+  const lastName = response.lastName ?? fallback.lastName ?? "";
+  const name = response.name ?? fallback.name ?? [firstName, lastName].filter(Boolean).join(" ").trim();
+  const isOnboarded =
+    response.isOnboarded ??
+    response.isOnboardingCompleted ??
+    fallback.isOnboarded ??
+    fallback.isOnboardingCompleted ??
+    false;
+  const isOnboardingCompleted =
+    response.isOnboardingCompleted ?? fallback.isOnboardingCompleted ?? isOnboarded;
+
+  return {
+    authProvider: response.authProvider ?? fallback.authProvider,
+    avatar: response.avatar ?? fallback.avatar,
+    email,
+    firstName,
+    id: response.id ?? fallback.id,
+    isOnboarded,
+    isOnboardingCompleted,
+    lastName,
+    name: name || email,
+    onboardingStep: response.onboardingStep ?? fallback.onboardingStep ?? 0,
+  };
+}
+
+function toAuthSession(response: AuthResponse, fallback: ApiUser = {}): AuthSession {
   const accessToken = response.accessToken ?? response.access_token;
 
   if (!accessToken || !response.refreshToken) {
@@ -205,10 +280,56 @@ export async function login(email: string, password: string) {
 
   return {
     accessToken,
-    firstName: response.firstName,
-    lastName: response.lastName,
+    message: response.message,
     refreshToken: response.refreshToken,
+    user: toAuthUser(response.user ?? response, { ...response, ...fallback }),
   };
+}
+
+export async function login(email: string, password: string) {
+  const response = await request<AuthResponse>("/api/users/login", {
+    body: JSON.stringify({ email, password }),
+    method: "POST",
+  });
+
+  return toAuthSession(response, { email });
+}
+
+export async function googleLogin(token: { accessToken?: string; idToken?: string }) {
+  const response = await request<AuthResponse>("/api/users/google-login", {
+    body: JSON.stringify(token),
+    method: "POST",
+  });
+
+  return toAuthSession(response);
+}
+
+export async function registerUser(payload: RegisterPayload) {
+  return request<ApiMessageResponse>("/api/users/register", {
+    body: JSON.stringify(payload),
+    method: "POST",
+  });
+}
+
+export async function verifyOtp(email: string, otp: string) {
+  const response = await request<AuthResponse>("/api/users/verify-otp", {
+    body: JSON.stringify({ email, otp }),
+    method: "POST",
+  });
+
+  return toAuthSession(response, {
+    email,
+    isOnboarded: false,
+    isOnboardingCompleted: false,
+    onboardingStep: 0,
+  });
+}
+
+export async function resendOtp(email: string) {
+  return request<ApiMessageResponse>("/api/users/resend-otp", {
+    body: JSON.stringify({ email }),
+    method: "POST",
+  });
 }
 
 export async function forgotPassword(email: string) {
@@ -297,4 +418,64 @@ export async function authenticatedFetch(input: RequestInfo | URL, init: Request
   }
 
   return response;
+}
+
+async function readAuthenticatedResponse<T>(response: Response): Promise<T> {
+  let payload: unknown;
+
+  try {
+    payload = await response.json();
+  } catch {
+    payload = undefined;
+  }
+
+  if (!response.ok || (isApiErrorPayload(payload) && payload.status === "error")) {
+    const message =
+      isApiErrorPayload(payload) && typeof payload.message === "string"
+        ? payload.message
+        : "Something went wrong. Please try again.";
+
+    throw new AuthApiError(message, response.status);
+  }
+
+  return payload as T;
+}
+
+export async function getProfile() {
+  const response = await authenticatedFetch("/api/users/profile", { method: "GET" });
+  const payload = await readAuthenticatedResponse<ApiUser & { user?: ApiUser }>(response);
+
+  return toAuthUser(payload.user ?? payload, payload);
+}
+
+export async function completeOnboarding() {
+  const response = await authenticatedFetch("/api/users/onboarding", {
+    body: JSON.stringify({
+      isOnboarded: true,
+      isOnboardingCompleted: true,
+      onboardingStep: 1,
+    }),
+    headers: { "Content-Type": "application/json" },
+    method: "PATCH",
+  });
+  const payload = await readAuthenticatedResponse<OnboardingResponse>(response);
+  const storedUser = getStoredUser();
+
+  if (!storedUser) {
+    throw new AuthApiError("Your session could not be updated. Please sign in again.", 401);
+  }
+
+  const user = toAuthUser(payload.user ?? payload, {
+    ...storedUser,
+    isOnboarded: true,
+    isOnboardingCompleted: true,
+    onboardingStep: payload.onboardingStep ?? 1,
+  });
+
+  storeAuthUser(user);
+  return { message: payload.message, user };
+}
+
+export function getPostAuthRoute(user: AuthUser) {
+  return user.isOnboarded || user.isOnboardingCompleted ? "/dashboard" : "/onboarding";
 }

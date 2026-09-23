@@ -4,6 +4,7 @@ export type OnboardingStepId = "account" | "bike" | "activity";
 
 export type SignupStage =
   | "account"
+  | "verify-otp"
   | "bike-search"
   | "bike-details"
   | "bike-added"

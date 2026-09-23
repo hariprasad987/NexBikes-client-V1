@@ -16,7 +16,7 @@ type BikeSearchStepProps = {
   hasMoreBikes: boolean;
   loading: boolean;
   onContinue: () => void;
-  onPrevious: () => void;
+  onPrevious?: () => void;
   onSelectBike: (bikeId: string) => void;
   onSkip: () => void;
   selectedBikeId: string;

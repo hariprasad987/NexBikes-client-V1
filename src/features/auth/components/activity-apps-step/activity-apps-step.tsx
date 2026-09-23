@@ -12,6 +12,7 @@ import styles from "./activity-apps-step.module.scss";
 type ActivityAppsStepProps = {
   apps: ActivityApp[];
   connectedApps: ReadonlySet<ActivityApp["id"]>;
+  isSubmitting?: boolean;
   onContinue: () => void;
   onPrevious: () => void;
   onSkip: () => void;
@@ -21,6 +22,7 @@ type ActivityAppsStepProps = {
 export function ActivityAppsStep({
   apps,
   connectedApps,
+  isSubmitting = false,
   onContinue,
   onPrevious,
   onSkip,
@@ -69,7 +71,13 @@ export function ActivityAppsStep({
         })}
       </div>
 
-      <OnboardingActions onContinue={onContinue} onPrevious={onPrevious} onSkip={onSkip} />
+      <OnboardingActions
+        isSubmitting={isSubmitting}
+        onContinue={onContinue}
+        onPrevious={onPrevious}
+        onSkip={onSkip}
+        primaryLabel="Finish"
+      />
     </section>
   );
 }
