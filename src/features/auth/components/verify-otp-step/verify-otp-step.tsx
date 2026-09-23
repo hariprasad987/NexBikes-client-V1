@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useSyncExternalStore, type FormEvent } from "react";
 
 import { Button } from "@/components/ui/button/button";
 import { TextField } from "@/components/ui/text-field/text-field";
@@ -8,6 +8,9 @@ import { useToast } from "@/components/ui/toast-provider/toast-provider";
 import {
   AuthApiError,
   resendOtp,
+  getOtpResendCooldownSeconds,
+  storeOtpResendCooldown,
+  subscribeToOtpResendCooldown,
   verifyOtp,
   type AuthSession,
 } from "@/lib/auth/auth-client";
@@ -24,6 +27,11 @@ type VerifyOtpStepProps = {
 
 export function VerifyOtpStep({ email, onCancel, onVerified }: VerifyOtpStepProps) {
   const { showToast } = useToast();
+  const resendCooldownSeconds = useSyncExternalStore(
+    subscribeToOtpResendCooldown,
+    () => getOtpResendCooldownSeconds(email),
+    () => 0,
+  );
   const [isResending, setIsResending] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
   const isBusy = isResending || isVerifying;
@@ -61,6 +69,7 @@ export function VerifyOtpStep({ email, onCancel, onVerified }: VerifyOtpStepProp
 
     try {
       const response = await resendOtp(email);
+      storeOtpResendCooldown(email);
       showToast({ message: response.message, tone: "success" });
     } catch (error) {
       showToast({
@@ -98,8 +107,16 @@ export function VerifyOtpStep({ email, onCancel, onVerified }: VerifyOtpStepProp
           />
           <div className={styles.resendRow}>
             <span>Didn&apos;t receive the code?</span>
-            <Button disabled={isBusy} onClick={() => void handleResend()} variant="text">
-              {isResending ? "Resending..." : "Resend OTP"}
+            <Button
+              disabled={isBusy || resendCooldownSeconds > 0}
+              onClick={() => void handleResend()}
+              variant="text"
+            >
+              {isResending
+                ? "Resending..."
+                : resendCooldownSeconds > 0
+                  ? `Resend OTP in ${resendCooldownSeconds}s`
+                  : "Resend OTP"}
             </Button>
           </div>
         </div>

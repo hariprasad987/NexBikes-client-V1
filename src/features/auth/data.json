@@ -4,11 +4,6 @@
     { "id": "bike", "label": "Add Your Bike", "icon": "onboarding-bike" },
     { "id": "activity", "label": "Connect Activity Apps", "icon": "onboarding-activity" }
   ],
-  "phoneCountries": [
-    { "label": "🇺🇸 +1", "value": "us" },
-    { "label": "🇨🇦 +1", "value": "ca" },
-    { "label": "🇬🇧 +44", "value": "gb" }
-  ],
   "bikes": [
     {
       "id": "supercaliber-flight-attendant",

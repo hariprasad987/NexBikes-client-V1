@@ -40,8 +40,9 @@
 }
 
 .countrySelect > ul {
-  width: max-content;
-  min-width: 100%;
+  width: min(22rem, calc(100vw - 2rem));
+  min-width: 12rem;
+  max-width: calc(100vw - 2rem);
 }
 
 .phoneInput {

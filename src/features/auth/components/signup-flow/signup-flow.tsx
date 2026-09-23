@@ -1,7 +1,5 @@
 "use client";
 
-import type { Route } from "next";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { useToast } from "@/components/ui/toast-provider/toast-provider";
@@ -40,7 +38,6 @@ type SignupFlowProps = {
 };
 
 export function SignupFlow({ initialStage = "account" }: SignupFlowProps) {
-  const router = useRouter();
   const { showToast } = useToast();
   const [stage, setStage] = useState<SignupStage>(initialStage);
   const [selectedBikeId, setSelectedBikeId] = useState(defaultOnboardingBikeId);
@@ -99,7 +96,8 @@ export function SignupFlow({ initialStage = "account" }: SignupFlowProps) {
         showToast({ message: response.message, tone: "success" });
       }
 
-      router.replace("/dashboard" as Route);
+      setIsCompleting(false);
+      setStage("welcome");
     } catch (error) {
       showToast({
         message:

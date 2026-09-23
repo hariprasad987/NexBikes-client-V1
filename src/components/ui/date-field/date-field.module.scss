@@ -93,12 +93,36 @@
   gap: 0.5rem;
 }
 
-.calendarHeader strong {
+.calendarSelects {
   min-width: 0;
-  color: var(--color-heading);
-  font-size: var(--text-ui-body);
-  font-weight: var(--weight-semibold);
-  text-align: center;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(4.5rem, auto);
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.calendarSelect.calendarSelect {
+  min-width: 0;
+  gap: 0;
+  font-size: var(--text-ui-small);
+  font-weight: var(--weight-regular);
+}
+
+.calendarSelect.calendarSelect > button {
+  min-height: 2.5rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.625rem;
+  font-size: var(--text-ui-small);
+}
+
+.calendarSelect.calendarSelect > ul {
+  width: max-content;
+  min-width: 100%;
+  max-height: min(15rem, 35vh);
+}
+
+.srOnly {
+  @include visually-hidden;
 }
 
 .monthAction {

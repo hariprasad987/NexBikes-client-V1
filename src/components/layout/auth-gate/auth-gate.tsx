@@ -72,7 +72,11 @@ export function AuthGate({ children, requireCompletedOnboarding = true }: AuthGa
         const user = await getProfile();
         storeAuthUser(user);
 
-        if (requireCompletedOnboarding && !user.isOnboarded && !user.isOnboardingCompleted) {
+        if (
+          requireCompletedOnboarding &&
+          !user.isOnboarded &&
+          !user.isOnboardingCompleted
+        ) {
           router.replace("/onboarding");
           return;
         }

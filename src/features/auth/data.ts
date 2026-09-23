@@ -1,4 +1,5 @@
 import onboardingDataSource from "./data.json";
+import phoneCountriesSource from "./phone-countries.json";
 
 import type { IconName } from "@/components/ui/icon/icon";
 
@@ -92,7 +93,7 @@ export const authOnboardingData: AuthOnboardingData = {
     icon: parseIconName(step.icon),
     id: parseStepId(step.id),
   })),
-  phoneCountries: onboardingDataSource.phoneCountries,
+  phoneCountries: phoneCountriesSource,
   welcomeBenefits: onboardingDataSource.welcomeBenefits.map((benefit) => ({
     ...benefit,
     icon: parseIconName(benefit.icon),

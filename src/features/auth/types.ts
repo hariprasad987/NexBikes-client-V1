@@ -45,6 +45,7 @@ export type WelcomeBenefit = {
 };
 
 export type PhoneCountry = {
+  callingCode: string;
   label: string;
   value: string;
 };

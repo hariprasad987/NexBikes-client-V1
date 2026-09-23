@@ -102,6 +102,16 @@
   background: var(--color-heading);
 }
 
+.continue.continue:disabled,
+.continue.continue:disabled:hover {
+  border-color: var(--color-border-grey);
+  background: var(--color-border-grey);
+  color: var(--color-medium-grey);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
 @include down("tablet") {
   .step,
   .form {

@@ -5,6 +5,7 @@ import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 
 import { Icon } from "@/components/ui/icon/icon";
 import { InfoTooltip } from "@/components/ui/info-tooltip/info-tooltip";
+import { SelectField } from "@/components/ui/select-field/select-field";
 
 import styles from "./date-field.module.scss";
 
@@ -34,6 +35,10 @@ const valueFormatter = new Intl.DateTimeFormat("en-GB", {
 });
 
 const weekdayLabels = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const monthOptions = Array.from({ length: 12 }, (_, month) => ({
+  label: new Intl.DateTimeFormat("en-GB", { month: "long" }).format(new Date(2000, month, 1)),
+  value: String(month),
+}));
 
 function parseDateValue(value: string) {
   const [year, month, day] = value.split("-").map(Number);
@@ -118,6 +123,11 @@ export function DateField({
   const [focusedDate, setFocusedDate] = useState(() => selectedDate ?? today);
   const [isOpen, setIsOpen] = useState(false);
   const [opensUp, setOpensUp] = useState(false);
+  const yearOptions = Array.from({ length: today.getFullYear() - 1899 }, (_, index) => {
+    const year = today.getFullYear() - index;
+
+    return { label: String(year), value: String(year) };
+  });
   const calendarWeeks = getCalendarWeeks(visibleMonth);
   const describedBy = [descriptionId, infoId].filter(Boolean).join(" ") || undefined;
 
@@ -202,6 +212,24 @@ export function DateField({
     setVisibleMonth(startOfMonth(nextDate));
   }
 
+  function changeVisibleMonth(month: string) {
+    const nextDate = clampDayToMonth(
+      visibleMonth.getFullYear(),
+      Number(month),
+      focusedDate.getDate(),
+    );
+    moveFocusedDate(nextDate);
+  }
+
+  function changeVisibleYear(year: string) {
+    const nextDate = clampDayToMonth(
+      Number(year),
+      visibleMonth.getMonth(),
+      focusedDate.getDate(),
+    );
+    moveFocusedDate(nextDate);
+  }
+
   function handleDayKeyDown(event: ReactKeyboardEvent<HTMLButtonElement>, dayDate: Date) {
     let nextDate: Date | undefined;
 
@@ -279,7 +307,29 @@ export function DateField({
             >
               <Icon name="chevron" size={10} />
             </button>
-            <strong aria-live="polite" id={monthHeadingId}>{monthFormatter.format(visibleMonth)}</strong>
+            <div className={styles.calendarSelects}>
+              <span className={styles.srOnly} id={monthHeadingId}>
+                {monthFormatter.format(visibleMonth)}
+              </span>
+              <SelectField
+                className={styles.calendarSelect}
+                label="Month"
+                labelHidden
+                onValueChange={changeVisibleMonth}
+                options={monthOptions}
+                selectedContent={monthOptions[visibleMonth.getMonth()]?.label}
+                value={String(visibleMonth.getMonth())}
+              />
+              <SelectField
+                className={styles.calendarSelect}
+                label="Year"
+                labelHidden
+                onValueChange={changeVisibleYear}
+                options={yearOptions}
+                selectedContent={String(visibleMonth.getFullYear())}
+                value={String(visibleMonth.getFullYear())}
+              />
+            </div>
             <button
               aria-label="Next month"
               className={`${styles.monthAction} ${styles.nextMonth}`}

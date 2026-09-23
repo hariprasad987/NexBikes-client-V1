@@ -8,6 +8,8 @@ const REFRESH_TOKEN_KEY = "nexbikes.refresh-token";
 const USER_KEY = "nexbikes.user";
 const GOOGLE_EMAIL_KEY = "nexbikes.google-email";
 const AUTH_CHANGE_EVENT = "nexbikes-auth-change";
+const OTP_RESEND_COOLDOWN_EVENT = "nexbikes-otp-resend-cooldown";
+const OTP_RESEND_COOLDOWN_MS = 30_000;
 
 export type AuthUser = {
   authProvider?: string;
@@ -243,6 +245,47 @@ export function subscribeToAuthChanges(listener: () => void) {
   };
 }
 
+function getOtpCooldownKey(email: string) {
+  return `nexbikes.otp-resend-until:${email.trim().toLowerCase()}`;
+}
+
+function notifyOtpCooldownChange() {
+  window.dispatchEvent(new Event(OTP_RESEND_COOLDOWN_EVENT));
+}
+
+export function storeOtpResendCooldown(email: string) {
+  if (typeof window === "undefined") return;
+
+  window.localStorage.setItem(
+    getOtpCooldownKey(email),
+    String(Date.now() + OTP_RESEND_COOLDOWN_MS),
+  );
+  notifyOtpCooldownChange();
+}
+
+export function getOtpResendCooldownSeconds(email: string) {
+  if (typeof window === "undefined") return 0;
+
+  const expiresAt = Number(window.localStorage.getItem(getOtpCooldownKey(email)) ?? 0);
+  const remainingMs = expiresAt - Date.now();
+
+  return remainingMs > 0 ? Math.ceil(remainingMs / 1000) : 0;
+}
+
+export function subscribeToOtpResendCooldown(listener: () => void) {
+  if (typeof window === "undefined") return () => undefined;
+
+  const interval = window.setInterval(listener, 1_000);
+  window.addEventListener(OTP_RESEND_COOLDOWN_EVENT, listener);
+  window.addEventListener("storage", listener);
+
+  return () => {
+    window.clearInterval(interval);
+    window.removeEventListener(OTP_RESEND_COOLDOWN_EVENT, listener);
+    window.removeEventListener("storage", listener);
+  };
+}
+
 function toAuthUser(response: ApiUser, fallback: ApiUser = {}): AuthUser {
   const email = response.email ?? fallback.email ?? "";
   const firstName = response.firstName ?? fallback.firstName ?? "";
@@ -278,11 +321,25 @@ function toAuthSession(response: AuthResponse, fallback: ApiUser = {}): AuthSess
     throw new AuthApiError("Login response did not include the required tokens.", 500);
   }
 
+  const user = toAuthUser(response.user ?? response, { ...response, ...fallback });
+
+  if (response.isOnboarded !== undefined) {
+    user.isOnboarded = response.isOnboarded;
+  }
+
+  if (response.isOnboardingCompleted !== undefined) {
+    user.isOnboardingCompleted = response.isOnboardingCompleted;
+  }
+
+  if (response.onboardingStep !== undefined) {
+    user.onboardingStep = response.onboardingStep;
+  }
+
   return {
     accessToken,
     message: response.message,
     refreshToken: response.refreshToken,
-    user: toAuthUser(response.user ?? response, { ...response, ...fallback }),
+    user,
   };
 }
 
@@ -444,8 +501,9 @@ async function readAuthenticatedResponse<T>(response: Response): Promise<T> {
 export async function getProfile() {
   const response = await authenticatedFetch("/api/users/profile", { method: "GET" });
   const payload = await readAuthenticatedResponse<ApiUser & { user?: ApiUser }>(response);
+  const storedUser = getStoredUser();
 
-  return toAuthUser(payload.user ?? payload, payload);
+  return toAuthUser(payload.user ?? payload, { ...storedUser, ...payload });
 }
 
 export async function completeOnboarding() {

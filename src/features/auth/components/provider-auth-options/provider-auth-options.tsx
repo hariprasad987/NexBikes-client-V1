@@ -37,8 +37,8 @@ export function ProviderAuthOptions({ intent }: ProviderAuthOptionsProps) {
 
   return (
     <div className={`${styles.options} ${isSignup ? styles.signup : ""}`}>
-      {isSignup ? divider : buttons}
-      {isSignup ? buttons : divider}
+      {buttons}
+      {divider}
     </div>
   );
 }

@@ -8,7 +8,7 @@ import { DateField } from "@/components/ui/date-field/date-field";
 import { PhoneField } from "@/components/ui/phone-field/phone-field";
 import { TextField } from "@/components/ui/text-field/text-field";
 import { useToast } from "@/components/ui/toast-provider/toast-provider";
-import { AuthApiError, registerUser } from "@/lib/auth/auth-client";
+import { AuthApiError, registerUser, storeOtpResendCooldown } from "@/lib/auth/auth-client";
 
 import { authOnboardingData } from "../../data";
 import { OnboardingHeader } from "../onboarding-header/onboarding-header";
@@ -22,7 +22,9 @@ type CreateAccountStepProps = {
 
 export function CreateAccountStep({ onRegistrationRequested }: CreateAccountStepProps) {
   const { showToast } = useToast();
+  const [hasAcceptedTerms, setHasAcceptedTerms] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [zipCodeValue, setZipCodeValue] = useState("");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -32,11 +34,18 @@ export function CreateAccountStep({ onRegistrationRequested }: CreateAccountStep
     const email = String(formData.get("email") ?? "").trim();
     const password = String(formData.get("password") ?? "");
     const confirmPassword = String(formData.get("confirmPassword") ?? "");
-    const phone = String(formData.get("phone") ?? "").trim();
+    const phoneNumber = String(formData.get("phone") ?? "").replace(/\D/g, "");
+    const phoneCountry = String(formData.get("phoneCountry") ?? "us");
+    const selectedPhoneCountry = authOnboardingData.phoneCountries.find(
+      (country) => country.value === phoneCountry,
+    );
+    const phone = selectedPhoneCountry
+      ? `${selectedPhoneCountry.callingCode}${phoneNumber}`
+      : phoneNumber;
     const dateOfBirth = String(formData.get("dateOfBirth") ?? "");
-    const zipCode = String(formData.get("zipCode") ?? "").trim();
+    const zipCode = String(formData.get("postalCode") ?? "").replace(/\D/g, "");
 
-    if (!firstName || !lastName || !email || !password || !phone || !dateOfBirth || !zipCode) {
+    if (!firstName || !lastName || !email || !password || !phoneNumber || !dateOfBirth || !zipCode) {
       showToast({ message: "Complete all required account fields.", tone: "error" });
       return;
     }
@@ -63,6 +72,7 @@ export function CreateAccountStep({ onRegistrationRequested }: CreateAccountStep
         phone,
         zipCode,
       });
+      storeOtpResendCooldown(email);
       showToast({ message: response.message, tone: "success" });
       onRegistrationRequested(email);
     } catch (error) {
@@ -84,6 +94,8 @@ export function CreateAccountStep({ onRegistrationRequested }: CreateAccountStep
         description="Create your NexBikes account to manage your bikes, track maintenance and get smart recommendations."
         title="Create Your Account"
       />
+
+      <ProviderAuthOptions intent="signup" />
 
       <form className={styles.form} noValidate onSubmit={handleSubmit}>
         <div className={styles.fieldCard}>
@@ -134,13 +146,17 @@ export function CreateAccountStep({ onRegistrationRequested }: CreateAccountStep
             name="dateOfBirth"
           />
           <TextField
-            autoComplete="postal-code"
+            autoComplete="off"
             id="home-zip"
             info="Used to find nearby service, retailers, and locally relevant recommendations."
+            inputMode="numeric"
             label="Home Zip Code*"
-            name="zipCode"
+            maxLength={10}
+            name="postalCode"
+            onChange={(event) => setZipCodeValue(event.target.value.replace(/\D/g, ""))}
             placeholder="Postal code"
             required
+            value={zipCodeValue}
           />
           <TextField
             autoComplete="new-password"
@@ -166,19 +182,28 @@ export function CreateAccountStep({ onRegistrationRequested }: CreateAccountStep
 
         <div className={styles.footer}>
           <label className={styles.agreement} htmlFor="terms-agreement">
-            <input id="terms-agreement" name="terms" type="checkbox" />
+            <input
+              checked={hasAcceptedTerms}
+              id="terms-agreement"
+              name="terms"
+              onChange={(event) => setHasAcceptedTerms(event.target.checked)}
+              type="checkbox"
+            />
             <span>
-              By creating an account, you agree to <Link href="#terms">Terms of Service</Link> and{" "}
-              <Link href="#privacy">Privacy Policy</Link>
+              By creating an account, you agree to{" "}
+              <Link href="https://nexbikes.bobcares.com/signup#terms">Terms of Service</Link> and{" "}
+              <Link href="https://nexbikes.bobcares.com/signup#privacy">Privacy Policy</Link>
             </span>
           </label>
-          <Button className={styles.continue} disabled={isSubmitting} type="submit">
+          <Button
+            className={styles.continue}
+            disabled={isSubmitting || !hasAcceptedTerms}
+            type="submit"
+          >
             {isSubmitting ? "Sending OTP..." : "Continue"}
           </Button>
         </div>
       </form>
-
-      <ProviderAuthOptions intent="signup" />
     </section>
   );
 }

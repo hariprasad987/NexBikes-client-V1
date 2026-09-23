@@ -1,4 +1,7 @@
+"use client";
+
 import type { InputHTMLAttributes } from "react";
+import { useState } from "react";
 
 import { InfoTooltip } from "@/components/ui/info-tooltip/info-tooltip";
 import { SelectField } from "@/components/ui/select-field/select-field";
@@ -6,8 +9,12 @@ import type { SelectOption } from "@/components/ui/select-field/select-field";
 
 import styles from "./phone-field.module.scss";
 
+type PhoneCountryOption = SelectOption & {
+  callingCode: string;
+};
+
 type PhoneFieldProps = Omit<InputHTMLAttributes<HTMLInputElement>, "type"> & {
-  countries: SelectOption[];
+  countries: PhoneCountryOption[];
   defaultCountry: string;
   info?: string;
   label: string;
@@ -24,6 +31,8 @@ export function PhoneField({
 }: PhoneFieldProps) {
   const controlId = id ?? "phone-number";
   const infoId = `${controlId}-info`;
+  const [selectedCountry, setSelectedCountry] = useState(defaultCountry);
+  const selectedCountryOption = countries.find((country) => country.value === selectedCountry);
 
   return (
     <div className={styles.field}>
@@ -45,7 +54,9 @@ export function PhoneField({
           label="Country calling code"
           labelHidden
           name={name ? `${name}Country` : undefined}
+          onValueChange={setSelectedCountry}
           options={countries}
+          selectedContent={selectedCountryOption?.callingCode}
         />
         <input
           aria-describedby={info ? infoId : undefined}
