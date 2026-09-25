@@ -16,16 +16,19 @@ import styles from "./forgot-password-form.module.scss";
 export function ForgotPasswordForm() {
   const { showToast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [invalidEmail, setInvalidEmail] = useState(false);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsSubmitting(true);
     const email = String(new FormData(event.currentTarget).get("email") ?? "").trim();
     if (!email) {
+      setInvalidEmail(true);
       showToast({ message: "Enter your email address to continue.", tone: "error" });
       setIsSubmitting(false);
       return;
     }
+    setInvalidEmail(false);
     try {
       const response = await forgotPassword(email);
       showToast({ message: response.message ?? "Password reset link sent to your email.", tone: "success" });
@@ -46,7 +49,7 @@ export function ForgotPasswordForm() {
         </div>
       </header>
       <div className={styles.emailField}>
-        <TextField fieldClassName={styles.emailControl} autoComplete="email" id="reset-email" label="Email Address" name="email" placeholder="Enter your email address" required type="email" />
+        <TextField fieldClassName={styles.emailControl} autoComplete="email" id="reset-email" invalid={invalidEmail} label="Email Address" name="email" onChange={() => setInvalidEmail(false)} placeholder="Enter your email address" required type="email" />
       </div>
       <div className={styles.actions}>
         <Button className={styles.resetButton} disabled={isSubmitting} fullWidth type="submit">{isSubmitting ? "Sending..." : "Reset Password"}</Button>

@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import type { Route } from "next";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { useToast } from "@/components/ui/toast-provider/toast-provider";
 import {
@@ -10,8 +12,8 @@ import {
   type AuthSession,
 } from "@/lib/auth/auth-client";
 
-import { authOnboardingData, defaultOnboardingBikeId, getOnboardingBikeById } from "../../data";
-import type { ActivityApp, OnboardingStepId, SignupStage } from "../../types";
+import { addBikeToGarage, authOnboardingData } from "../../data";
+import type { ActivityApp, AddBikePayload, BikeOption, OnboardingStepId, SignupStage } from "../../types";
 import { ActivityAppsStep } from "../activity-apps-step/activity-apps-step";
 import { BikeAddedStep } from "../bike-added-step/bike-added-step";
 import { BikeDetailsStep } from "../bike-details-step/bike-details-step";
@@ -34,32 +36,60 @@ function getProgressStep(stage: SignupStage): OnboardingStepId {
 }
 
 type SignupFlowProps = {
+  initialVerificationEmail?: string;
+  initialVerificationRequiresResend?: boolean;
   initialStage?: SignupStage;
 };
 
-export function SignupFlow({ initialStage = "account" }: SignupFlowProps) {
+export function SignupFlow({
+  initialStage = "account",
+  initialVerificationEmail = "",
+  initialVerificationRequiresResend = false,
+}: SignupFlowProps) {
+  const router = useRouter();
   const { showToast } = useToast();
   const [stage, setStage] = useState<SignupStage>(initialStage);
-  const [selectedBikeId, setSelectedBikeId] = useState(defaultOnboardingBikeId);
-  const [isBikeLoading, setIsBikeLoading] = useState(false);
+  const [selectedBike, setSelectedBike] = useState<BikeOption | null>(null);
   const [bikeWasAdded, setBikeWasAdded] = useState(false);
+  const [savedBikeDetails, setSavedBikeDetails] = useState<AddBikePayload | null>(null);
   const [connectedApps, setConnectedApps] = useState<Set<ActivityApp["id"]>>(new Set());
   const [isCompleting, setIsCompleting] = useState(false);
-  const [registrationEmail, setRegistrationEmail] = useState("");
+  const [registrationEmail, setRegistrationEmail] = useState(initialVerificationEmail);
 
-  useEffect(() => {
-    if (stage !== "bike-search" || !isBikeLoading) {
+  function showBikeSearch() {
+    setStage("bike-search");
+  }
+
+  function continueWithSelectedBike() {
+    if (!selectedBike) {
+      showToast({ message: "Select a bike from the results to continue.", tone: "error" });
       return;
     }
 
-    const loadingTimer = window.setTimeout(() => setIsBikeLoading(false), 950);
+    setStage("bike-details");
+  }
 
-    return () => window.clearTimeout(loadingTimer);
-  }, [isBikeLoading, stage]);
+  async function addSelectedBike(payload: AddBikePayload) {
+    setIsCompleting(true);
 
-  function showBikeSearch(withLoading: boolean) {
-    setIsBikeLoading(withLoading);
-    setStage("bike-search");
+    try {
+      const response = await addBikeToGarage(payload);
+
+      showToast({ message: response.message, tone: "success" });
+      setSavedBikeDetails(payload);
+      setBikeWasAdded(true);
+      setStage("bike-added");
+    } catch (error) {
+      showToast({
+        message:
+          error instanceof AuthApiError
+            ? error.message
+            : "Unable to add the bike to your garage. Please try again.",
+        tone: "error",
+      });
+    } finally {
+      setIsCompleting(false);
+    }
   }
 
   function toggleActivityApp(appId: ActivityApp["id"]) {
@@ -83,7 +113,13 @@ export function SignupFlow({ initialStage = "account" }: SignupFlowProps) {
 
   function continueAfterVerification(session: AuthSession) {
     storeAuthSession(session);
-    showBikeSearch(true);
+
+    if (session.user.isOnboardingCompleted) {
+      router.replace("/dashboard" as Route);
+      return;
+    }
+
+    showBikeSearch();
   }
 
   async function finishOnboarding() {
@@ -114,7 +150,6 @@ export function SignupFlow({ initialStage = "account" }: SignupFlowProps) {
     return <WelcomeStep benefits={authOnboardingData.welcomeBenefits} />;
   }
 
-  const selectedBike = getOnboardingBikeById(selectedBikeId);
   const progressStep = getProgressStep(stage);
 
   return (
@@ -127,37 +162,38 @@ export function SignupFlow({ initialStage = "account" }: SignupFlowProps) {
         <VerifyOtpStep
           email={registrationEmail}
           onCancel={() => {
+            if (initialVerificationRequiresResend) {
+              router.replace("/login");
+              return;
+            }
+
             setRegistrationEmail("");
             setStage("account");
           }}
           onVerified={continueAfterVerification}
+          requiresResend={initialVerificationRequiresResend}
         />
       )}
 
       {stage === "bike-search" && (
         <BikeSearchStep
-          bikes={authOnboardingData.bikes}
-          hasMoreBikes={false}
-          loading={isBikeLoading}
-          onContinue={() => setStage("bike-details")}
+          onContinue={continueWithSelectedBike}
           onPrevious={initialStage === "account" ? () => setStage("account") : undefined}
-          onSelectBike={setSelectedBikeId}
+          onSelectBike={setSelectedBike}
           onSkip={() => {
             setBikeWasAdded(false);
             setStage("activity-apps");
           }}
-          selectedBikeId={selectedBikeId}
+          selectedBikeId={selectedBike?.id ?? ""}
         />
       )}
 
-      {stage === "bike-details" && (
+      {stage === "bike-details" && selectedBike && (
         <BikeDetailsStep
           bike={selectedBike}
-          onAddBike={() => {
-            setBikeWasAdded(true);
-            setStage("bike-added");
-          }}
-          onPrevious={() => showBikeSearch(false)}
+          isSubmitting={isCompleting}
+          onAddBike={(payload) => void addSelectedBike(payload)}
+          onPrevious={showBikeSearch}
           onSkip={() => {
             setBikeWasAdded(false);
             setStage("activity-apps");
@@ -165,9 +201,10 @@ export function SignupFlow({ initialStage = "account" }: SignupFlowProps) {
         />
       )}
 
-      {stage === "bike-added" && (
+      {stage === "bike-added" && selectedBike && (
         <BikeAddedStep
           bike={selectedBike}
+          details={savedBikeDetails}
           onContinue={() => setStage("activity-apps")}
           onPrevious={() => setStage("bike-details")}
         />

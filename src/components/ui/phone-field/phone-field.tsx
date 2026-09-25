@@ -17,6 +17,7 @@ type PhoneFieldProps = Omit<InputHTMLAttributes<HTMLInputElement>, "type"> & {
   countries: PhoneCountryOption[];
   defaultCountry: string;
   info?: string;
+  invalid?: boolean;
   label: string;
 };
 
@@ -25,6 +26,7 @@ export function PhoneField({
   defaultCountry,
   id,
   info,
+  invalid = false,
   label,
   name,
   ...props
@@ -36,7 +38,7 @@ export function PhoneField({
 
   return (
     <div className={styles.field}>
-      <div className={styles.labelRow}>
+      <div className={`${styles.labelRow} ${invalid ? styles.invalidLabelRow : ""}`}>
         <label htmlFor={controlId}>{label}</label>
         {info && (
           <InfoTooltip
@@ -57,11 +59,13 @@ export function PhoneField({
           onValueChange={setSelectedCountry}
           options={countries}
           selectedContent={selectedCountryOption?.callingCode}
+          invalid={invalid}
         />
         <input
           aria-describedby={info ? infoId : undefined}
           autoComplete="tel-national"
-          className={styles.phoneInput}
+          aria-invalid={invalid || undefined}
+          className={`${styles.phoneInput} ${invalid ? styles.invalidInput : ""}`}
           id={controlId}
           inputMode="tel"
           name={name}

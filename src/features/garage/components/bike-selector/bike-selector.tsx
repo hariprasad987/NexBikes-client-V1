@@ -1,12 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import type {
   MouseEvent as ReactMouseEvent,
   PointerEvent as ReactPointerEvent,
 } from "react";
 
+import { BikeImage } from "@/components/ui/bike-image/bike-image";
 import { Icon } from "@/components/ui/icon/icon";
 import type { Bike } from "@/features/garage/types";
 import { fontClasses } from "@/styles/fonts";
@@ -130,7 +130,7 @@ export function BikeSelector({ bikes, onSelect, selectedBikeId }: BikeSelectorPr
             <span className={`${styles.name} ${fontClasses.display}`}>{bike.name.toUpperCase()}</span>
             <span className={styles.model}>{bike.model}</span>
             <span className={styles.image}>
-              <Image alt="" fill sizes="(max-width: 768px) 75vw, 18vw" src={bike.image} />
+              <BikeImage alt="" fill sizes="(max-width: 768px) 75vw, 18vw" src={bike.image} />
             </span>
           </button>
         );

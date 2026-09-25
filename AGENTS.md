@@ -241,6 +241,7 @@ If an automated browser or screenshot tool is unavailable, perform a code-level 
 - Use semantic HTML before adding ARIA.
 - Every form control must have an accessible label.
 - Every icon-only action must have an accessible name.
+- Frontend validation states must be applied to the specific field that failed validation: shared field primitives must expose an `invalid` state, set `aria-invalid="true"`, color the visible field label with `var(--color-validation-error)`, and use the same token for the invalid control border. Do not rely on a toast alone to identify the invalid field.
 - Preserve keyboard navigation and visible focus states.
 - Maintain sufficient color contrast.
 - Respect reduced-motion preferences.

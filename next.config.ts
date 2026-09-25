@@ -16,6 +16,15 @@ const nextConfig: NextConfig = {
   experimental: {
     useTypeScriptCli: false,
   },
+  images: {
+    remotePatterns: [
+      {
+        hostname: "v5.airtableusercontent.com",
+        pathname: "/**",
+        protocol: "https",
+      },
+    ],
+  },
   typedRoutes: true,
 };
 

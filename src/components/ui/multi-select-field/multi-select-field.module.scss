@@ -33,6 +33,16 @@
   outline: none;
 }
 
+.invalidLabel {
+  color: var(--color-validation-error);
+}
+
+.trigger.invalidTrigger,
+.trigger.invalidTrigger:focus-visible,
+.trigger.invalidTrigger[aria-expanded="true"] {
+  border-color: var(--color-validation-error);
+}
+
 .trigger:disabled {
   cursor: not-allowed;
   opacity: 0.6;

@@ -1,5 +1,4 @@
-import Image from "next/image";
-
+import { BikeImage } from "@/components/ui/bike-image/bike-image";
 import { ButtonLink } from "@/components/ui/button/button";
 import { Card } from "@/components/ui/card/card";
 import { Icon } from "@/components/ui/icon/icon";
@@ -28,7 +27,7 @@ export function FeaturedBikeCard() {
 
       <div className={styles.body}>
         <div className={styles.image}>
-          <Image alt="Trek Fuel EX 8 mountain bike" fill priority sizes="(max-width: 480px) 80vw, (max-width: 1360px) 38vw, 26vw" src={featuredBike.image} />
+          <BikeImage alt="Trek Fuel EX 8 mountain bike" fill priority sizes="(max-width: 480px) 80vw, (max-width: 1360px) 38vw, 26vw" src={featuredBike.image} />
         </div>
         <div className={styles.details}>
           <dl>

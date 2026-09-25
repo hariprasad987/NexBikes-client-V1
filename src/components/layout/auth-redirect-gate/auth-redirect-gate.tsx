@@ -1,10 +1,12 @@
 "use client";
 
 import type { ReactNode } from "react";
+import type { Route } from "next";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 import {
+  getEmailVerificationRoute,
   getAccessToken,
   getProfile,
   getStoredUser,
@@ -23,17 +25,25 @@ export function AuthRedirectGate({ children }: Readonly<{ children: ReactNode }>
 
   useEffect(() => {
     let isCurrent = true;
+    const isEmailVerificationRoute =
+      pathname === "/signup" &&
+      new URLSearchParams(window.location.search).get("verification") === "required";
 
     async function checkCompletedSession() {
-      if (!shouldRedirectCompletedUser) {
+      if (!shouldRedirectCompletedUser || isEmailVerificationRoute) {
         if (isCurrent) setStatus("allowed");
         return;
       }
 
       const storedUser = getStoredUser();
 
-      if (storedUser?.isOnboarded || storedUser?.isOnboardingCompleted) {
-        router.replace("/dashboard");
+      if (storedUser?.isOnboardingCompleted && storedUser.isEmailVerified === true) {
+        router.replace("/dashboard" as Route);
+        return;
+      }
+
+      if (storedUser?.isOnboardingCompleted && storedUser.isEmailVerified === false) {
+        router.replace(getEmailVerificationRoute(storedUser) as Route);
         return;
       }
 
@@ -46,8 +56,13 @@ export function AuthRedirectGate({ children }: Readonly<{ children: ReactNode }>
         const user = await getProfile();
         storeAuthUser(user);
 
-        if (user.isOnboarded || user.isOnboardingCompleted) {
-          router.replace("/dashboard");
+        if (user.isOnboardingCompleted && user.isEmailVerified) {
+          router.replace("/dashboard" as Route);
+          return;
+        }
+
+        if (user.isOnboardingCompleted && !user.isEmailVerified) {
+          router.replace(getEmailVerificationRoute(user) as Route);
           return;
         }
       } catch {
@@ -62,7 +77,7 @@ export function AuthRedirectGate({ children }: Readonly<{ children: ReactNode }>
     return () => {
       isCurrent = false;
     };
-  }, [router, shouldRedirectCompletedUser]);
+  }, [pathname, router, shouldRedirectCompletedUser]);
 
   if (status !== "allowed") {
     return (

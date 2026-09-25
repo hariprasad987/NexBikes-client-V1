@@ -1,5 +1,6 @@
 "use client";
 
+import type { Route } from "next";
 import type { ReactNode } from "react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -8,6 +9,7 @@ import {
   AuthApiError,
   clearAuthSession,
   getAccessToken,
+  getEmailVerificationRoute,
   getProfile,
   getRefreshToken,
   getStoredUser,
@@ -41,8 +43,11 @@ export function AuthGate({ children, requireCompletedOnboarding = true }: AuthGa
         return;
       }
 
+      let tokenIsEmailVerified: boolean | undefined;
+
       try {
-        await verifyAccessToken(accessToken);
+        const tokenResponse = await verifyAccessToken(accessToken);
+        tokenIsEmailVerified = tokenResponse.isEmailVerified ?? tokenResponse.is_verified;
       } catch (error) {
         if (!(error instanceof AuthApiError) || error.statusCode !== 403) {
           clearAuthSession();
@@ -60,7 +65,8 @@ export function AuthGate({ children, requireCompletedOnboarding = true }: AuthGa
         try {
           const nextAccessToken = await refreshAccessToken(refreshToken);
           storeAccessToken(nextAccessToken);
-          await verifyAccessToken(nextAccessToken);
+          const tokenResponse = await verifyAccessToken(nextAccessToken);
+          tokenIsEmailVerified = tokenResponse.isEmailVerified ?? tokenResponse.is_verified;
         } catch {
           clearAuthSession();
           router.replace("/");
@@ -70,14 +76,19 @@ export function AuthGate({ children, requireCompletedOnboarding = true }: AuthGa
 
       try {
         const user = await getProfile();
-        storeAuthUser(user);
+        const resolvedUser =
+          tokenIsEmailVerified === undefined
+            ? user
+            : { ...user, isEmailVerified: tokenIsEmailVerified };
+        storeAuthUser(resolvedUser);
 
-        if (
-          requireCompletedOnboarding &&
-          !user.isOnboarded &&
-          !user.isOnboardingCompleted
-        ) {
-          router.replace("/onboarding");
+        if (!resolvedUser.isEmailVerified) {
+          router.replace(getEmailVerificationRoute(resolvedUser) as Route);
+          return;
+        }
+
+        if (requireCompletedOnboarding && !resolvedUser.isOnboardingCompleted) {
+          router.replace("/onboarding" as Route);
           return;
         }
       } catch {
@@ -89,12 +100,19 @@ export function AuthGate({ children, requireCompletedOnboarding = true }: AuthGa
           return;
         }
 
-        if (
-          requireCompletedOnboarding &&
-          !storedUser.isOnboarded &&
-          !storedUser.isOnboardingCompleted
-        ) {
-          router.replace("/onboarding");
+        const resolvedStoredUser =
+          tokenIsEmailVerified === undefined
+            ? storedUser
+            : { ...storedUser, isEmailVerified: tokenIsEmailVerified };
+        storeAuthUser(resolvedStoredUser);
+
+        if (!resolvedStoredUser.isEmailVerified) {
+          router.replace(getEmailVerificationRoute(resolvedStoredUser) as Route);
+          return;
+        }
+
+        if (requireCompletedOnboarding && !resolvedStoredUser.isOnboardingCompleted) {
+          router.replace("/onboarding" as Route);
           return;
         }
       }

@@ -23,9 +23,15 @@ type VerifyOtpStepProps = {
   email: string;
   onCancel: () => void;
   onVerified: (session: AuthSession) => void;
+  requiresResend?: boolean;
 };
 
-export function VerifyOtpStep({ email, onCancel, onVerified }: VerifyOtpStepProps) {
+export function VerifyOtpStep({
+  email,
+  onCancel,
+  onVerified,
+  requiresResend = false,
+}: VerifyOtpStepProps) {
   const { showToast } = useToast();
   const resendCooldownSeconds = useSyncExternalStore(
     subscribeToOtpResendCooldown,
@@ -34,6 +40,8 @@ export function VerifyOtpStep({ email, onCancel, onVerified }: VerifyOtpStepProp
   );
   const [isResending, setIsResending] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
+  const [invalidOtp, setInvalidOtp] = useState(false);
+  const [otpSent, setOtpSent] = useState(!requiresResend);
   const isBusy = isResending || isVerifying;
 
   async function handleVerify(event: FormEvent<HTMLFormElement>) {
@@ -42,9 +50,12 @@ export function VerifyOtpStep({ email, onCancel, onVerified }: VerifyOtpStepProp
     const otp = String(formData.get("otp") ?? "").trim();
 
     if (!otp) {
+      setInvalidOtp(true);
       showToast({ message: "Enter the OTP sent to your email.", tone: "error" });
       return;
     }
+
+    setInvalidOtp(false);
 
     setIsVerifying(true);
 
@@ -70,6 +81,7 @@ export function VerifyOtpStep({ email, onCancel, onVerified }: VerifyOtpStepProp
     try {
       const response = await resendOtp(email);
       storeOtpResendCooldown(email);
+      setOtpSent(true);
       showToast({ message: response.message, tone: "success" });
     } catch (error) {
       showToast({
@@ -87,49 +99,79 @@ export function VerifyOtpStep({ email, onCancel, onVerified }: VerifyOtpStepProp
   return (
     <section className={styles.step}>
       <OnboardingHeader
-        description={`Enter the verification code sent to ${email}.`}
+        description={
+          otpSent
+            ? `Enter the verification code sent to ${email}.`
+            : `Your email needs verification. Send a new code to ${email} to continue.`
+        }
         title="Verify Your Email"
       />
 
-      <form className={styles.form} noValidate onSubmit={handleVerify}>
-        <div className={styles.fieldCard}>
-          <TextField
-            autoComplete="one-time-code"
-            className={styles.otpInput}
-            id="registration-otp"
-            inputMode="numeric"
-            label="Verification Code*"
-            maxLength={6}
-            name="otp"
-            pattern="[0-9]*"
-            placeholder="Enter 6-digit code"
-            required
-          />
-          <div className={styles.resendRow}>
-            <span>Didn&apos;t receive the code?</span>
+      {otpSent ? (
+        <form className={styles.form} noValidate onSubmit={handleVerify}>
+          <div className={styles.fieldCard}>
+            <TextField
+              autoComplete="one-time-code"
+              className={styles.otpInput}
+              id="registration-otp"
+              invalid={invalidOtp}
+              inputMode="numeric"
+              label="Verification Code*"
+              maxLength={6}
+              name="otp"
+              onChange={() => setInvalidOtp(false)}
+              pattern="[0-9]*"
+              placeholder="Enter 6-digit code"
+              required
+            />
+            <div className={styles.resendRow}>
+              <span>Didn&apos;t receive the code?</span>
+              <Button
+                disabled={isBusy || resendCooldownSeconds > 0}
+                onClick={() => void handleResend()}
+                variant="text"
+              >
+                {isResending
+                  ? "Resending..."
+                  : resendCooldownSeconds > 0
+                    ? `Resend OTP in ${resendCooldownSeconds}s`
+                    : "Resend OTP"}
+              </Button>
+            </div>
+          </div>
+
+          <div className={styles.actions}>
+            <Button disabled={isBusy} onClick={onCancel} variant="secondary">
+              Cancel
+            </Button>
+            <Button disabled={isBusy} type="submit">
+              {isVerifying ? "Verifying..." : "Verify OTP"}
+            </Button>
+          </div>
+        </form>
+      ) : (
+        <div className={styles.form}>
+          <div className={`${styles.fieldCard} ${styles.resendPrompt}`}>
+            <p>Request a new verification code to continue signing in.</p>
             <Button
               disabled={isBusy || resendCooldownSeconds > 0}
               onClick={() => void handleResend()}
-              variant="text"
             >
               {isResending
-                ? "Resending..."
+                ? "Sending code..."
                 : resendCooldownSeconds > 0
                   ? `Resend OTP in ${resendCooldownSeconds}s`
                   : "Resend OTP"}
             </Button>
           </div>
-        </div>
 
-        <div className={styles.actions}>
-          <Button disabled={isBusy} onClick={onCancel} variant="secondary">
-            Cancel
-          </Button>
-          <Button disabled={isBusy} type="submit">
-            {isVerifying ? "Verifying..." : "Verify OTP"}
-          </Button>
+          <div className={styles.actions}>
+            <Button disabled={isBusy} onClick={onCancel} variant="secondary">
+              Cancel
+            </Button>
+          </div>
         </div>
-      </form>
+      )}
     </section>
   );
 }

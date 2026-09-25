@@ -1,0 +1,196 @@
+.field {
+  position: relative;
+  min-width: 0;
+  display: grid;
+  gap: 0.55rem;
+  color: var(--color-heading);
+  font-size: var(--text-ui-body);
+  font-weight: var(--weight-semibold);
+}
+
+.labelRow,
+.hiddenLabelRow {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.invalidLabelRow {
+  color: var(--color-validation-error);
+}
+
+.srOnly,
+.searchLabel {
+  @include visually-hidden;
+}
+
+.trigger {
+  width: 100%;
+  min-width: 0;
+  min-height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  appearance: none;
+  border: 1px solid var(--color-border);
+  border-radius: 0.7rem;
+  background: var(--color-surface);
+  color: var(--color-text);
+  padding: 0 1rem;
+  font: inherit;
+  font-size: var(--text-ui-small);
+  font-weight: var(--weight-regular);
+  text-align: left;
+}
+
+.trigger:focus-visible,
+.trigger[aria-expanded="true"] {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-lime-30);
+  outline: none;
+}
+
+.trigger.invalidTrigger,
+.trigger.invalidTrigger:focus-visible,
+.trigger.invalidTrigger[aria-expanded="true"] {
+  border-color: var(--color-validation-error);
+}
+
+.trigger:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.triggerWithClear {
+  padding-right: 5rem;
+}
+
+.clearButton {
+  position: absolute;
+  z-index: 1;
+  right: 1.75rem;
+  bottom: 0.21875rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-validation-error);
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+  font-size: var(--text-ui-body);
+  line-height: 1;
+}
+
+.clearButton:focus-visible {
+  outline: 2px solid var(--color-validation-error);
+  outline-offset: 2px;
+}
+
+.value,
+.placeholder {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.placeholder {
+  color: var(--color-placeholder);
+}
+
+.trigger svg {
+  flex: 0 0 auto;
+  color: var(--color-placeholder);
+}
+
+.menu {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: 0.7rem;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.searchInput {
+  width: calc(100% - 1rem);
+  min-height: 2.75rem;
+  margin: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  background: var(--color-surface);
+  color: var(--color-text);
+  padding: 0 0.75rem;
+  font: inherit;
+  font-size: var(--text-ui-small);
+}
+
+.searchInput:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-lime-30);
+  outline: none;
+}
+
+.optionList {
+  max-height: min(18rem, 40vh);
+  margin: 0;
+  padding: 0.4rem;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.option {
+  width: 100%;
+  min-height: 2.75rem;
+  display: block;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--color-text);
+  padding: 0.65rem 0.75rem;
+  font: inherit;
+  font-size: var(--text-ui-small);
+  text-align: left;
+}
+
+.option:hover,
+.option:focus-visible,
+.activeOption {
+  background: var(--color-lime-16);
+  color: var(--color-primary);
+  outline: none;
+}
+
+.option:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.empty,
+.loading {
+  color: var(--color-text-muted);
+  padding: 0.75rem;
+  font-size: var(--text-ui-small);
+}
+
+@include down("mobile-small") {
+  .menu {
+    width: min(100%, calc(100vw - 2rem));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trigger {
+    transition: none;
+  }
+}

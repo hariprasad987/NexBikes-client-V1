@@ -16,10 +16,12 @@ type DateFieldProps = {
   displayFormat?: "dash" | "slash";
   id?: string;
   info?: string;
+  invalid?: boolean;
   label: string;
   name?: string;
   onValueChange?: (value: string) => void;
   placeholder?: string;
+  disableFutureDates?: boolean;
   value?: string;
 };
 
@@ -57,6 +59,10 @@ function serializeDate(date: Date) {
 
 function startOfMonth(date: Date) {
   return new Date(date.getFullYear(), date.getMonth(), 1);
+}
+
+function startOfDay(date: Date) {
+  return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 }
 
 function clampDayToMonth(year: number, month: number, day: number) {
@@ -98,10 +104,12 @@ export function DateField({
   displayFormat = "slash",
   id,
   info,
+  invalid = false,
   label,
   name,
   onValueChange,
   placeholder = "dd/mm/yyyy",
+  disableFutureDates = false,
   value,
 }: DateFieldProps) {
   const generatedId = useId();
@@ -115,7 +123,7 @@ export function DateField({
   const rootRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const focusedDayRef = useRef<HTMLButtonElement>(null);
-  const today = new Date();
+  const today = startOfDay(new Date());
   const [internalValue, setInternalValue] = useState(defaultValue);
   const selectedValue = value ?? internalValue;
   const selectedDate = parseDateValue(selectedValue);
@@ -128,6 +136,13 @@ export function DateField({
 
     return { label: String(year), value: String(year) };
   });
+  const selectableMonthOptions = monthOptions.map((option) => ({
+    ...option,
+    disabled:
+      disableFutureDates &&
+      visibleMonth.getFullYear() === today.getFullYear() &&
+      Number(option.value) > today.getMonth(),
+  }));
   const calendarWeeks = getCalendarWeeks(visibleMonth);
   const describedBy = [descriptionId, infoId].filter(Boolean).join(" ") || undefined;
 
@@ -169,7 +184,10 @@ export function DateField({
   }, [focusedDate, isOpen, visibleMonth]);
 
   function openPicker() {
-    const initialDate = selectedDate ?? today;
+    const initialDate =
+      disableFutureDates && selectedDate && selectedDate > today
+        ? today
+        : selectedDate ?? today;
     const triggerBounds = triggerRef.current?.getBoundingClientRect();
 
     if (triggerBounds) {
@@ -184,6 +202,10 @@ export function DateField({
   }
 
   function commitDate(date: Date) {
+    if (disableFutureDates && date > today) {
+      return;
+    }
+
     const nextValue = serializeDate(date);
 
     if (value === undefined) {
@@ -208,8 +230,10 @@ export function DateField({
   }
 
   function moveFocusedDate(nextDate: Date) {
-    setFocusedDate(nextDate);
-    setVisibleMonth(startOfMonth(nextDate));
+    const safeDate = disableFutureDates && nextDate > today ? today : nextDate;
+
+    setFocusedDate(safeDate);
+    setVisibleMonth(startOfMonth(safeDate));
   }
 
   function changeVisibleMonth(month: string) {
@@ -250,7 +274,7 @@ export function DateField({
 
   return (
     <div className={`${styles.field} ${className ?? ""}`} ref={rootRef}>
-      <div className={styles.labelRow}>
+      <div className={`${styles.labelRow} ${invalid ? styles.invalidLabelRow : ""}`}>
         <span id={labelId}>{label}</span>
         {info && infoId && (
           <InfoTooltip
@@ -272,10 +296,12 @@ export function DateField({
         aria-expanded={isOpen}
         aria-haspopup="dialog"
         aria-labelledby={`${labelId} ${displayId}`}
-        className={styles.trigger}
+        className={`${styles.trigger} ${invalid ? styles.invalidTrigger : ""}`}
         id={controlId}
         onClick={() => (isOpen ? setIsOpen(false) : openPicker())}
         ref={triggerRef}
+        aria-invalid={invalid || undefined}
+        role="combobox"
         type="button"
       >
         <span className={selectedValue ? styles.value : styles.placeholder} id={displayId}>
@@ -316,8 +342,8 @@ export function DateField({
                 label="Month"
                 labelHidden
                 onValueChange={changeVisibleMonth}
-                options={monthOptions}
-                selectedContent={monthOptions[visibleMonth.getMonth()]?.label}
+                options={selectableMonthOptions}
+                selectedContent={selectableMonthOptions[visibleMonth.getMonth()]?.label}
                 value={String(visibleMonth.getMonth())}
               />
               <SelectField
@@ -333,6 +359,7 @@ export function DateField({
             <button
               aria-label="Next month"
               className={`${styles.monthAction} ${styles.nextMonth}`}
+              disabled={disableFutureDates && visibleMonth >= startOfMonth(today)}
               onClick={() => {
                 const nextMonth = clampDayToMonth(
                   visibleMonth.getFullYear(),
@@ -366,6 +393,7 @@ export function DateField({
                     const isFocused = dayValue === serializeDate(focusedDate);
                     const isSelected = dayValue === selectedValue;
                     const isToday = dayValue === serializeDate(today);
+                    const isFutureDate = disableFutureDates && dayDate > today;
 
                     return (
                       <td key={dayValue}>
@@ -373,7 +401,8 @@ export function DateField({
                           aria-current={isToday ? "date" : undefined}
                           aria-label={valueFormatter.format(dayDate)}
                           aria-pressed={isSelected}
-                          className={`${styles.day} ${isToday ? styles.today : ""} ${isSelected ? styles.selectedDay : ""}`}
+                          className={`${styles.day} ${isToday ? styles.today : ""} ${isSelected ? styles.selectedDay : ""} ${isFutureDate ? styles.disabledDay : ""}`}
+                          disabled={isFutureDate}
                           onClick={() => commitDate(dayDate)}
                           onKeyDown={(event) => handleDayKeyDown(event, dayDate)}
                           ref={isFocused ? focusedDayRef : undefined}

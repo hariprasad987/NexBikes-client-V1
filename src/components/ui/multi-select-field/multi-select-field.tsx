@@ -16,6 +16,7 @@ type MultiSelectFieldProps = {
   defaultValues?: string[];
   disabled?: boolean;
   id?: string;
+  invalid?: boolean;
   label: string;
   name?: string;
   onValuesChange?: (values: string[]) => void;
@@ -51,6 +52,7 @@ export function MultiSelectField({
   defaultValues = [],
   disabled = false,
   id,
+  invalid = false,
   label,
   name,
   onValuesChange,
@@ -172,7 +174,7 @@ export function MultiSelectField({
       }}
       ref={rootRef}
     >
-      <span className={styles.label} id={labelId}>{label}</span>
+      <span className={`${styles.label} ${invalid ? styles.invalidLabel : ""}`} id={labelId}>{label}</span>
       {name && selectedValues.map((selectedValue) => (
         <input key={selectedValue} name={name} type="hidden" value={selectedValue} />
       ))}
@@ -182,7 +184,8 @@ export function MultiSelectField({
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         aria-labelledby={`${labelId} ${summaryId}`}
-        className={styles.trigger}
+        aria-invalid={invalid || undefined}
+        className={`${styles.trigger} ${invalid ? styles.invalidTrigger : ""}`}
         disabled={disabled}
         id={controlId}
         onClick={() => (isOpen ? setIsOpen(false) : openMenu())}

@@ -20,6 +20,7 @@ type SelectFieldProps = {
   disabled?: boolean;
   id?: string;
   info?: string;
+  invalid?: boolean;
   label: string;
   labelHidden?: boolean;
   leadingIcon?: ReactNode;
@@ -64,6 +65,7 @@ export function SelectField({
   disabled = false,
   id,
   info,
+  invalid = false,
   label,
   labelHidden = false,
   leadingIcon,
@@ -184,7 +186,7 @@ export function SelectField({
       }}
       ref={rootRef}
     >
-      <div className={labelHidden ? styles.hiddenLabelRow : styles.labelRow}>
+      <div className={`${labelHidden ? styles.hiddenLabelRow : styles.labelRow} ${invalid ? styles.invalidLabelRow : ""}`}>
         <span className={labelHidden ? styles.srOnly : styles.label} id={labelId}>{label}</span>
         {info && infoId && (
           <InfoTooltip
@@ -202,7 +204,8 @@ export function SelectField({
         aria-expanded={isOpen}
         aria-haspopup="listbox"
         aria-labelledby={`${labelId} ${valueId}`}
-        className={`${styles.trigger} ${leadingIcon ? styles.triggerWithIcon : ""}`}
+        aria-invalid={invalid || undefined}
+        className={`${styles.trigger} ${leadingIcon ? styles.triggerWithIcon : ""} ${invalid ? styles.invalidTrigger : ""}`}
         disabled={disabled}
         id={controlId}
         onClick={() => (isOpen ? setIsOpen(false) : openMenu())}

@@ -55,6 +55,15 @@
   outline: none;
 }
 
+.field .invalidLabel {
+  color: var(--color-validation-error);
+}
+
+.field .invalidInput,
+.field .invalidInput:focus {
+  border-color: var(--color-validation-error);
+}
+
 .visibilityToggle {
   position: absolute;
   top: 50%;

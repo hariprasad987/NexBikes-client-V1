@@ -15,6 +15,10 @@
   gap: 0.35rem;
 }
 
+.invalidLabelRow {
+  color: var(--color-validation-error);
+}
+
 .description {
   margin-top: -0.25rem;
   color: var(--color-text-muted);
@@ -53,6 +57,12 @@
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px var(--color-lime-30);
   outline: none;
+}
+
+.trigger.invalidTrigger,
+.trigger.invalidTrigger:focus-visible,
+.trigger.invalidTrigger[aria-expanded="true"] {
+  border-color: var(--color-validation-error);
 }
 
 .value {
@@ -199,6 +209,16 @@
   outline: none;
 }
 
+.disabledDay,
+.disabledDay:hover,
+.disabledDay:focus-visible {
+  border-color: transparent;
+  background: transparent;
+  color: var(--color-placeholder);
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
 .today {
   border-color: var(--color-primary);
   color: var(--color-primary);
@@ -248,6 +268,13 @@
 .actions button:focus-visible {
   box-shadow: 0 0 0 3px var(--color-lime-30);
   outline: none;
+}
+
+.monthAction:disabled {
+  border-color: var(--color-border);
+  color: var(--color-placeholder);
+  cursor: not-allowed;
+  opacity: 0.55;
 }
 
 @include down("mobile-small") {

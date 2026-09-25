@@ -1,5 +1,4 @@
-import Image from "next/image";
-
+import { BikeImage } from "@/components/ui/bike-image/bike-image";
 import { ButtonLink } from "@/components/ui/button/button";
 import { Card } from "@/components/ui/card/card";
 import { SelectField } from "@/components/ui/select-field/select-field";
@@ -25,7 +24,7 @@ export function BikeManagementSummary({ bike }: { bike: ManagedBike }) {
           labelHidden
           leadingIcon={(
             <span className={styles.selectorImage}>
-              <Image alt="" fill sizes={bikeSelectorSizes} src={bike.image} />
+              <BikeImage alt="" fill sizes={bikeSelectorSizes} src={bike.image} />
             </span>
           )}
           options={[{ label: `${bike.name} · ${bike.model}`, value: bike.id }]}
@@ -42,7 +41,7 @@ export function BikeManagementSummary({ bike }: { bike: ManagedBike }) {
       <div className={styles.bikePanel}>
         <div className={styles.bikeIdentity}>
           <div className={styles.bikeImage}>
-            <Image
+            <BikeImage
               alt={`${bike.name}, ${bike.model}`}
               fill
               priority

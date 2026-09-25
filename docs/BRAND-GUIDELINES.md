@@ -66,6 +66,7 @@ The approved Dashboard composition adds page-scoped deep teal surfaces `#082B2C`
 
 - Maintain the typography hierarchy consistently.
 - Avoid introducing colors outside the approved palette without design approval.
+- Frontend validation uses the approved alert red `#EB5757` for invalid field labels and control borders.
 - Statistics typography remains adaptive until the design phase is finalized.
 - Keep the product voice direct, calm, capable, and useful.
 

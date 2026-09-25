@@ -17,7 +17,7 @@ export type AuthUser = {
   email: string;
   firstName: string;
   id?: string;
-  isOnboarded: boolean;
+  isEmailVerified: boolean;
   isOnboardingCompleted: boolean;
   lastName: string;
   name: string;
@@ -30,7 +30,8 @@ type ApiUser = {
   email?: string;
   firstName?: string;
   id?: string;
-  isOnboarded?: boolean;
+  isEmailVerified?: boolean;
+  is_verified?: boolean;
   isOnboardingCompleted?: boolean;
   lastName?: string;
   name?: string;
@@ -82,6 +83,7 @@ type ResetPasswordResponse = {
 
 type VerifyTokenResponse = {
   email?: string;
+  isEmailVerified?: boolean;
   is_verified?: boolean;
   message?: string;
   name?: string;
@@ -89,7 +91,6 @@ type VerifyTokenResponse = {
 };
 
 type OnboardingResponse = {
-  isOnboarded?: boolean;
   isOnboardingCompleted?: boolean;
   message?: string;
   onboardingStep?: number;
@@ -291,14 +292,13 @@ function toAuthUser(response: ApiUser, fallback: ApiUser = {}): AuthUser {
   const firstName = response.firstName ?? fallback.firstName ?? "";
   const lastName = response.lastName ?? fallback.lastName ?? "";
   const name = response.name ?? fallback.name ?? [firstName, lastName].filter(Boolean).join(" ").trim();
-  const isOnboarded =
-    response.isOnboarded ??
-    response.isOnboardingCompleted ??
-    fallback.isOnboarded ??
-    fallback.isOnboardingCompleted ??
+  const isEmailVerified =
+    response.isEmailVerified ??
+    response.is_verified ??
+    fallback.isEmailVerified ??
+    fallback.is_verified ??
     false;
-  const isOnboardingCompleted =
-    response.isOnboardingCompleted ?? fallback.isOnboardingCompleted ?? isOnboarded;
+  const isOnboardingCompleted = response.isOnboardingCompleted ?? fallback.isOnboardingCompleted ?? false;
 
   return {
     authProvider: response.authProvider ?? fallback.authProvider,
@@ -306,7 +306,7 @@ function toAuthUser(response: ApiUser, fallback: ApiUser = {}): AuthUser {
     email,
     firstName,
     id: response.id ?? fallback.id,
-    isOnboarded,
+    isEmailVerified,
     isOnboardingCompleted,
     lastName,
     name: name || email,
@@ -322,10 +322,6 @@ function toAuthSession(response: AuthResponse, fallback: ApiUser = {}): AuthSess
   }
 
   const user = toAuthUser(response.user ?? response, { ...response, ...fallback });
-
-  if (response.isOnboarded !== undefined) {
-    user.isOnboarded = response.isOnboarded;
-  }
 
   if (response.isOnboardingCompleted !== undefined) {
     user.isOnboardingCompleted = response.isOnboardingCompleted;
@@ -373,12 +369,14 @@ export async function verifyOtp(email: string, otp: string) {
     body: JSON.stringify({ email, otp }),
     method: "POST",
   });
+  const storedUser = getStoredUser();
 
   return toAuthSession(response, {
+    ...(storedUser ?? {}),
     email,
-    isOnboarded: false,
-    isOnboardingCompleted: false,
-    onboardingStep: 0,
+    isEmailVerified: true,
+    isOnboardingCompleted: storedUser?.isOnboardingCompleted ?? false,
+    onboardingStep: storedUser?.onboardingStep ?? 0,
   });
 }
 
@@ -506,10 +504,15 @@ export async function getProfile() {
   return toAuthUser(payload.user ?? payload, { ...storedUser, ...payload });
 }
 
+export function getEmailVerificationRoute(user: Pick<AuthUser, "email">) {
+  const email = user.email ? `&email=${encodeURIComponent(user.email)}` : "";
+
+  return `/signup?verification=required${email}`;
+}
+
 export async function completeOnboarding() {
   const response = await authenticatedFetch("/api/users/onboarding", {
     body: JSON.stringify({
-      isOnboarded: true,
       isOnboardingCompleted: true,
       onboardingStep: 1,
     }),
@@ -525,7 +528,6 @@ export async function completeOnboarding() {
 
   const user = toAuthUser(payload.user ?? payload, {
     ...storedUser,
-    isOnboarded: true,
     isOnboardingCompleted: true,
     onboardingStep: payload.onboardingStep ?? 1,
   });
@@ -535,5 +537,9 @@ export async function completeOnboarding() {
 }
 
 export function getPostAuthRoute(user: AuthUser) {
-  return user.isOnboarded || user.isOnboardingCompleted ? "/dashboard" : "/onboarding";
+  if (!user.isEmailVerified) {
+    return getEmailVerificationRoute(user);
+  }
+
+  return user.isOnboardingCompleted ? "/dashboard" : "/onboarding";
 }

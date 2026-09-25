@@ -1,6 +1,5 @@
-import Image from "next/image";
-
 import { AnimatedText } from "@/components/ui/animated-value/animated-value";
+import { BikeImage } from "@/components/ui/bike-image/bike-image";
 import { ButtonLink } from "@/components/ui/button/button";
 import { Card } from "@/components/ui/card/card";
 import { StatusPill } from "@/components/ui/status-pill/status-pill";
@@ -46,7 +45,7 @@ export function BikeOverview({
         </header>
 
         <div className={styles.bikeImage}>
-          <Image
+          <BikeImage
             alt={`${bike.name}, ${bike.model}`}
             fill
             key={bike.id}

@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { useId, useState } from "react";
 
+import { BikeImage } from "@/components/ui/bike-image/bike-image";
 import { Button } from "@/components/ui/button/button";
 import { DialogCloseButton } from "@/components/ui/dialog-close-button/dialog-close-button";
 import { Dialog } from "@/components/ui/dialog/dialog";
@@ -80,7 +80,7 @@ export function ConnectedAppLinkDialog({
             label="NexBike’s Bike"
             leadingIcon={(
               <span className={styles.bikeImage}>
-                <Image alt="" fill sizes="5.25rem" src={selectedBike.image} />
+                <BikeImage alt="" fill sizes="5.25rem" src={selectedBike.image} />
               </span>
             )}
             onValueChange={setSelectedBikeId}

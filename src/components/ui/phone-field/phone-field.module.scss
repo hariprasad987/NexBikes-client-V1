@@ -14,6 +14,11 @@
   gap: 0.35rem;
 }
 
+.field .invalidLabelRow,
+.field .invalidLabelRow label {
+  color: var(--color-validation-error);
+}
+
 .labelRow label {
   min-width: 0;
 }
@@ -73,6 +78,11 @@
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px var(--color-lime-30);
   outline: none;
+}
+
+.phoneInput.invalidInput,
+.phoneInput.invalidInput:focus {
+  border-color: var(--color-validation-error);
 }
 
 @include down("mobile-small") {

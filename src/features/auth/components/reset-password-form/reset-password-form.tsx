@@ -17,6 +17,8 @@ type ResetPasswordFormProps = {
   token: string;
 };
 
+type ResetPasswordField = "confirmation" | "password";
+
 function validatePassword(password: string, confirmation: string) {
   const errors: string[] = [];
 
@@ -40,6 +42,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
   );
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [invalidFields, setInvalidFields] = useState<ReadonlySet<ResetPasswordField>>(new Set());
 
   useEffect(() => {
     return () => {
@@ -61,6 +64,7 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
     event.preventDefault();
     setErrorMessage(null);
     setSuccessMessage(null);
+    setInvalidFields(new Set());
 
     if (!token) {
       setErrorMessage("This password reset link is invalid or missing its token.");
@@ -68,8 +72,19 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
     }
 
     const validationMessage = validatePassword(password, confirmation);
+    const passwordIsInvalid =
+      password.length < 8 ||
+      !/[A-Z]/.test(password) ||
+      !/[a-z]/.test(password) ||
+      !/[0-9]/.test(password) ||
+      !/[^A-Za-z0-9]/.test(password);
+    const nextInvalidFields = new Set<ResetPasswordField>();
+
+    if (passwordIsInvalid) nextInvalidFields.add("password");
+    if (password !== confirmation) nextInvalidFields.add("confirmation");
 
     if (validationMessage) {
+      setInvalidFields(nextInvalidFields);
       setErrorMessage(validationMessage);
       return;
     }
@@ -111,9 +126,17 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
           description="At least 8 characters with uppercase, lowercase, number, and special character."
           disabled={isComplete || isSubmitting}
           id="new-password"
+          invalid={invalidFields.has("password")}
           label="New Password"
           name="password"
-          onChange={(event) => setPassword(event.target.value)}
+          onChange={(event) => {
+            setPassword(event.target.value);
+            setInvalidFields((current) => {
+              const next = new Set(current);
+              next.delete("password");
+              return next;
+            });
+          }}
           placeholder="Enter your new password"
           required
           type="password"
@@ -123,9 +146,17 @@ export function ResetPasswordForm({ token }: ResetPasswordFormProps) {
           autoComplete="new-password"
           disabled={isComplete || isSubmitting}
           id="confirm-password"
+          invalid={invalidFields.has("confirmation")}
           label="Confirm Password"
           name="confirm-password"
-          onChange={(event) => setConfirmation(event.target.value)}
+          onChange={(event) => {
+            setConfirmation(event.target.value);
+            setInvalidFields((current) => {
+              const next = new Set(current);
+              next.delete("confirmation");
+              return next;
+            });
+          }}
           placeholder="Confirm your new password"
           required
           type="password"

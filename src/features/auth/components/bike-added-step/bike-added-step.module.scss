@@ -142,15 +142,12 @@
 
 .details dl {
   min-width: 0;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: stretch;
   gap: 1rem;
   min-height: 3.125rem;
   margin: 0.9375rem 0 0;
-}
-
-.details dl > div:first-child {
-  flex: 0 0 7.9375rem;
 }
 
 .details dl > div + div {
@@ -202,13 +199,8 @@
   }
 
   .details dl {
-    align-items: stretch;
-    flex-direction: column;
+    grid-template-columns: 1fr;
     gap: 1rem;
-  }
-
-  .details dl > div:first-child {
-    flex-basis: auto;
   }
 
   .details dl > div + div {

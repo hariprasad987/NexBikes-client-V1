@@ -1,9 +1,8 @@
-import Image from "next/image";
-
+import { BikeImage } from "@/components/ui/bike-image/bike-image";
 import { Icon } from "@/components/ui/icon/icon";
 import { fontClasses } from "@/styles/fonts";
 
-import type { BikeOption } from "../../types";
+import type { AddBikePayload, BikeOption } from "../../types";
 import { OnboardingActions } from "../onboarding-actions/onboarding-actions";
 import { OnboardingHeader } from "../onboarding-header/onboarding-header";
 
@@ -11,15 +10,24 @@ import styles from "./bike-added-step.module.scss";
 
 type BikeAddedStepProps = {
   bike: BikeOption;
+  details: AddBikePayload | null;
   onContinue: () => void;
   onPrevious: () => void;
 };
 
-export function BikeAddedStep({ bike, onContinue, onPrevious }: BikeAddedStepProps) {
+function formatPurchaseDate(value: string) {
+  if (!value) return "Not provided";
+
+  const [year, month, day] = value.split("-");
+
+  return year && month && day ? `${day}/${month}/${year}` : value;
+}
+
+export function BikeAddedStep({ bike, details, onContinue, onPrevious }: BikeAddedStepProps) {
   return (
     <section className={styles.step}>
       <OnboardingHeader
-        description="Add your bikes to garage to get lorem ipsum details accurately"
+        description="Your selected bike is ready for personalised maintenance, parts, and recommendations."
         title="Add Your Bike"
       />
 
@@ -36,11 +44,11 @@ export function BikeAddedStep({ bike, onContinue, onPrevious }: BikeAddedStepPro
 
         <div className={styles.summary}>
           <div className={styles.imageFrame}>
-            <Image alt={bike.name} height={800} priority src={bike.image} width={1200} />
+            <BikeImage alt={bike.name} height={800} priority src={bike.image} width={1200} />
           </div>
           <div className={styles.details}>
             <div className={styles.identity}>
-              <h2 className={fontClasses.display}>Silver Surfer</h2>
+              <h2 className={fontClasses.display}>{details?.nickName ?? bike.name}</h2>
               <p className={styles.model}>{bike.name}</p>
               <ul className={styles.meta}>
                 <li>
@@ -54,11 +62,15 @@ export function BikeAddedStep({ bike, onContinue, onPrevious }: BikeAddedStepPro
             <dl>
               <div>
                 <dt>Serial Number</dt>
-                <dd>WTU123C4567D</dd>
+                <dd>{details?.serialNumber || "Not provided"}</dd>
               </div>
               <div>
                 <dt>Purchase Date</dt>
-                <dd>11/08/2022</dd>
+                <dd>{formatPurchaseDate(details?.purchaseDate ?? "")}</dd>
+              </div>
+              <div>
+                <dt>Model Year</dt>
+                <dd>{details?.selectedYear ?? bike.year}</dd>
               </div>
             </dl>
           </div>

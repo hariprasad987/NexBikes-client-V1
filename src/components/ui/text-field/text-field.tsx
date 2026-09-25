@@ -12,6 +12,7 @@ type TextFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   description?: string;
   fieldClassName?: string;
   info?: string;
+  invalid?: boolean;
   label: string;
   trailingIcon?: ReactNode;
 };
@@ -23,6 +24,7 @@ export function TextField({
   fieldClassName,
   id,
   info,
+  invalid = false,
   label,
   trailingIcon,
   type = "text",
@@ -37,6 +39,7 @@ export function TextField({
   const describedBy = [ariaDescribedBy, descriptionId, infoId].filter(Boolean).join(" ") || undefined;
   const inputClassName = [
     className,
+    invalid ? styles.invalidInput : "",
     isPassword ? styles.passwordInput : "",
     trailingIcon ? styles.inputWithTrailingIcon : "",
   ].filter(Boolean).join(" ");
@@ -44,7 +47,7 @@ export function TextField({
   return (
     <div className={`${styles.field} ${fieldClassName ?? ""}`}>
       <div className={styles.labelRow}>
-        <label htmlFor={controlId}>{label}</label>
+        <label className={invalid ? styles.invalidLabel : undefined} htmlFor={controlId}>{label}</label>
         {info && infoId && (
           <InfoTooltip
             id={infoId}
@@ -61,6 +64,7 @@ export function TextField({
       <div className={styles.control}>
         <input
           aria-describedby={describedBy}
+          aria-invalid={invalid || undefined}
           className={inputClassName || undefined}
           id={controlId}
           type={isPassword && isPasswordVisible ? "text" : type}
