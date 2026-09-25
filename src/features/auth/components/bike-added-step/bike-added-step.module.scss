@@ -1,5 +1,5 @@
 .step {
-  width: min(100%, 46.0625rem);
+  width: min(100%, 55.875rem);
   display: grid;
   gap: 3.375rem;
   margin-inline: auto;
@@ -7,7 +7,9 @@
 
 .card {
   min-width: 0;
+  min-height: 26.9375rem;
   display: grid;
+  align-content: start;
   gap: 2.125rem;
   padding: 2.125rem;
   border-radius: 0.75rem;
@@ -62,7 +64,7 @@
 .summary {
   min-width: 0;
   display: grid;
-  grid-template-columns: 19.3125rem minmax(0, 21rem);
+  grid-template-columns: minmax(20rem, 27.625rem) minmax(25rem, 37.5rem);
   align-items: center;
   gap: 1.5rem;
 }
@@ -168,14 +170,25 @@
   line-height: 1.1875;
 }
 
-@include down("tablet-small") {
-  .step {
-    gap: 2.5rem;
+@include down("wide") {
+  .card {
+    min-height: 0;
   }
 
   .summary {
     grid-template-columns: 1fr;
     justify-items: center;
+  }
+
+  .imageFrame,
+  .details {
+    width: min(100%, 37.5rem);
+  }
+}
+
+@include down("tablet-small") {
+  .step {
+    gap: 2.5rem;
   }
 
   .imageFrame,

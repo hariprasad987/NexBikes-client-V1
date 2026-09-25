@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { BikeImage } from "@/components/ui/bike-image/bike-image";
 import { Button } from "@/components/ui/button/button";
@@ -59,6 +59,7 @@ function mergeCatalogItems<T extends BikeCatalogOption>(current: T[], incoming: 
 function usePaginatedCatalog<T extends BikeCatalogOption>(
   loadPage: CatalogLoader<T>,
   errorMessage: string,
+  dependencyKey: string,
 ) {
   const { showToast } = useToast();
   const [items, setItems] = useState<T[]>([]);
@@ -66,7 +67,17 @@ function usePaginatedCatalog<T extends BikeCatalogOption>(
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [dependencyItems, setDependencyItems] = useState<T[]>([]);
+  const [readyDependencyKey, setReadyDependencyKey] = useState<string | null>(null);
   const requestId = useRef(0);
+
+  useEffect(() => {
+    setItems([]);
+    setDependencyItems([]);
+    setPage(1);
+    setHasMore(false);
+    setSearch("");
+  }, [dependencyKey]);
 
   useEffect(() => {
     const nextRequestId = requestId.current + 1;
@@ -85,10 +96,13 @@ function usePaginatedCatalog<T extends BikeCatalogOption>(
         if (cancelled || nextRequestId !== requestId.current) return;
 
         setItems(result.items);
+        setDependencyItems((current) => mergeCatalogItems(current, result.items));
         setPage(result.pagination.page);
         setHasMore(result.pagination.page < result.pagination.totalPages);
+        setReadyDependencyKey(dependencyKey);
       } catch {
         if (!cancelled && nextRequestId === requestId.current) {
+          setReadyDependencyKey(dependencyKey);
           showToast({ message: errorMessage, tone: "error" });
         }
       } finally {
@@ -102,7 +116,7 @@ function usePaginatedCatalog<T extends BikeCatalogOption>(
       cancelled = true;
       window.clearTimeout(timeout);
     };
-  }, [errorMessage, loadPage, search, showToast]);
+  }, [dependencyKey, errorMessage, loadPage, search, showToast]);
 
   const loadMore = useCallback(async () => {
     if (isLoading || !hasMore) return;
@@ -117,6 +131,7 @@ function usePaginatedCatalog<T extends BikeCatalogOption>(
       if (currentRequestId !== requestId.current) return;
 
       setItems((current) => mergeCatalogItems(current, result.items));
+      setDependencyItems((current) => mergeCatalogItems(current, result.items));
       setPage(result.pagination.page);
       setHasMore(result.pagination.page < result.pagination.totalPages);
     } catch {
@@ -130,7 +145,24 @@ function usePaginatedCatalog<T extends BikeCatalogOption>(
     }
   }, [errorMessage, hasMore, isLoading, loadPage, page, search, showToast]);
 
-  return { hasMore, isLoading, items, loadMore, search, setSearch };
+  return {
+    dependencyItems,
+    hasMore,
+    isLoading,
+    isReady: readyDependencyKey === dependencyKey,
+    items,
+    loadMore,
+    search,
+    setSearch,
+  };
+}
+
+function findCatalogOption<T extends BikeCatalogOption>(options: T[], id: string, name = "") {
+  if (!id && !name) {
+    return undefined;
+  }
+
+  return options.find((option) => (id ? option.id === id : option.name === name));
 }
 
 function BikeSkeleton() {
@@ -235,23 +267,111 @@ export function BikeSearchStep({
     [selectedBrandId, selectedModelName, selectedSeriesName],
   );
 
-  const brandCatalog = usePaginatedCatalog<BikeBrand>(loadBrands, "Unable to load bike brands. Please try again.");
-  const seriesCatalog = usePaginatedCatalog<BikeSeries>(loadSeries, "Unable to load bike series. Please try again.");
-  const modelCatalog = usePaginatedCatalog<BikeModel>(loadModels, "Unable to load bike models. Please try again.");
-  const yearCatalog = usePaginatedCatalog<BikeCatalogOption>(loadYears, "Unable to load bike years. Please try again.");
-  const sizeCatalog = usePaginatedCatalog<BikeCatalogOption>(loadSizes, "Unable to load bike sizes. Please try again.");
+  const brandCatalog = usePaginatedCatalog<BikeBrand>(loadBrands, "Unable to load bike brands. Please try again.", "brands");
+  const seriesCatalog = usePaginatedCatalog<BikeSeries>(loadSeries, "Unable to load bike series. Please try again.", selectedBrandId);
+  const modelCatalog = usePaginatedCatalog<BikeModel>(loadModels, "Unable to load bike models. Please try again.", `${selectedBrandId}:${selectedSeriesName}`);
+  const yearCatalog = usePaginatedCatalog<BikeCatalogOption>(loadYears, "Unable to load bike years. Please try again.", `${selectedBrandId}:${selectedSeriesName}:${selectedModelName}`);
+  const sizeCatalog = usePaginatedCatalog<BikeCatalogOption>(loadSizes, "Unable to load bike sizes. Please try again.", `${selectedBrandId}:${selectedSeriesName}:${selectedModelName}`);
+
+  const selectedBrandOption = findCatalogOption(brandCatalog.dependencyItems, selectedBrandId, selectedBrandName);
+  const selectedSeriesOption = findCatalogOption(seriesCatalog.dependencyItems, selectedSeriesId, selectedSeriesName);
+  const selectedModelOption = findCatalogOption(modelCatalog.dependencyItems, selectedModelId, selectedModelName);
+  const selectedYearOption = findCatalogOption(yearCatalog.dependencyItems, selectedYear);
+  const selectedSizeOption = findCatalogOption(sizeCatalog.dependencyItems, selectedSize);
+  const areBikeFilterCatalogsReady = [
+    brandCatalog.isReady,
+    seriesCatalog.isReady,
+    modelCatalog.isReady,
+    yearCatalog.isReady,
+    sizeCatalog.isReady,
+  ].every(Boolean);
+  const hasInvalidBikeFilterSelection = Boolean(
+    (selectedBrandId || selectedBrandName) && !selectedBrandOption
+      || (selectedSeriesId || selectedSeriesName) && !selectedSeriesOption
+      || (selectedModelId || selectedModelName) && !selectedModelOption
+      || selectedYear && !selectedYearOption
+      || selectedSize && !selectedSizeOption,
+  );
+
+  useEffect(() => {
+    if (!areBikeFilterCatalogsReady || !hasInvalidBikeFilterSelection) {
+      return;
+    }
+
+    if ((selectedBrandId || selectedBrandName) && !selectedBrandOption) {
+      setSelectedBrandId("");
+      setSelectedBrandName("");
+    }
+
+    if ((selectedSeriesId || selectedSeriesName) && !selectedSeriesOption) {
+      setSelectedSeriesId("");
+      setSelectedSeriesName("");
+    }
+
+    if ((selectedModelId || selectedModelName) && !selectedModelOption) {
+      setSelectedModelId("");
+      setSelectedModelName("");
+    }
+
+    if (selectedYear && !selectedYearOption) {
+      setSelectedYear("");
+    }
+
+    if (selectedSize && !selectedSizeOption) {
+      setSelectedSize("");
+    }
+  }, [
+    areBikeFilterCatalogsReady,
+    hasInvalidBikeFilterSelection,
+    selectedBrandId,
+    selectedBrandName,
+    selectedBrandOption,
+    selectedModelId,
+    selectedModelName,
+    selectedModelOption,
+    selectedSeriesId,
+    selectedSeriesName,
+    selectedSeriesOption,
+    selectedSize,
+    selectedSizeOption,
+    selectedYear,
+    selectedYearOption,
+  ]);
+
+  const confirmedBrandId = selectedBrandOption?.id ?? "";
+  const confirmedModelName = selectedModelOption?.name ?? "";
+  const confirmedSeriesName = selectedSeriesOption?.name ?? "";
+  const confirmedSize = selectedSizeOption?.id ?? "";
+  const confirmedYear = selectedYearOption?.id ?? "";
+  const confirmedBikeFilters = useMemo(() => ({
+    brandId: confirmedBrandId,
+    modelName: confirmedModelName,
+    series: confirmedSeriesName,
+    size: confirmedSize,
+    year: confirmedYear,
+  }), [confirmedBrandId, confirmedModelName, confirmedSeriesName, confirmedSize, confirmedYear]);
+  const bikeCatalogOptionsRef = useRef({
+    brands: brandCatalog.dependencyItems,
+    models: modelCatalog.dependencyItems,
+    series: seriesCatalog.dependencyItems,
+    sizes: sizeCatalog.dependencyItems,
+    years: yearCatalog.dependencyItems,
+  });
+  bikeCatalogOptionsRef.current = {
+    brands: brandCatalog.dependencyItems,
+    models: modelCatalog.dependencyItems,
+    series: seriesCatalog.dependencyItems,
+    sizes: sizeCatalog.dependencyItems,
+    years: yearCatalog.dependencyItems,
+  };
 
   const loadBikePage = useCallback(
     (page: number) => getBikes({
-      brandId: selectedBrandId,
+      ...confirmedBikeFilters,
       limit: 10,
-      modelName: selectedModelName,
       page,
-      series: selectedSeriesName,
-      size: selectedSize,
-      year: selectedYear,
     }),
-    [selectedBrandId, selectedModelName, selectedSeriesName, selectedSize, selectedYear],
+    [confirmedBikeFilters],
   );
 
   useEffect(() => {
@@ -260,6 +380,12 @@ export function BikeSearchStep({
     let cancelled = false;
 
     galleryRef.current?.scrollTo({ behavior: "auto", top: 0 });
+
+    if (!areBikeFilterCatalogsReady || hasInvalidBikeFilterSelection) {
+      return () => {
+        cancelled = true;
+      };
+    }
 
     const requestFrame = window.setTimeout(() => {
       setIsLoadingBikes(true);
@@ -274,11 +400,20 @@ export function BikeSearchStep({
           setBikes(result.items);
           setBikePage(result.pagination.page);
           setBikeHasMore(result.pagination.page < result.pagination.totalPages);
-          setSelectedBrandId(result.filters.brandId);
-          setSelectedSeriesName(result.filters.series);
-          setSelectedModelName(result.filters.modelName);
-          setSelectedYear(result.filters.year);
-          setSelectedSize(result.filters.size);
+          const resultBrand = findCatalogOption(bikeCatalogOptionsRef.current.brands, result.filters.brandId);
+          const resultSeries = findCatalogOption(bikeCatalogOptionsRef.current.series, "", result.filters.series);
+          const resultModel = findCatalogOption(bikeCatalogOptionsRef.current.models, "", result.filters.modelName);
+          const resultYear = findCatalogOption(bikeCatalogOptionsRef.current.years, result.filters.year);
+          const resultSize = findCatalogOption(bikeCatalogOptionsRef.current.sizes, result.filters.size);
+
+          setSelectedBrandId(resultBrand?.id ?? "");
+          setSelectedBrandName(resultBrand?.name ?? "");
+          setSelectedSeriesId(resultSeries?.id ?? "");
+          setSelectedSeriesName(resultSeries?.name ?? "");
+          setSelectedModelId(resultModel?.id ?? "");
+          setSelectedModelName(resultModel?.name ?? "");
+          setSelectedYear(resultYear?.id ?? "");
+          setSelectedSize(resultSize?.id ?? "");
         })
         .catch(() => {
           if (!cancelled && nextRequestId === bikeRequestId.current) {
@@ -296,7 +431,7 @@ export function BikeSearchStep({
       cancelled = true;
       window.clearTimeout(requestFrame);
     };
-  }, [loadBikePage, showToast]);
+  }, [areBikeFilterCatalogsReady, hasInvalidBikeFilterSelection, loadBikePage, showToast]);
 
   const loadMoreBikes = useCallback(async () => {
     if (isLoadingBikes || !bikeHasMore) return;
@@ -404,8 +539,8 @@ export function BikeSearchStep({
             placeholder="Bike Brand"
             searchPlaceholder="Search for bike brand"
             searchValue={brandCatalog.search}
-            selectedContent={selectedBrandName}
-            value={selectedBrandId}
+            selectedContent={brandCatalog.isReady ? selectedBrandOption?.name : undefined}
+            value={brandCatalog.isReady ? selectedBrandOption?.id ?? "" : ""}
           />
           <SearchableSelectField
             className={styles.searchField}
@@ -423,8 +558,8 @@ export function BikeSearchStep({
             placeholder="Bike Series"
             searchPlaceholder="Search for bike series"
             searchValue={seriesCatalog.search}
-            selectedContent={selectedSeriesName}
-            value={selectedSeriesId}
+            selectedContent={seriesCatalog.isReady ? selectedSeriesOption?.name : undefined}
+            value={seriesCatalog.isReady ? selectedSeriesOption?.id ?? "" : ""}
           />
           <SearchableSelectField
             className={styles.filterSelect}
@@ -442,8 +577,8 @@ export function BikeSearchStep({
             placeholder="Bike Model"
             searchPlaceholder="Search for bike model"
             searchValue={modelCatalog.search}
-            selectedContent={selectedModelName}
-            value={selectedModelId}
+            selectedContent={modelCatalog.isReady ? selectedModelOption?.name : undefined}
+            value={modelCatalog.isReady ? selectedModelOption?.id ?? "" : ""}
           />
           <SearchableSelectField
             className={styles.filterSelect}
@@ -461,7 +596,7 @@ export function BikeSearchStep({
             placeholder="Search for year"
             searchPlaceholder="Search for year"
             searchValue={yearCatalog.search}
-            value={selectedYear}
+            value={yearCatalog.isReady ? selectedYearOption?.id ?? "" : ""}
           />
           <SearchableSelectField
             className={styles.filterSelect}
@@ -479,7 +614,7 @@ export function BikeSearchStep({
             placeholder="Search for frame size"
             searchPlaceholder="Search for frame size"
             searchValue={sizeCatalog.search}
-            value={selectedSize}
+            value={sizeCatalog.isReady ? selectedSizeOption?.id ?? "" : ""}
           />
 
           <aside className={styles.help}>
